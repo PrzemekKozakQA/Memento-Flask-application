@@ -1,0 +1,16 @@
+#nav-brand-ic {
+    margin-right: 3px;
+}
+
+.user {
+    border: 1px solid #999;
+}
+
+#password-note {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.read_only_style {
+    background-color: #E6E6FA;
+}

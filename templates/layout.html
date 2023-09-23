@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+
+        <!-- http://getbootstrap.com/docs/5.3/ -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+        <!-- https://releases.jquery.com/ -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+        <!-- load js script -->
+        <script src="/static/js/layout.js"></script>
+
+        <link href="/static/styles.css" rel="stylesheet">
+        <title>Memento: {% block title %}{% endblock %}</title>
+
+        <link rel="shortcut icon" href="/static/img/memory.ico">
+    </head>
+
+    <body>
+        <!-- each page's navigation bar -->
+        <nav class="navbar navbar-expand-md bg-body-tertiary border">
+            <div class="container-fluid">
+
+                <!-- Navbar brand -->
+                <a class="navbar-brand" href="/"> <img src="/static/img/memory.png" id="nav-brand-ic" width="50" height="50" class="d-inline-block align-centre" alt="memento icon">Memento </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Navbar tabs -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <!-- checking if the user is logged in -->
+                    {% if session["user_id"] %}
+                    <!-- elements of the navigation bar of the logged-in user -->
+                        <ul class="nav nav-pills nav-fill">
+                            <li class="nav-item">
+                            <!-- highlighting each tab that is currently displayed -->
+                                <a class="nav-link {% if request.endpoint == 'add' %}active{% endif %}" aria-current="page" href="/add">Add new word</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.endpoint == 'search' %}active{% endif %}" aria-current="page" href="/search">Search</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.endpoint == 'memorize' %}active{% endif %}" aria-current="page" href="/memorize">Memorize</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.endpoint == 'quiz' %}active{% endif %}" aria-current="page" href="/quiz">Quiz</a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-pills ms-auto ">
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 {% if request.endpoint == 'account' %}active{% endif %}" href="/account">My account</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 border border-info rounded" href="/logout">Log out</a>
+                            </li>
+                        </ul>
+                    {% else %}
+                    <!-- elements of the navigation bar of a non-logged-in user -->
+                        <ul class="nav nav-pills mx-auto nav-fill">
+                            <li class="nav-item "><a class="nav-link {% if request.endpoint == 'register' %}active{% endif %}" href="/register">Register</a></li>
+                        </ul>
+                        <ul class="nav nav-pills mx-auto nav-fill">
+                            <li class="nav-item"><a class="nav-link {% if request.endpoint == 'login' %}active{% endif %}" href="/login">Log In</a></li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main part of page -->
+        <main class="container-fluid py-5 text-center">
+
+            <!-- flash messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div id="flash-alert" class="alert alert-{{category}}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- body of page -->
+            {% block main %}{% endblock %}
+        </main>
+
+        <!-- footer of each page -->
+        <footer class="mb-5 small text-center text-muted">
+            <a>CS50x Final project by Przemysław Kozak</a>
+        </footer>
+
+    </body>
+
+</html>

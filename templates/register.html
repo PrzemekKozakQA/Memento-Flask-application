@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+<!-- js script loading-->
+    <script src="/static/js/register.js"></script>
+
+<!-- div for warnings in AJAX -->
+    <div id='warning'></div>
+
+    <form if="registration" action="/register" method="post">
+    <!--username input-->
+        <div class="mb-3">
+            <input id="username-input" autocomplete="off" autofocus="on" class="form-control mx-auto w-auto" name="username" placeholder="username" type="text">
+        <!-- it is possible to add code that prevents the input from being left empty or whitespaces -->
+        <!-- required pattern=".*\S+.*" -->
+        </div>
+    <!--confirm username button-->
+        <div class="d-block mb-3">
+            <button id="check_user_button" class="btn btn-primary" type="button">Confirm username</button>
+        </div>
+    <!-- container for handling password assignment -->
+        <div id="password_div" class="d-none">
+            <div class="mb-3">
+                <input id="password" autocomplete="off" class="form-control mx-auto w-auto" name="password" placeholder="Your password" type="password">
+            </div>
+            <div class="mb-3">
+                <input id="confirmation" autocomplete="off" class="form-control mx-auto w-auto" name="confirmation" placeholder="Repeat password" type="password">
+                <div class="mx-auto" style="width:240px">
+                    <small class="form-text text-muted">The password must have at least 5&nbsp;different characters</small>
+                </div>
+            </div>
+            <button id="sub" class="btn btn-primary" type="submit">Register new user</button>
+        </div>
+    </form>
+{% endblock %}

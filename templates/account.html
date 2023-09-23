@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My account
+{% endblock %}
+
+{% block main %}
+<!-- js script loading-->
+    <script src="/static/js/account.js"></script>
+
+<!-- div for warnings in AJAX -->
+    <div id='warning'></div>
+
+    <div class="container">
+    <!-- user greeting -->
+        <div class="row">
+            <h2>Hello {{user}} 👋</h2>
+        </div>
+
+    <!-- account operations -->
+        <div class="row mt-5 justify-content-evenly">
+
+        <!-- change username -->
+            <div class="col-3">
+            <!-- start according-->
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                                Change username
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+
+                            <!-- change username form -->
+                                <form action="/rename_user" method="post">
+                                    <div class="mb-3">
+                                        <input class="form-control mx-auto" name="new_username" placeholder="Your new username" type="text">
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-primary" type="submit">Change username</button>
+                                    </div>
+                                    <div class="mt-2">
+                                        <p id="password-note" class="text-muted small">The next time you log in, you must provide a new username.</p>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- end according-->
+            </div>
+
+
+        <!-- change password -->
+            <div class="col-3">
+            <!-- start according-->
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                Change password
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+
+                            <!-- change password form -->
+                                <form action="/change_pass" method="post" id="change_pass_form">
+                                    <div class="mb-3">
+                                        <input class="form-control mx-auto" id="old_password" name="old_password" autocomplete="off" placeholder="Your old password" type="password">
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control mx-auto" id="new_password" name="new_password" autocomplete="off" placeholder="Your new password" type="password">
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control mx-auto" id="new_password_conf" name="new_password_conf" autocomplete="off" placeholder="Repeat your new password" type="password">
+                                    </div>
+                                    <div class="mt-1">
+                                        <p id="password-note" class="text-muted small">New password must have at least 5&nbsp;different characters.</p>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-primary" type="submit">Change password</button>
+                                    </div>
+                                    <div class="mt-2">
+                                        <p id="password-note" class="text-muted small">Please note that once you change your password, you will be logged out and you will need to log in again with your new password.</p>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- end according-->
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
