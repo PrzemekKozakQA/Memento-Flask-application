@@ -14,3 +14,8 @@
 .read_only_style {
     background-color: #E6E6FA;
 }
+
+#password-note {
+    text-align: justify;
+    text-justify: inter-word;
+}

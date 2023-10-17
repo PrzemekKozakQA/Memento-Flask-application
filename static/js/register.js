@@ -1,5 +1,8 @@
-//the script checks whether it is possible to register a user with the name given in the form
+import {
+    displayWarning
+} from "./helpers.js";
 
+//the script checks whether it is possible to register a user with the name given in the form
 $(document).ready(function() {
     $('#check_user_button').on('click', function(event) {
         //I'm getting the username without spaces at the beginning and end
@@ -53,12 +56,3 @@ $(document).ready(function() {
         event.preventDefault();
     });
 });
-
-//a function that displays an error message and hides it after 3 seconds
-function displayWarning(message) {
-    $('#warning').html('<div class="alert alert-danger" role="alert">' + message + '</div>');
-    $('html, body').scrollTop($("#warning").offset().top); //scroll to warning
-    $('#warning > div').delay(5000).fadeOut(1000).queue(function() { //need to be added to the queue
-        $(this).empty(); //removing the previously added div with the message
-    });
-}
