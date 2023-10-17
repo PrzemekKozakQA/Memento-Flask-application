@@ -5,5 +5,23 @@
 {% endblock %}
 
 {% block main %}
-    <p>TODO</p>
+<!-- js script loading-->
+    <script src="/static/js/add.js" type="module"></script>
+
+    <form class="container text-center" id="add_form" action="/add" method="post">
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-10">
+                <label class="form-label mb-0"><b>concept/word</b></label>
+                <input class="form-control text-center" id="word" name="word_input" autofocus>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-10">
+                <label class="form-label mb-0"><b>definition/meaning</b></label>
+                <textarea class="form-control" id="def" name="def_input" rows="3"></textarea>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary col-md-10">Save</button>
+    </form>
 {% endblock %}

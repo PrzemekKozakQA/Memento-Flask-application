@@ -8,7 +8,6 @@ from helpers import login_required
 app = Flask(__name__)
 
 # Configure session to use filesystem (instead of signed cookies)
-app.config["SECRET_KEY"] = "verySecretKey!"
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
@@ -60,7 +59,11 @@ def register():
                 "SELECT * FROM users WHERE username=?", username
             )
             if len(users_with_this_name) > 0:
-                return jsonify(dict(message="User with this name already exists, choose a different name!"))
+                return jsonify(
+                    dict(
+                        message="User with this name already exists, choose a different name!"
+                    )
+                )
 
             # Send message that user can register with this username
             return jsonify(dict(username_status="ok"))
@@ -80,7 +83,10 @@ def register():
                 "SELECT * FROM users WHERE username=?", username
             )
             if len(users_with_this_name) > 0:
-                flash("User with this name already exists, choose a different name!", "danger ")
+                flash(
+                    "User with this name already exists, choose a different name!",
+                    "danger ",
+                )
                 return redirect(request.url)
 
             # Get password and confirmation from form
@@ -94,25 +100,35 @@ def register():
 
             # Checking whether the password and its confirmation have at least 5 characters
             if len(set(password)) < 5:
-                flash("The password must contain at least 5 different characters!", "danger " )
+                flash(
+                    "The password must contain at least 5 different characters!",
+                    "danger ",
+                )
                 return redirect(request.url)
 
             # Checking if password and confirmation are the same
             if password != confirmation:
-                flash("The password and its confirmation cannot be different!", "danger")
+                flash(
+                    "The password and its confirmation cannot be different!", "danger"
+                )
                 return redirect(request.url)
 
         # Generate hash from password
         hash = generate_password_hash(password)
 
         # Saving the new user's data to the database
-        new_user_id = db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", username, hash)
+        new_user_id = db.execute(
+            "INSERT INTO users (username, hash) VALUES (?, ?)", username, hash
+        )
 
         # Remember which user has register
         session["user_id"] = new_user_id
 
         # Redirect user to home page with message
-        flash("The new user registration was successful. You are logged in to the account you created.", "success ")
+        flash(
+            "The new user registration was successful. You are logged in to the account you created.",
+            "success ",
+        )
         return redirect("/")
 
     # User reached route via GET (as by clicking a link or via redirect)
@@ -146,7 +162,8 @@ def login():
         rows = db.execute("SELECT * FROM users WHERE username = ?", username)
 
         # Ensure username exists and password is correct
-        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], password):
+        is_password_correct = check_password_hash(rows[0]["hash"], password)
+        if len(rows) != 1 or not is_password_correct:
             flash("Invalid username and/or password!", "danger")
             return redirect(request.url)
 
@@ -172,27 +189,60 @@ def logout():
     return redirect("/")
 
 
-@app.route("/add")
+@app.route("/add", methods=["GET", "POST"])
 @login_required
 def add():
-    return render_template("add.html")
+    if request.method == "POST":
+        word_input = request.form.get("word_input")
+        def_input = request.form.get("def_input")
+        if not word_input or word_input.isspace():
+            flash("concept/word can not be empty", "danger ")
+            return redirect(request.url)
+        if not def_input or def_input.isspace():
+            flash("Maximum definition/meaning length is 50 characters", "danger ")
+            return redirect(request.url)
+
+        word = word_input.strip()
+        definition = def_input.strip()
+        if  len(word) > 50:
+            flash("Maximum definition/meaning length is 50 characters", "danger ")
+            return redirect(request.url)
+        if  len(definition) > 10**5:
+            flash("definition/meaning is too long", "danger ")
+            return redirect(request.url)
+
+        rows = db.execute("SELECT word FROM words WHERE userId=?", session["user_id"])
+        user_words = [dict['word'] for dict in rows]
+
+        if word in user_words:
+            flash("\"" + word + "\" definition/meaning already exists, edit or delete it in the 'search' tab", "warning")
+            return redirect(request.url)
+
+        db.execute("INSERT INTO words(word, definition, userId) VALUES (?, ?, ?)", word, definition, session["user_id"])
+        flash("Added successfully!", "success")
+        return redirect("/add")
+    else:
+        return render_template("add.html")
 
 
 @app.route("/search")
 @login_required
 def search():
+    # TODO
     return render_template("search.html")
 
 
 @app.route("/memorize")
 @login_required
 def memorize():
+    # TODO
     return render_template("memorize.html")
 
 
 @app.route("/quiz")
 @login_required
 def quiz():
+    # TODO
     return render_template("quiz.html")
 
 
@@ -200,9 +250,8 @@ def quiz():
 @login_required
 def account():
     """Show user account"""
-    user = (
-        (db.execute("SELECT username FROM users WHERE id=?", session["user_id"]))[0]
-    )["username"]
+    rows = db.execute("SELECT username FROM users WHERE id=?", session["user_id"])
+    user = rows[0]["username"]
     return render_template("account.html", user=user)
 
 
@@ -243,10 +292,8 @@ def change_password():
         return redirect("/account")
 
     # Ensure username old password is correct
-    old_hash = (
-        db.execute("SELECT hash FROM users WHERE id = ?", session["user_id"])[0]
-    ).get("hash")
-    print(old_hash)
+    rows = db.execute("SELECT hash FROM users WHERE id = ?", session["user_id"])
+    old_hash = rows[0].get("hash")
     if not check_password_hash(old_hash, old_password):
         flash("Invalid old password!", "danger")
         return redirect("/account")

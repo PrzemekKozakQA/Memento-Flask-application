@@ -6,10 +6,8 @@
 
 {% block main %}
 <!-- js script loading-->
-    <script src="/static/js/register.js"></script>
+    <script src="/static/js/register.js" type="module"></script>
 
-<!-- div for warnings in AJAX -->
-    <div id='warning'></div>
 
     <form if="registration" action="/register" method="post">
     <!--username input-->
@@ -24,6 +22,9 @@
         </div>
     <!-- container for handling password assignment -->
         <div id="password_div" class="d-none">
+            <div class="mb-3 mx-auto lh-1" style="width:210px;">
+                <small class="form-text text-muted">The username has been confirmed. To change it, clicking on the "Register"</small>
+            </div>
             <div class="mb-3">
                 <input id="password" autocomplete="off" class="form-control mx-auto w-auto" name="password" placeholder="Your password" type="password">
             </div>
