@@ -3,6 +3,7 @@ from flask import Flask, flash, redirect, render_template, request, session, jso
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import login_required
+import json
 
 # Configure application
 app = Flask(__name__)
@@ -72,7 +73,6 @@ def register():
         else:
             # Ensure username was submitted
             if not username or username.isspace():
-                print(request.form)
                 flash("Username can not be empty", "danger ")
                 return redirect(request.url)
             else:
@@ -162,8 +162,13 @@ def login():
         rows = db.execute("SELECT * FROM users WHERE username = ?", username)
 
         # Ensure username exists and password is correct
-        is_password_correct = check_password_hash(rows[0]["hash"], password)
-        if len(rows) != 1 or not is_password_correct:
+        if len(rows) != 1:
+            flash("Invalid username and/or password!", "danger")
+            return redirect(request.url)
+
+        # Ensure password is correct
+        check_password_hash(rows[0]["hash"], password)
+        if not check_password_hash(rows[0]["hash"], password):
             flash("Invalid username and/or password!", "danger")
             return redirect(request.url)
 
@@ -189,47 +194,122 @@ def logout():
     return redirect("/")
 
 
-@app.route("/add", methods=["GET", "POST"])
+@app.route("/add")
 @login_required
 def add():
-    if request.method == "POST":
-        word_input = request.form.get("word_input")
-        def_input = request.form.get("def_input")
-        if not word_input or word_input.isspace():
-            flash("concept/word can not be empty", "danger ")
-            return redirect(request.url)
-        if not def_input or def_input.isspace():
-            flash("Maximum definition/meaning length is 50 characters", "danger ")
-            return redirect(request.url)
-
-        word = word_input.strip()
-        definition = def_input.strip()
-        if  len(word) > 50:
-            flash("Maximum definition/meaning length is 50 characters", "danger ")
-            return redirect(request.url)
-        if  len(definition) > 10**5:
-            flash("definition/meaning is too long", "danger ")
-            return redirect(request.url)
-
-        rows = db.execute("SELECT word FROM words WHERE userId=?", session["user_id"])
-        user_words = [dict['word'] for dict in rows]
-
-        if word in user_words:
-            flash("\"" + word + "\" definition/meaning already exists, edit or delete it in the 'search' tab", "warning")
-            return redirect(request.url)
-
-        db.execute("INSERT INTO words(word, definition, userId) VALUES (?, ?, ?)", word, definition, session["user_id"])
-        flash("Added successfully!", "success")
-        return redirect("/add")
-    else:
-        return render_template("add.html")
+    return render_template("add.html")
 
 
 @app.route("/search")
 @login_required
 def search():
-    # TODO
     return render_template("search.html")
+
+
+@app.route("/words", methods=["GET", "POST"])
+@login_required
+def words():
+    if request.method == "POST":
+        word_input = request.form.get("word_input")
+        def_input = request.form.get("def_input")
+        if not word_input or word_input.isspace():
+            flash("Concept/word can not be empty", "danger ")
+            return redirect("/add")
+        if not def_input or def_input.isspace():
+            flash("Definition/meaning can not be empty", "danger ")
+            return redirect("/add")
+
+        word = word_input.strip()
+        definition = def_input.strip()
+        if len(word) > 50:
+            flash("Maximum concept/word length is 50 characters", "danger ")
+            return redirect("/add")
+        if len(definition) > 10**5:
+            flash("Definition/meaning is too long", "danger ")
+            return redirect("/add")
+
+        rows = db.execute("SELECT word FROM words WHERE userId=?", session["user_id"])
+        user_words = [dict["word"] for dict in rows]
+
+        if word in user_words:
+            flash(
+                '"'
+                + word
+                + "\" definition/meaning already exists, edit or delete it in the 'search' tab",
+                "warning",
+            )
+            return redirect("/add")
+
+        db.execute(
+            "INSERT INTO words(word, definition, userId) VALUES (?, ?, ?)",
+            word,
+            definition,
+            session["user_id"],
+        )
+        flash("Added successfully!", "success")
+        return redirect("/add")
+
+    if request.method == "GET":
+        q = request.args.get("q")
+        if not q or q.isspace():
+            rows = []
+        else:
+            rows = db.execute(
+                "SELECT word, definition, id FROM words WHERE word LIKE ? AND userId=? LIMIT 100",
+                q.strip() + "%",
+                session["user_id"],
+            )
+        return json.dumps(rows)
+
+
+@app.route("/words/<id>", methods=["DELETE", "POST", "GET"])
+@login_required
+def word(id):
+    word_data = db.execute("Select * FROM words WHERE id=? AND userId=?", id, session["user_id"])
+
+    if request.method == "GET":
+        if not word_data:
+            return page_not_found(404)
+        return render_template("word.html",id=id, word=word_data[0]['word'], definition=word_data[0]['definition'])
+
+    if request.method == "DELETE":
+        deleted_words_number = db.execute(
+            "DELETE FROM words WHERE id=? AND userId=?", id, session["user_id"]
+        )
+        if deleted_words_number == 1:
+            return "OK", 200
+        else:
+            return "ERROR", 400
+
+    if request.method == "POST":
+        if not word_data:
+            flash("Concept/word with this id was not found", "danger ")
+            return redirect(request.url)
+
+        word_input = request.form.get("word_input")
+        def_input = request.form.get("def_input")
+
+        if not word_input or word_input.isspace():
+            flash("Concept/word can not be empty", "danger ")
+            return redirect(request.url)
+        if not def_input or def_input.isspace():
+            flash("Definition/meaning can not be empty", "danger ")
+            return redirect(request.url)
+
+        word = word_input.strip()
+        definition = def_input.strip()
+        if len(word) > 50:
+            flash("Maximum concept/word length is 50 characters", "danger ")
+            return redirect(request.url)
+        if len(definition) > 10**5:
+            flash("Definition/meaning is too long", "danger ")
+            return redirect(request.url)
+
+        db.execute("UPDATE words SET word=?, definition=? WHERE id=? AND userId=?", word, definition, id, session["user_id"])
+        flash("Update successfully", "success")
+        return redirect(request.url)
+
+
 
 
 @app.route("/memorize")

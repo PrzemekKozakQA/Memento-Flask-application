@@ -38,7 +38,7 @@ $(document).ready(function() {
 
 // script checks the correctness of password entry and its confirmation
 $(document).ready(function() {
-    $('form').on('submit', function(event) {
+    $('#submitRegistrationBtn').on('click', function(event) {
         let password = $('#password').val();
         let confirmation = $('#confirmation').val();
 
@@ -51,7 +51,7 @@ $(document).ready(function() {
         } else if (password !== confirmation) {
             displayWarning('The password and its confirmation are not the same!');
         } else {
-            $('form').submit();
+            $('#registration').submit();
         }
         event.preventDefault();
     });

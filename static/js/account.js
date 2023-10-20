@@ -4,7 +4,7 @@ import {
 
 // script checks the correctness of password entry and its confirmation
 $(document).ready(function() {
-    $('#change_pass_form').on('submit', function(event) {
+    $('#submitChangePassBtn').on('click', function(event) {
         let oldPassword = $('#old_password').val();
         let newPassword = $('#new_password').val();
         let confirmation = $('#new_password_conf').val();

@@ -9,7 +9,7 @@
     <script src="/static/js/register.js" type="module"></script>
 
 
-    <form if="registration" action="/register" method="post">
+    <form id="registration" action="/register" method="post">
     <!--username input-->
         <div class="mb-3">
             <input id="username-input" autocomplete="off" autofocus="on" class="form-control mx-auto w-auto" name="username" placeholder="username" type="text">
@@ -34,7 +34,7 @@
                     <small class="form-text text-muted">The password must have at least 5&nbsp;different characters</small>
                 </div>
             </div>
-            <button id="sub" class="btn btn-primary" type="submit">Register new user</button>
+            <button id="sub" class="btn btn-primary" id="submitRegistrationBtn" type="submit">Register new user</button>
         </div>
     </form>
 {% endblock %}
