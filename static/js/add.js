@@ -9,7 +9,7 @@ $(document).ready(function() {
 
         if (word.length < 1) {
             displayWarning('Concept/word can not be empty!');
-        } else if (word.length > 50) {
+        } else if (word.length > 100) {
             displayWarning('Maximum Concept/word length is 50 characters!');
         } else if (definition.length < 1) {
             displayWarning('Definition/meaning can not be empty!');

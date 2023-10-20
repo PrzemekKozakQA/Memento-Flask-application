@@ -221,7 +221,7 @@ def words():
 
         word = word_input.strip()
         definition = def_input.strip()
-        if len(word) > 50:
+        if len(word) > 100:
             flash("Maximum concept/word length is 50 characters", "danger ")
             return redirect("/add")
         if len(definition) > 10**5:
@@ -298,7 +298,7 @@ def word(id):
 
         word = word_input.strip()
         definition = def_input.strip()
-        if len(word) > 50:
+        if len(word) > 100:
             flash("Maximum concept/word length is 50 characters", "danger ")
             return redirect(request.url)
         if len(definition) > 10**5:
