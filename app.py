@@ -222,7 +222,7 @@ def words():
         word = word_input.strip()
         definition = def_input.strip()
         if len(word) > 100:
-            flash("Maximum concept/word length is 50 characters", "danger ")
+            flash("Maximum concept/word length is 100 characters", "danger ")
             return redirect("/add")
         if len(definition) > 10**5:
             flash("Definition/meaning is too long", "danger ")
@@ -299,7 +299,7 @@ def word(id):
         word = word_input.strip()
         definition = def_input.strip()
         if len(word) > 100:
-            flash("Maximum concept/word length is 50 characters", "danger ")
+            flash("Maximum concept/word length is 100 characters", "danger ")
             return redirect(request.url)
         if len(definition) > 10**5:
             flash("Definition/meaning is too long", "danger ")
