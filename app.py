@@ -153,7 +153,7 @@ def login():
             username = username.strip()
 
         # Ensure password was submitted
-        password = request.form.get("password")
+        password = str(request.form.get("password"))
         if not password:
             flash("Password can not be empty", "danger ")
             return redirect(request.url)
@@ -167,8 +167,8 @@ def login():
             return redirect(request.url)
 
         # Ensure password is correct
-        check_password_hash(rows[0]["hash"], password)
-        if not check_password_hash(rows[0]["hash"], password):
+        hash = rows[0]["hash"]
+        if not check_password_hash(hash, password):
             flash("Invalid username and/or password!", "danger")
             return redirect(request.url)
 
