@@ -153,7 +153,7 @@ def login():
             username = username.strip()
 
         # Ensure password was submitted
-        password = str(request.form.get("password"))
+        password = request.form.get("password")
         if not password:
             flash("Password can not be empty", "danger ")
             return redirect(request.url)
