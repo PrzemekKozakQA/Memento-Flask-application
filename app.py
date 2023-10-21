@@ -265,12 +265,19 @@ def words():
 @app.route("/words/<id>", methods=["DELETE", "POST", "GET"])
 @login_required
 def word(id):
-    word_data = db.execute("Select * FROM words WHERE id=? AND userId=?", id, session["user_id"])
+    word_data = db.execute(
+        "Select * FROM words WHERE id=? AND userId=?", id, session["user_id"]
+    )
 
     if request.method == "GET":
         if not word_data:
             return page_not_found(404)
-        return render_template("word.html",id=id, word=word_data[0]['word'], definition=word_data[0]['definition'])
+        return render_template(
+            "word.html",
+            id=id,
+            word=word_data[0]["word"],
+            definition=word_data[0]["definition"],
+        )
 
     if request.method == "DELETE":
         deleted_words_number = db.execute(
@@ -283,33 +290,37 @@ def word(id):
 
     if request.method == "POST":
         if not word_data:
-            flash("Concept/word with this id was not found", "danger ")
+            flash("Concept/word with this id was not found", "danger")
             return redirect(request.url)
 
         word_input = request.form.get("word_input")
         def_input = request.form.get("def_input")
 
         if not word_input or word_input.isspace():
-            flash("Concept/word can not be empty", "danger ")
+            flash("Concept/word can not be empty", "danger")
             return redirect(request.url)
         if not def_input or def_input.isspace():
-            flash("Definition/meaning can not be empty", "danger ")
+            flash("Definition/meaning can not be empty", "danger")
             return redirect(request.url)
 
         word = word_input.strip()
         definition = def_input.strip()
         if len(word) > 100:
-            flash("Maximum concept/word length is 100 characters", "danger ")
+            flash("Maximum concept/word length is 100 characters", "danger")
             return redirect(request.url)
         if len(definition) > 10**5:
-            flash("Definition/meaning is too long", "danger ")
+            flash("Definition/meaning is too long", "danger")
             return redirect(request.url)
 
-        db.execute("UPDATE words SET word=?, definition=? WHERE id=? AND userId=?", word, definition, id, session["user_id"])
+        db.execute(
+            "UPDATE words SET word=?, definition=? WHERE id=? AND userId=?",
+            word,
+            definition,
+            id,
+            session["user_id"],
+        )
         flash("Update successfully", "success")
         return redirect(request.url)
-
-
 
 
 @app.route("/memorize")
@@ -335,40 +346,40 @@ def account():
     return render_template("account.html", user=user)
 
 
-@app.route("/rename_user", methods=["POST"])
+@app.route("/user/rename", methods=["POST"])
 @login_required
 def rename_user():
-    new_user = request.form.get("new_username")
+    new_name = request.form.get("newUsername")
 
     # Ensure username was submitted
-    if not new_user or new_user.isspace():
+    if not new_name or new_name.isspace():
         flash("New username can not be empty", "danger ")
         return redirect("/account")
     else:
-        new_user = new_user.strip()
+        new_name = new_name.strip()
 
     # Checking if the username is already registered
-    users_with_this_name = db.execute("SELECT * FROM users WHERE username=?", new_user)
+    users_with_this_name = db.execute("SELECT * FROM users WHERE username=?", new_name)
     if len(users_with_this_name) > 0:
-        flash("User with this name already exists, choose a different name!", "danger ")
+        flash("User with this name already exists, choose a different name!", "danger")
         return redirect("/account")
 
     # Insert new username into db
-    db.execute("UPDATE users SET username=? WHERE id=?", new_user, session["user_id"])
+    db.execute("UPDATE users SET username=? WHERE id=?", new_name, session["user_id"])
 
     flash("The username change was successful!", "success ")
     return redirect("/account")
 
 
-@app.route("/change_pass", methods=["POST"])
+@app.route("/password/change", methods=["POST"])
 @login_required
 def change_password():
-    old_password = request.form.get("old_password")
-    new_password = request.form.get("new_password")
-    confirmation = request.form.get("new_password_conf")
+    old_password = request.form.get("oldPassword")
+    new_password = request.form.get("newPassword")
+    confirmation = request.form.get("newPasswordConf")
     # Ensure password was submitted
     if not old_password or not new_password or not confirmation:
-        flash("Password, new pasword and it confirmation can not be empty", "danger ")
+        flash("Password, new pasword and it confirmation can not be empty", "danger")
         return redirect("/account")
 
     # Ensure username old password is correct
@@ -380,12 +391,12 @@ def change_password():
 
     # Checking whether the new password and its confirmation have at least 5 characters
     if len(set(new_password)) < 5:
-        flash("The password must contain at least 5 different characters!", "danger ")
+        flash("The password must contain at least 5 different characters!", "danger")
         return redirect("/account")
 
     # Checking if new password and confirmation are the same
     if new_password != confirmation:
-        flash("The password and its confirmation cannot be different!", "danger ")
+        flash("The password and its confirmation cannot be different!", "danger")
         return redirect("/account")
 
     # Generate hash from new password
@@ -395,3 +406,14 @@ def change_password():
     db.execute("UPDATE users SET hash = ? WHERE id = ?", hash, session["user_id"])
 
     return redirect("/logout")
+
+
+@app.route("/user/delete", methods=["POST"])
+@login_required
+def delete_user():
+    user_id = session["user_id"]
+    db.execute("DELETE FROM words WHERE userId=?", user_id)
+    db.execute("DELETE FROM users WHERE id=?", user_id)
+    session.clear()
+    flash("The user account and all its data have been deleted!", "secondary")
+    return redirect("/")

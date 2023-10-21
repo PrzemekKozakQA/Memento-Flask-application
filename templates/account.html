@@ -11,7 +11,7 @@
     <div class="container">
     <!-- user greeting -->
         <div class="row">
-            <h2>Hello {{user}} 👋</h2>
+            <h2>Hello <span id="userNameHeader">{{user}}</span> 👋</h2>
         </div>
 
     <!-- account operations -->
@@ -31,9 +31,9 @@
                             <div class="accordion-body">
 
                             <!-- change username form -->
-                                <form action="/rename_user" method="post">
+                                <form action="/user/rename" method="post">
                                     <div class="mb-3">
-                                        <input class="form-control mx-auto" name="new_username" placeholder="Your new username" type="text">
+                                        <input class="form-control mx-auto" name="newUsername" placeholder="Your new username" type="text">
                                     </div>
                                     <div class="d-grid gap-2">
                                         <button class="btn btn-primary" type="submit">Change username</button>
@@ -65,15 +65,15 @@
                             <div class="accordion-body">
 
                             <!-- change password form -->
-                                <form action="/change_pass" method="post" id="change_pass_form">
+                                <form action="/password/change" method="post" id="changePassForm">
                                     <div class="mb-3">
-                                        <input class="form-control mx-auto" id="old_password" name="old_password" autocomplete="off" placeholder="Your old password" type="password">
+                                        <input class="form-control mx-auto" id="oldPassword" name="oldPassword" autocomplete="off" placeholder="Your old password" type="password">
                                     </div>
                                     <div class="mb-3">
-                                        <input class="form-control mx-auto" id="new_password" name="new_password" autocomplete="off" placeholder="Your new password" type="password">
+                                        <input class="form-control mx-auto" id="newPassword" name="newPassword" autocomplete="off" placeholder="Your new password" type="password">
                                     </div>
                                     <div class="mb-3">
-                                        <input class="form-control mx-auto" id="new_password_conf" name="new_password_conf" autocomplete="off" placeholder="Repeat your new password" type="password">
+                                        <input class="form-control mx-auto" id="newPasswordConf" name="newPasswordConf" autocomplete="off" placeholder="Repeat your new password" type="password">
                                     </div>
                                     <div class="mt-1">
                                         <p class="text-muted small text-justify">New password must have at least 5&nbsp;different characters.</p>
@@ -92,6 +92,52 @@
                 </div>
             <!-- end according-->
             </div>
+
+
+
+        <!-- delete user -->
+            <div class="col-3">
+            <!-- start according-->
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                Delete user account
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+
+                            <!-- delete user form -->
+                                <form id="delUserForm" action="/user/delete" method="post">
+
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-danger" id="delUserBtn" type="button">Delete your account</button>
+                                    </div>
+                                    <div class="mt-2">
+                                        <p class="text-muted small text-justify">The user account and all its data will be permanently deleted!</p>
+                                    </div>
+
+                                    <div id="confirmationDiv" class="d-none">
+                                        <div class="mb-3 mx-auto lh-1">
+                                            <small class="form-text text-muted"><b>To confirm, enter your username.</b></small>
+                                        </div>
+                                        <input id="userConfirm" autocomplete="off" class="form-control o mb-3" placeholder="username" type="text">
+                                        <button class="btn btn-danger" id="submitDelUserBtn" disabled="disabled" type="submit">CONFIRM</button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- end according-->
+            </div>
+
+
+
+
 
         </div>
     </div>

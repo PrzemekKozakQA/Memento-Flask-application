@@ -10,7 +10,7 @@ $(document).ready(function() {
         });
         let rows = await response.json();
         if (rows.length == 0) {
-            $('#results').html('<tr><td colspan="4"> <h5>No results...</h5> </td></tr>')
+            $('#results').html('<tr><td colspan="5"> <h5>No results...</h5> </td></tr>')
         } else {
             let list_of_result = ''
             for (let i = 0; i < rows.length; i++) {
@@ -19,7 +19,7 @@ $(document).ready(function() {
                                         <td>${rows[i].word}</td>
                                         <td>${rows[i].definition}</td>
                                         <td><a class="btn btn-info btn-sm" role="button" href="/words/${rows[i].id}">Edit</a></td>
-                                        <td><input class="btn btn-secondary btn-sm" type="button" value="Delete" id=${rows[i].id}></td>
+                                        <td><button class="btn btn-secondary btn-sm" type="button" id=${rows[i].id}>Delete</button></td>
                                   </tr>`
             }
             $('#results').html(list_of_result);
