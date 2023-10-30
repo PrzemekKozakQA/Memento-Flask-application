@@ -12,18 +12,18 @@
     <form id="registration" action="/register" method="post">
     <!--username input-->
         <div class="mb-3">
-            <input id="username-input" autocomplete="off" autofocus="on" class="form-control mx-auto w-auto" name="username" placeholder="username" type="text">
+            <input id="usernameInput" autocomplete="off" autofocus="on" class="form-control mx-auto w-auto" name="username" placeholder="username" type="text">
         <!-- it is possible to add code that prevents the input from being left empty or whitespaces -->
         <!-- required pattern=".*\S+.*" -->
         </div>
     <!--confirm username button-->
         <div class="d-block mb-3">
-            <button id="check_user_button" class="btn btn-primary" type="button">Confirm username</button>
+            <button id="checkUserButton" class="btn btn-primary" type="button">Confirm username</button>
         </div>
     <!-- container for handling password assignment -->
-        <div id="password_div" class="d-none">
-            <div class="mb-3 mx-auto lh-1" style="width:210px;">
-                <small class="form-text text-muted">The username has been confirmed. To change it, clicking on the "Register"</small>
+        <div id="passwordDiv" class="d-none">
+            <div class="mb-3 mx-auto lh-1" style="width:220px;">
+                <small class="form-text text-muted text-justify">The username has been confirmed. To change it, clicking on the "Register" tab</small>
             </div>
             <div class="mb-3">
                 <input id="password" autocomplete="off" class="form-control mx-auto w-auto" name="password" placeholder="Your password" type="password">
@@ -34,7 +34,7 @@
                     <small class="form-text text-muted">The password must have at least 5&nbsp;different characters</small>
                 </div>
             </div>
-            <button id="sub" class="btn btn-primary" id="submitRegistrationBtn" type="submit">Register new user</button>
+            <button class="btn btn-primary" id="submitRegistrationBtn" type="submit">Register new user</button>
         </div>
     </form>
 {% endblock %}

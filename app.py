@@ -255,7 +255,7 @@ def words():
             rows = []
         else:
             rows = db.execute(
-                "SELECT word, definition, id FROM words WHERE word LIKE ? AND userId=? LIMIT 100",
+                "SELECT word, definition, id FROM words WHERE word LIKE ? AND userId=? ORDER BY word",
                 q.strip() + "%",
                 session["user_id"],
             )

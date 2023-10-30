@@ -13,7 +13,7 @@ $(document).ready(function() {
             displayWarning('Old password can not be empty!');
         } else if (newPassword.length < 1) {
             displayWarning('New password can not be empty!');
-        } else if ((new Set(newPassword.split(""))).size < 5) { //checking whether the password has at least 5 unique characters
+        } else if ((new Set(newPassword.split(""))).size < 5) { //checking whether the new password has at least 5 unique characters
             displayWarning('The new password must contain at least 5 different characters!');
         } else if (confirmation.length < 1) {
             displayWarning('New password confirmation can not be empty!');
@@ -40,9 +40,9 @@ $(document).ready(function() {
         let username = $('#userNameHeader').text();
 
         if ($(this).val() == username) {
-            $('#submitDelUserBtn').removeAttr("disabled") //removing an attribute from a button
+            $('#submitDelUserBtn').removeAttr("disabled"); //removing an attribute from button to activate it
         } else {
-            $('#submitDelUserBtn').attr("disabled", "disabled") //adding an attribute from the button if only the beginning of the username matches
+            $('#submitDelUserBtn').attr("disabled", "disabled"); //adding an attribute from the button if only the beginning of the username matches
         }
     });
 });
