@@ -5,5 +5,28 @@
 {% endblock %}
 
 {% block main %}
-    <p>TODO</p>
+<!-- js script loading-->
+    <script src="/static/js/quiz.js" type="module"></script>
+
+<!-- page content -->
+    <div class="container text-center">
+    <!-- if there is no data to display -->
+        {% if words|length == 0 %}
+            <h3>Sorry, but to start the quiz you must have added at least 4 words/definitions.</h3>
+        {% else %}
+            <div class="col-md-8 mx-auto mb-4">
+                <h5>Find the word/concept that matches the definition/meaning below:</h5>
+                <p class="mt-4 p-3 border border-primary rounded">{{question}}</p>
+            </div>
+            <div class="row col-md-8 mx-auto">
+                <div id="abc" class="col m-0.5"><button class="btn btn-info w-100">{{words[0]}}</button></div>
+                <div class="col m-0.5"> <button class="btn btn-info w-100">{{words[1]}}</button></div>
+            </div>
+            <div class="row col-md-8 mx-auto m-3">
+                <div class="col m-0.5"><button class="btn btn-info w-100">{{words[2]}}</button></div>
+                <div class="col m-0.5"> <button class="btn btn-info w-100">{{words[3]}}</button></div>
+            </div>
+            <button id="nextBtn" class="btn btn-primary col-md-8 mt-3">Next question</button>
+        {% endif %}
+    </div>
 {% endblock %}

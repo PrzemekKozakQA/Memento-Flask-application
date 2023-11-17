@@ -5,5 +5,43 @@
 {% endblock %}
 
 {% block main %}
-    <p>TODO</p>
+<!-- js script loading-->
+    <script src="/static/js/memorize.js" type="module"></script>
+
+<!-- page content -->
+    <div class="container text-center">
+        <!-- if there is no data to display -->
+        {% if word_data|length == 0 %}
+            <h3>Sorry, we couldn't find any word/concept to remember.</h3>
+        {% else %}
+            <div class="row justify-content-center mb-3">
+                <div class="col-md-8">
+                    <p>Try to recall the definition/meaning of the following randomly selected word/concept, then expand the solution and check if you remember correctly.</p>
+                    <h4 id="wordHeader" wordId="{{word_data.id}}">What is: "{{word_data.word}}"</h4>
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <p class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                    <b>definition/meaning</b>
+                                </button>
+                            </p>
+                            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                                <div class="accordion-body text-justify">
+                                    {{word_data.definition}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-check text-center">
+                            <input class="input" type="checkbox" id="isWordMemorizedBox">
+                            <label class="form-check-label" for="flexCheckDefault">Mark a word/concept as remembered</label>
+                            <small class="form-text text-muted"><p>The word/concept will not be shown again. You can uncheck it in the edit option in the search tab.</p></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="nextBtn" class="btn btn-primary col-md-8">Next</button>
+        {% endif %}
+    </div>
 {% endblock %}

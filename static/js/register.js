@@ -11,20 +11,25 @@ $(document).ready(function() {
         } else {
             //sending a POST request using AJAX in JSON format with username to the backend
             $.ajax({
-                data: {
-                    username: user,
-                    check: 'username'
-                },
-                type: 'POST',
-                url: '/register'
-            })
-                .done(function(response) { // receiving responses from the backend
+                    data: {
+                        checkUsername: true,
+                        username: user
+                    },
+                    type: 'POST',
+                    url: '/register'
+                })
+                // receiving responses from the backend
+                .done(function(response) {
                     // if the username can be registered, fields for creating a password are shown
-                    if (response.username_status == 'ok') {
-                        $('#usernameInput').prop("readonly", true).addClass('read-only-style'); // preventing editing of username and addin style
-                        $('#warning').empty(); // hiding warnings if they were previously displayed
-                        $('#checkUserButton').addClass('d-none'); // hiding button for check username
-                        $('#passwordDiv').removeClass('d-none'); //showing inputs for password and it confirmation
+                    if (response.message == 'available') {
+                        // preventing editing of username and addin style
+                        $('#usernameInput').prop("readonly", true).addClass('read-only-style');
+                        // hiding warnings if they were previously displayed
+                        $('#warning').empty();
+                        // hiding button for check username
+                        $('#checkUserButton').addClass('d-none');
+                        //showing inputs for password and it confirmation
+                        $('#passwordDiv').removeClass('d-none');
                     } else {
                         displayWarning(response.message);
                     }
@@ -36,11 +41,11 @@ $(document).ready(function() {
 // script checks the correctness of password entry and its confirmation
 $(document).ready(function() {
     $('#submitRegistrationBtn').on('click', function(event) {
-        console.log("test");
         let password = $('#password').val();
         let confirmation = $('#confirmation').val();
         if (password.length < 1) {
             displayWarning('Password can not be empty!');
+            //checking whether the password and its confirmation have at least 5 different characters
         } else if ((new Set(password.split(""))).size < 5) {
             displayWarning('The password must contain at least 5 different characters!');
         } else if (confirmation.length < 1) {
@@ -50,6 +55,7 @@ $(document).ready(function() {
         } else {
             $('#registration').submit();
         }
+        //preventing the button from working by default so that the script doesn't get into a loop
         event.preventDefault();
     });
 });

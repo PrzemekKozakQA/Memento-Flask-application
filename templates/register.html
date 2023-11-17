@@ -8,33 +8,21 @@
 <!-- js script loading-->
     <script src="/static/js/register.js" type="module"></script>
 
-
+    <!-- registration form -->
     <form id="registration" action="/register" method="post">
-    <!--username input-->
-        <div class="mb-3">
-            <input id="usernameInput" autocomplete="off" autofocus="on" class="form-control mx-auto w-auto" name="username" placeholder="username" type="text">
-        <!-- it is possible to add code that prevents the input from being left empty or whitespaces -->
-        <!-- required pattern=".*\S+.*" -->
-        </div>
-    <!--confirm username button-->
-        <div class="d-block mb-3">
+        <div class="d-grid gap-2 mx-auto login">
+            <!-- username input - it is possible to add code that prevents the input from being left empty or whitespaces by adding required pattern=".*\S+.*"-->
+            <input id="usernameInput" autocomplete="off" autofocus="on" class="form-control" name="username" placeholder="username" type="text">
+            <!--confirm username button-->
             <button id="checkUserButton" class="btn btn-primary" type="button">Confirm username</button>
-        </div>
-    <!-- container for handling password assignment -->
-        <div id="passwordDiv" class="d-none">
-            <div class="mb-3 mx-auto lh-1" style="width:220px;">
-                <small class="form-text text-muted text-justify">The username has been confirmed. To change it, clicking on the "Register" tab</small>
+            <!-- container for handling password assignment -->
+            <div id="passwordDiv" class="d-grid gap-2 d-none">
+                <small class="form-text text-muted">The username has been confirmed. To change it, clicking on the "Register" tab.</small>
+                <input id="password" autocomplete="off" class="form-control" name="password" placeholder="Your password" type="password">
+                <input id="confirmation" autocomplete="off" class="form-control" name="confirmation" placeholder="Repeat password" type="password">
+                <small class="form-text text-muted">The password must have at least 5&nbsp;different characters.</small>
+                <button class="btn btn-primary" id="submitRegistrationBtn" type="submit">Register new user</button>
             </div>
-            <div class="mb-3">
-                <input id="password" autocomplete="off" class="form-control mx-auto w-auto" name="password" placeholder="Your password" type="password">
-            </div>
-            <div class="mb-3">
-                <input id="confirmation" autocomplete="off" class="form-control mx-auto w-auto" name="confirmation" placeholder="Repeat password" type="password">
-                <div class="mx-auto" style="width:240px">
-                    <small class="form-text text-muted">The password must have at least 5&nbsp;different characters</small>
-                </div>
-            </div>
-            <button class="btn btn-primary" id="submitRegistrationBtn" type="submit">Register new user</button>
         </div>
     </form>
 {% endblock %}

@@ -11,38 +11,32 @@
     <div class="container">
     <!-- user greeting -->
         <div class="row">
-            <h2>Hello <span id="userNameHeader">{{user}}</span> 👋</h2>
+            <h2>Hello <span id="userNameHeader">{{user|e}}</span> 👋</h2>
         </div>
 
     <!-- account operations -->
-        <div class="row mt-5 justify-content-evenly">
+        <div class="row mt-5 flex-column align-content-center flex-lg-row justify-content-lg-evenly">
 
         <!-- change username -->
-            <div class="col-3">
+            <div class="account-settings">
             <!-- start according-->
-                <div class="accordion" id="accordionPanelsStayOpenExample">
+                <div class="accordion">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelUsername" aria-expanded="false" aria-controls="panelUsername">
                                 Change username
                             </button>
                         </h2>
-                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                        <div id="panelUsername" class="accordion-collapse collapse">
                             <div class="accordion-body">
-
                             <!-- change username form -->
                                 <form action="/user/rename" method="post">
-                                    <div class="mb-3">
-                                        <input class="form-control mx-auto" name="newUsername" placeholder="Your new username" type="text">
-                                    </div>
                                     <div class="d-grid gap-2">
+                                        <input class="form-control mx-auto" name="newUsername" placeholder="Your new username" type="text">
                                         <button class="btn btn-primary" type="submit">Change username</button>
-                                    </div>
-                                    <div class="mt-2">
                                         <p class="text-muted small text-justify">The next time you log in, you must provide a new username.</p>
                                     </div>
                                 </form>
-
                             </div>
                         </div>
                     </div>
@@ -50,42 +44,29 @@
             <!-- end according-->
             </div>
 
-
         <!-- change password -->
-            <div class="col-3">
+            <div class="account-settings">
             <!-- start according-->
-                <div class="accordion" id="accordionPanelsStayOpenExample">
+                <div class="accordion">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelPassword" aria-expanded="false" aria-controls="panelPassword">
                                 Change password
                             </button>
                         </h2>
-                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                        <div id="panelPassword" class="accordion-collapse collapse">
                             <div class="accordion-body">
-
                             <!-- change password form -->
                                 <form action="/password/change" method="post" id="changePassForm">
-                                    <div class="mb-3">
-                                        <input class="form-control mx-auto" id="oldPassword" name="oldPassword" autocomplete="off" placeholder="Your old password" type="password">
-                                    </div>
-                                    <div class="mb-3">
-                                        <input class="form-control mx-auto" id="newPassword" name="newPassword" autocomplete="off" placeholder="Your new password" type="password">
-                                    </div>
-                                    <div class="mb-3">
-                                        <input class="form-control mx-auto" id="newPasswordConf" name="newPasswordConf" autocomplete="off" placeholder="Repeat your new password" type="password">
-                                    </div>
-                                    <div class="mt-1">
-                                        <p class="text-muted small text-justify">New password must have at least 5&nbsp;different characters.</p>
-                                    </div>
                                     <div class="d-grid gap-2">
+                                        <input class="form-control mx-auto" id="oldPassword" name="oldPassword" autocomplete="off" placeholder="Your old password" type="password">
+                                        <input class="form-control mx-auto" id="newPassword" name="newPassword" autocomplete="off" placeholder="Your new password" type="password">
+                                        <input class="form-control mx-auto" id="newPasswordConf" name="newPasswordConf" autocomplete="off" placeholder="Repeat your new password" type="password">
+                                        <p class="text-muted small text-justify">New password must have at least 5&nbsp;different characters.</p>
                                         <button class="btn btn-primary" id="submitChangePassBtn" type="submit">Change password</button>
-                                    </div>
-                                    <div class="mt-2">
                                         <p class="text-muted small text-justify">Please note that once you change your password, you will be logged out and you will need to log in again with your new password.</p>
                                     </div>
                                 </form>
-
                             </div>
                         </div>
                     </div>
@@ -93,52 +74,35 @@
             <!-- end according-->
             </div>
 
-
-
         <!-- delete user -->
-            <div class="col-3">
+            <div class="account-settings">
             <!-- start according-->
-                <div class="accordion" id="accordionPanelsStayOpenExample">
+                <div class="accordion">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelDelete" aria-expanded="false" aria-controls="panelDelete">
                                 Delete user account
                             </button>
                         </h2>
-                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                        <div id="panelDelete" class="accordion-collapse collapse">
                             <div class="accordion-body">
-
                             <!-- delete user form -->
                                 <form id="delUserForm" action="/user/delete" method="post">
-
                                     <div class="d-grid gap-2">
                                         <button class="btn btn-danger" id="delUserBtn" type="button">Delete your account</button>
-                                    </div>
-                                    <div class="mt-2">
-                                        <p class="text-muted small text-justify">The user account and all its data will be permanently deleted!</p>
-                                    </div>
-
-                                    <div id="confirmationDiv" class="d-none">
-                                        <div class="mb-3 mx-auto lh-1">
-                                            <small class="form-text text-muted"><b>To confirm, enter your username.</b></small>
-                                        </div>
-                                        <input id="userConfirm" autocomplete="off" class="form-control o mb-3" placeholder="username" type="text">
+                                        <p class="text-muted small text-justify mb-0">The user account and all its data will be permanently deleted!</p>
+                                    <div id="confirmationDiv" class="d-grid gap-2 d-none">
+                                        <small class="form-text text-muted"><b>To confirm, enter your username.</b></small>
+                                        <input id="userConfirm" autocomplete="off" class="form-control" placeholder="username" type="text">
                                         <button class="btn btn-danger" id="submitDelUserBtn" disabled="disabled" type="submit">CONFIRM</button>
                                     </div>
-
                                 </form>
-
                             </div>
                         </div>
                     </div>
                 </div>
             <!-- end according-->
             </div>
-
-
-
-
-
         </div>
     </div>
 {% endblock %}

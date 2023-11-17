@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block main %}
-    <div class="accordion" id="accordionPanelsStayOpenExample">
+    <div class="accordion">
+        <!-- this tab is default open -->
         <div class="accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
@@ -14,33 +15,35 @@
             </h2>
             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
                 <div class="accordion-body">
-                    <strong>"Memento" is a web application that helps you remember definitions or words from foreign languages.</strong>
+                    <strong>"Memento" is a web application that helps you remember definitions or words from foreign languages.</strong><br>
                     It won't learn for you, but it can help you learn. In "Memento" you can add your words, view a list of all added words and test your memory in a quiz.
                 </div>
             </div>
         </div>
+        <!-- this tab is default closed -->
         <div class="accordion-item">
             <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayClosed-collapseTwo" aria-expanded="false" aria-controls="panelsStayClosed-collapseTwo">
                     What do I need to use the "Memento" application?
                 </button>
             </h2>
-            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+            <div id="panelsStayClosed-collapseTwo" class="accordion-collapse collapse">
                 <div class="accordion-body">
-                    <strong>All you need is access to the application via a web browser on your computer or mobile device.</strong>
+                    <strong>All you need is access to the application via a web browser on your computer or mobile device.</strong><br>
                     Apart from that, there are no other requirements. Just register and start using the application!
                 </div>
             </div>
         </div>
+        <!-- this tab is default closed -->
         <div class="accordion-item">
             <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayClosed-collapseThree" aria-expanded="false" aria-controls="panelsStaClosed-collapseThree">
                     Is registration necessary?
                 </button>
             </h2>
-            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+            <div id="panelsStayClosed-collapseThree" class="accordion-collapse collapse">
                 <div class="accordion-body">
-                    <strong>Yes, registration is necessary, but it is very quick.</strong>
+                    <strong>Yes, registration is necessary, but it is very quick.</strong><br>
                     Registration is necessary because it allows each user to have individual words and definitions independent of others.
                 </div>
             </div>

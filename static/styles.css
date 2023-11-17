@@ -1,14 +1,11 @@
-#nav-brand-ic {
-    margin-right: 3px;
+.navbar-brand>img {
+    margin-right: 5px;
+    width: 40px;
+    height: 40px;
 }
 
-.user {
-    border: 1px solid #999;
-}
-
-#password-note {
-    text-align: justify;
-    text-justify: inter-word;
+.login {
+    width: 250px;
 }
 
 .read-only-style {
@@ -18,4 +15,8 @@
 .text-justify {
     text-align: justify;
     text-justify: inter-word;
+}
+
+.account-settings {
+    width: 300px;
 }

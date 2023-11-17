@@ -1,27 +1,26 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Add new word
+    Edit word
 {% endblock %}
 
 {% block main %}
 <!-- js script loading-->
     <script src="/static/js/add.js" type="module"></script>
 
-    <form class="container text-center" id="change_form" action="/words/{{id}}" method="post">
-        <div class="row justify-content-center mb-4">
-            <div class="col-md-8">
-                <label class="form-label mb-0"><b>concept/word</b></label>
-                <input class="form-control text-center" id="word" maxlength="100"name="word_input" autofocus value="{{word}}">
-            </div>
-        </div>
-
-        <div class="row justify-content-center mb-4">
-            <div class="col-md-8">
+    <form class="container" action="/words/{{id}}" method="post">
+        <div class="row justify-content-center">
+            <div class="d-grid gap-2 col-md-8">
+                <label class="form-label mb-0"><b>word/concept</b></label>
+                <input class="form-control text-center mb-4" id="word" maxlength="50" name="wordInput" autofocus value="{{word}}">
                 <label class="form-label mb-0"><b>definition/meaning</b></label>
-                <textarea class="form-control" id="def" name="def_input" rows="3" >{{definition}}</textarea>
+                <textarea class="form-control" id="def" name="defInput" rows="5">{{definition}}</textarea>
+                <div class=" form-switch">
+                    <input class="form-check-input" name="isMemorizedSwitch" type="checkbox" id="wordIsMemorizedSwitch" {% if isMemorized==1 %} checked {% endif %}>
+                    <label class="form-check-label" for="wordIsMemorizedSwitch">I remember that</label>
+                </div>
+                <button type="submit" id="submitBtn" class="btn btn-primary">Save changes</button>
             </div>
         </div>
-        <button type="submit" id="submitChangesBtn" class="btn btn-primary col-md-8">Save changes</button>
     </form>
 {% endblock %}

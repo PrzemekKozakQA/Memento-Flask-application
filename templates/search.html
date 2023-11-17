@@ -9,11 +9,12 @@
     <script src="/static/js/search.js" type="module"></script>
 
     <h6>Enter the beginning of the definition/word you are looking for</h6>
+    <p class="form-text text-muted">to display everything, enter the '%' sign</p>
     <div class="input-group mt-2 mb-5">
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">searched phrase</span>
         </div>
-        <input id="search" type="text" class="form-control" aria-label="Default" placeholder="beginning of a word" aria-describedby="inputGroup-sizing-default">
+        <input id="search" type="text" autocomplete="off" class="form-control" aria-label="Default" placeholder="beginning of a word" aria-describedby="inputGroup-sizing-default">
     </div>
     <div>
 
@@ -22,8 +23,9 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">concept/word</th>
+                <th scope="col">word/concept</th>
                 <th scope="col">definition/meaning</th>
+                <th scope="col">Do I remember</th>
                 <th scope="col">Edition</th>
                 <th scope="col">Deletion</th>
             </tr>

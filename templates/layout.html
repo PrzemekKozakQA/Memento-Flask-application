@@ -24,10 +24,10 @@
     <body>
         <!-- each page's navigation bar -->
         <nav class="navbar navbar-expand-md bg-body-tertiary border">
-            <div class="container-fluid">
+            <div class="container">
 
                 <!-- Navbar brand -->
-                <a class="navbar-brand" href="/"> <img src="/static/img/memory.png" id="nav-brand-ic" width="50" height="50" class="d-inline-block align-centre" alt="memento icon">Memento </a>
+                <a class="navbar-brand" href="/"> <img src="/static/img/memory.png" alt="memento application icon">Memento</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -37,36 +37,32 @@
                     <!-- checking if the user is logged in -->
                     {% if session["user_id"] %}
                     <!-- elements of the navigation bar of the logged-in user -->
-                        <ul class="nav nav-pills nav-fill">
-                            <li class="nav-item">
-                            <!-- highlighting each tab that is currently displayed -->
+                        <ul class="nav nav-pills nav-fill w-100">
+                        <!-- highlighting each tab that is currently displayed -->
+                            <li class="nav-item mx-2 my-2">
                                 <a class="nav-link {% if request.endpoint == 'add' %}active{% endif %}" aria-current="page" href="/add">Add new word</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item mx-2 my-2">
                                 <a class="nav-link {% if request.endpoint == 'search' %}active{% endif %}" aria-current="page" href="/search">Search</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item mx-2 my-2">
                                 <a class="nav-link {% if request.endpoint == 'memorize' %}active{% endif %}" aria-current="page" href="/memorize">Memorize</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if request.endpoint == 'quiz' %}active{% endif %}" aria-current="page" href="/quiz">Quiz</a>
+                            <li class="nav-item mx-2 my-2">
+                                <a class="nav-link  {% if request.endpoint == 'quiz' %}active{% endif %}" aria-current="page" href="/quiz">Quiz</a>
                             </li>
-                        </ul>
-                        <ul class="nav nav-pills ms-auto ">
-                            <li class="nav-item">
-                                <a class="nav-link mx-2 {% if request.endpoint == 'account' %}active{% endif %}" href="/account">My account</a>
+                            <li class="nav-item mx-2 my-2">
+                                <a class="nav-link {% if request.endpoint == 'account' %}active{% endif %}" href="/account">My account</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link mx-2 border border-info rounded" href="/logout">Log out</a>
+                            <li class="nav-item ml-2 my-2">
+                                <a class="nav-link border border-info rounded" href="/logout">Log out</a>
                             </li>
                         </ul>
                     {% else %}
                     <!-- elements of the navigation bar of a non-logged-in user -->
-                        <ul class="nav nav-pills mx-auto nav-fill">
-                            <li class="nav-item "><a class="nav-link {% if request.endpoint == 'register' %}active{% endif %}" href="/register">Register</a></li>
-                        </ul>
-                        <ul class="nav nav-pills mx-auto nav-fill">
-                            <li class="nav-item"><a class="nav-link {% if request.endpoint == 'login' %}active{% endif %}" href="/login">Log In</a></li>
+                        <ul class="nav nav-pills ms-auto">
+                            <li class="nav-item mx-auto"><a class="nav-link {% if request.endpoint == 'register' %}active{% endif %}" href="/register">Register</a></li>
+                            <li class="nav-item mx-auto ms-md-2"><a class="nav-link border border-info rounded {% if request.endpoint == 'login' %}active{% endif %}" href="/login">Log In</a></li>
                         </ul>
                     {% endif %}
                 </div>
@@ -74,7 +70,7 @@
         </nav>
 
         <!-- Main part of page -->
-        <main class="container-fluid py-5 text-center">
+        <main class="container py-5 text-center">
 
             <!-- flash messages -->
             {% with messages = get_flashed_messages(with_categories=true) %}

@@ -8,20 +8,19 @@
 <!-- js script loading-->
     <script src="/static/js/add.js" type="module"></script>
 
-    <form class="container text-center" id="addForm" action="/words" method="post">
-        <div class="row justify-content-center mb-4">
-            <div class="col-md-8">
-                <label class="form-label mb-0"><b>concept/word</b></label>
-                <input class="form-control text-center" id="word" maxlength="100" name="word_input" autofocus>
-            </div>
-        </div>
-
-        <div class="row justify-content-center mb-4">
-            <div class="col-md-8">
+    <form id="wordForm" class="container" action="/words" method="post">
+        <div class="row justify-content-center">
+            <div class="d-grid gap-2 col-md-8">
+                <label class="form-label mb-0"><b>word/concept</b></label>
+                <input class="form-control text-center mb-4" id="word" maxlength="50" name="wordInput" autofocus>
                 <label class="form-label mb-0"><b>definition/meaning</b></label>
-                <textarea class="form-control" id="def" name="def_input" rows="5"></textarea>
+                <textarea class="form-control" id="def" name="defInput" rows="5"></textarea>
+                <div class=" form-switch">
+                    <input class="form-check-input" name="isMemorizedSwitch" type="checkbox" id="wordIsMemorizedSwitch">
+                    <label class="form-check-label" for="wordIsMemorizedSwitch">I remember that</label>
+                </div>
+                <button type="submit" id="submitBtn" class="btn btn-primary">Save</button>
             </div>
         </div>
-        <button type="submit" id="submitAddBtn" class="btn btn-primary col-md-8">Save</button>
     </form>
 {% endblock %}

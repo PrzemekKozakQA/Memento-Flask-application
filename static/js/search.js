@@ -10,15 +10,19 @@ $(document).ready(function() {
         let data = await response.json();
         // displaying a message if nothing was found
         if (data.length == 0) {
-            $('#results').html('<tr><td colspan="5"> <h5>No results...</h5> </td></tr>')
+            $('#results').html('<tr><td colspan="6"> <h5>No results...</h5> </td></tr>')
         } else {
             let list_of_result = ''
             for (let i = 0; i < data.length; i++) {
                 //adding to the results list:  row ordinal number, data, and buttons to edit and delete items
+                //TODO ESCAPING HTML SIGNS
+                // if isMemorized equals 1 check the checkbox
+                let checkboxOn= (data[i].isMemorized ==1) ? "checked" : ""
                 list_of_result += `<tr>
                                         <th scope="row">${(i + 1)}</th>
                                         <td>${data[i].word}</td>
                                         <td>${data[i].definition}</td>
+                                        <td><input class="form-check-input" type="checkbox" ${checkboxOn} disabled/></td>
                                         <td><a class="btn btn-info btn-sm" role="button" href="/words/${data[i].id}">Edit</a></td>
                                         <td><button class="btn btn-secondary btn-sm" type="button" id=${data[i].id}>Delete</button></td>
                                   </tr>`;
