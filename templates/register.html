@@ -8,14 +8,14 @@
 <!-- js script loading-->
     <script src="/static/js/register.js" type="module"></script>
 
-    <!-- registration form -->
+<!-- registration form -->
     <form id="registration" action="/register" method="post">
         <div class="d-grid gap-2 mx-auto login">
-            <!-- username input - it is possible to add code that prevents the input from being left empty or whitespaces by adding required pattern=".*\S+.*"-->
+        <!-- username input - it is possible to add code that prevents the input from being left empty or whitespaces by adding required pattern=".*\S+.*"-->
             <input id="usernameInput" autocomplete="off" autofocus="on" class="form-control" name="username" placeholder="username" type="text">
-            <!--confirm username button-->
+        <!--confirm username button-->
             <button id="checkUserButton" class="btn btn-primary" type="button">Confirm username</button>
-            <!-- container for handling password assignment -->
+        <!-- container for handling password assignment -->
             <div id="passwordDiv" class="d-grid gap-2 d-none">
                 <small class="form-text text-muted">The username has been confirmed. To change it, clicking on the "Register" tab.</small>
                 <input id="password" autocomplete="off" class="form-control" name="password" placeholder="Your password" type="password">

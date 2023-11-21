@@ -12,14 +12,13 @@ $(document).ready(function() {
                     type: 'POST',
                     url: '/memorize',
                     async: false
-                }).always(function(response, textStatus, jqXHR) {
-                    if (jqXHR.status != 200) {
-                        displayWarning('Marking as remembered failed! Please try again or uncheck and click Next.');
-                    }else{
-                        window.location.reload();
-                    }
+                }).done(function() {
+                    window.location.reload();
+                })
+                .fail(function() {
+                    displayWarning('Marking as remembered failed! Please try again or uncheck and click Next.');
                 });
-        }else{
+        } else {
             window.location.reload();
         }
 

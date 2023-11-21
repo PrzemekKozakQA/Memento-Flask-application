@@ -17,7 +17,7 @@ $(document).ready(function() {
                 //adding to the results list:  row ordinal number, data, and buttons to edit and delete items
                 //TODO ESCAPING HTML SIGNS
                 // if isMemorized equals 1 check the checkbox
-                let checkboxOn= (data[i].isMemorized ==1) ? "checked" : ""
+                let checkboxOn = (data[i].isMemorized == 1) ? "checked" : ""
                 list_of_result += `<tr>
                                         <th scope="row">${(i + 1)}</th>
                                         <td>${data[i].word}</td>

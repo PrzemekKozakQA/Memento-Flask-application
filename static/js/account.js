@@ -13,7 +13,7 @@ $(document).ready(function() {
             displayWarning('Old password can not be empty!');
         } else if (newPassword.length < 1) {
             displayWarning('New password can not be empty!');
-        //checking whether the new password has at least 5 unique characters
+            //checking whether the new password has at least 5 unique characters
         } else if ((new Set(newPassword.split(""))).size < 5) {
             displayWarning('The new password must contain at least 5 different characters!');
         } else if (confirmation.length < 1) {

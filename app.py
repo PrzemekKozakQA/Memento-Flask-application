@@ -2,10 +2,9 @@ from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session, jsonify
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
-from helpers import login_required, get_username_status, get_password_and_confirmation_status, check_word_data
+from helpers import login_required, get_username_err, is_word_or_def_empty, is_word_repeated, is_password_and_confirmation_valid
 import json
 import random
-import html
 
 # Configure application
 app = Flask(__name__)
@@ -19,9 +18,9 @@ Session(app)
 db = SQL("sqlite:///memento.db")
 
 
-# Ensure responses aren't cached
 @app.after_request
 def after_request(response):
+    # Ensure responses aren't cached
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     response.headers["Expires"] = 0
     response.headers["Pragma"] = "no-cache"
@@ -43,19 +42,24 @@ def register():
     # Forget any user_id if logged user has proceeded to register endpoint
     session.pop("user_id", None)
 
+    ### POST method ###
     if request.method == "POST":
         username = request.form.get("username")
-        # Get status of proposed username
-        username_status = get_username_status(username)
 
-        # Checking username from AJAX request
-        if request.form.get("checkUsername") == "true":
-            # Send message with status as json
-            return jsonify(dict(message=username_status))
+        # Get any errors for given username
+        username_err = get_username_err(username)
+
+        # Handle AJAX request
+        if request.form.get("ajaxCheckUsername") == "true":
+            if username_err:
+                # Send message with error message as json
+                return jsonify(dict(message=username_err)), 400
+            else:
+                return "OK", 200
 
         # The following form request processing is necessary if user has disabled JS scripts
-        if not username_status == "available":
-            flash(username_status, "danger")
+        if username_err:
+            flash(username_err, "danger")
             return redirect(request.url)
 
         # Removing spaces from the beginning and end of the username
@@ -66,16 +70,11 @@ def register():
         confirmation = request.form.get("confirmation")
 
         # Checking password and it confirmation
-        password_and_confirmation_status = get_password_and_confirmation_status(password, confirmation)
-        if  not password_and_confirmation_status == 'ok':
-            flash(password_and_confirmation_status, "danger")
+        if not is_password_and_confirmation_valid(password, confirmation):
             return redirect(request.url)
 
-        # Generate hash from password
-        hash = generate_password_hash(password)
-
         # Saving the new user's data to the database
-        new_user_id = db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", username, hash)
+        new_user_id = db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", username, generate_password_hash(password))
 
         # Log in registered user
         session["user_id"] = new_user_id
@@ -85,7 +84,7 @@ def register():
         flash("The new user registration was successful. You are logged in to the account you created.","success")
         return redirect("/")
 
-    # render page with register form after GET request
+    ### GET method ###
     return render_template("register.html")
 
 
@@ -94,19 +93,22 @@ def login():
     # Forget any user_id if logged user has proceeded to register endpoint
     # Added a second parameter "None" to handle the error if the "user_id" key is not found
     session.pop("user_id", None)
+    print(generate_password_hash("tester123"))
 
+    ### POST method ###
     if request.method == "POST":
         username = request.form.get("username")
+        password = request.form.get("password")
 
         # Ensure username was submitted
         if not username or username.isspace():
             flash("Username can not be empty", "danger")
             return redirect(request.url)
-        else:
-            username = username.strip()
+
+        # Removing spaces from the beginning and end of the username
+        username = username.strip()
 
         # Ensure password was submitted
-        password = request.form.get("password")
         if not password:
             flash("Password can not be empty", "danger")
             return redirect(request.url)
@@ -135,7 +137,7 @@ def login():
         flash(f"Hi {username}! You were successfully logged in!", "success")
         return redirect("/")
 
-    # render page with login form after GET request
+    ### GET method ###
     return render_template("login.html")
 
 
@@ -159,18 +161,20 @@ def account():
 def rename_user():
     new_name = request.form.get("newUsername")
 
-    new_name_status = get_username_status(new_name)
-    if not new_name_status == "available":
-        flash(new_name_status, "danger")
+    new_name_err = get_username_err(new_name)
+    if new_name_err:
+        flash(new_name_err, "danger")
         return redirect("/account")
-    else:
-        new_name = new_name.strip()
+
+    # Removing spaces from the beginning and end of the new username
+    new_name = new_name.strip()
 
     # Insert new username into db and redirect
     db.execute("UPDATE users SET username=? WHERE id=?", new_name, session["user_id"])
     session["username"] = new_name
     flash("The username change was successful!", "success ")
     return redirect("/account")
+
 
 @app.route("/password/change", methods=["POST"])
 @login_required
@@ -192,9 +196,7 @@ def change_password():
         return redirect("/account")
 
     # Check new password and it confirmation
-    password_and_confirmation_status = get_password_and_confirmation_status(new_password, confirmation)
-    if not password_and_confirmation_status == 'ok':
-        flash(password_and_confirmation_status, "danger")
+    if not is_password_and_confirmation_valid(new_password, confirmation):
         return redirect("/account")
 
     # Generate hash from new password
@@ -214,6 +216,7 @@ def delete_user():
     db.execute("DELETE FROM words WHERE userId=?", user_id)
     # Delete user
     db.execute("DELETE FROM users WHERE id=?", user_id)
+
     session.clear()
     flash("The user account and all its data have been deleted!", "secondary")
     return redirect("/")
@@ -228,23 +231,27 @@ def add():
 @app.route("/words", methods=["GET", "POST"])
 @login_required
 def words():
+    ### POST method ###
     if request.method == "POST":
         word = request.form.get("wordInput")
         definition = request.form.get("defInput")
 
         # Checking whether the user sent correct data
-        message = check_word_data(word, definition)
-
-        if not message == 'ok':
-            flash(message, "danger")
+        if is_word_or_def_empty(word, definition):
             return redirect("/add")
 
+        # removing spaces from the beginning and end
         word = word.strip()
         definition = definition.strip()
         is_memorized = request.form.get("isMemorizedSwitch") == "on"
 
+        # checking whether such a word has already been added
+        if is_word_repeated(word):
+            return redirect("/add")
+
         # Insert data to DB
         db.execute("INSERT INTO words(word, definition, isMemorized, userId) VALUES (?, ?, ?, ?)", word, definition, int(is_memorized), session["user_id"])
+
         flash("Added successfully!", "success")
         return redirect("/add")
 
@@ -259,23 +266,26 @@ def words():
         # if user wants to display words start with given text
         else:
             words_data = db.execute("SELECT word, definition, isMemorized, id FROM words WHERE word LIKE ? AND userId=? ORDER BY word", q.strip() + "%", session["user_id"])
-        # dumps() pars list od dict to json
+        # dumps() parse list od dict to json
         return json.dumps(words_data)
 
 
 @app.route("/words/<id>", methods=["DELETE", "POST", "GET"])
 @login_required
 def word(id):
-    # get data forgiven id from DB
+    # get data for given id from DB
     word_data_row = db.execute("Select * FROM words WHERE id=? AND userId=?", id, session["user_id"])
 
+    ### GET method ###
     if request.method == "GET":
-        # checking if the user has inserted an existing id
+        # checking if the user has used an existing id
         if not word_data_row:
-            return page_not_found(404)
+            flash("Word/concept with this id was not found", "danger")
+            return page_not_found(404), 404
         word_data = word_data_row[0]
-        return render_template("word.html",id=id, word=word_data.get("word"), definition=word_data.get("definition"), isMemorized=word_data.get("isMemorized"))
+        return render_template("word.html", id=id, word=word_data.get("word"), definition=word_data.get("definition"), isMemorized=word_data.get("isMemorized"))
 
+    ### DELETE method ###
     if request.method == "DELETE":
         deleted_rows_number = db.execute("DELETE FROM words WHERE id=? AND userId=?", id, session["user_id"])
         # Sending information about the deletion status
@@ -284,30 +294,35 @@ def word(id):
         else:
             return "ERROR", 400
 
+    ### POST method ###
     if request.method == "POST":
-        # checking if the user has inserted an existing id
+        # checking if the user has meantime deleted word
         if not word_data_row:
-            flash("Word/concept with this id was not found", "danger")
-            return redirect(request.url)
+            flash("The updated word/concept was not found, it was probably deleted in the meantime.", "danger")
+            return page_not_found(404), 404
 
         updated_word = request.form.get("wordInput")
         updated_definition = request.form.get("defInput")
 
         # Checking whether the user sent correct data
-        message = check_word_data(updated_word, updated_definition)
-
-        # checking the message and skipping message that such a word already exists
-        if not message == 'ok' and not "definition/meaning already exists" in message:
-            flash(message, "danger")
+        if is_word_or_def_empty(updated_word, updated_definition):
             return redirect(request.url)
 
         updated_word = updated_word.strip()
         updated_definition = updated_definition.strip()
         is_memorized = request.form.get("isMemorizedSwitch") == "on"
 
+        # if the words/meaning have been changed and it is repeated in the database
+        if not updated_word == word_data_row[0].get("word") and is_word_repeated(updated_word):
+            return redirect(request.url)
+
+        print(f'dane zmienionego słowa: {updated_word}, {updated_definition}, {int(is_memorized)}, {id}, {session["user_id"]}')
         # Insert data to DB
-        db.execute("UPDATE words SET word=?, definition=?, isMemorized=? WHERE id=? AND userId=?", updated_word, updated_definition, int(is_memorized), id, session["user_id"])
-        flash("Update successfully", "success")
+        changed_row_num = db.execute("UPDATE words SET word=?, definition=?, isMemorized=? WHERE id=? AND userId=?", updated_word, updated_definition, int(is_memorized), id, session["user_id"])
+        if changed_row_num < 1:
+            flash("Something went wrong and no entries were changed", "danger")
+        else:
+            flash("Update successfully", "success")
         return redirect(request.url)
 
 
@@ -320,8 +335,9 @@ def search():
 @app.route("/memorize", methods=["POST", "GET"])
 @login_required
 def memorize():
-    # Update information whether the word is remembered
+    ### POST method ###
     if request.method == "POST":
+        # Update information whether the word is remembered
         id = request.form.get("wordId")
         updated_rows_number = db.execute("UPDATE words SET isMemorized=1 WHERE id=? AND userId=?", id, session["user_id"])
         # Returning information about the success of the update
@@ -330,12 +346,11 @@ def memorize():
         else:
             return "OK", 200
 
-    # Render page if method is GET
-
+    ### GET method ###
     # Get all user's unremembered words
     user_words_data = db.execute("SELECT word, definition, id FROM words WHERE userId=? AND isMemorized=0",session["user_id"])
 
-    # Checking if there are words to remember and draw a word
+    # Checking if there are words to remember and choose random word
     if len(user_words_data) > 0:
         word_data = random.choice(user_words_data)
     else:
@@ -346,20 +361,21 @@ def memorize():
 @app.route("/quiz", methods=["GET", "POST"])
 @login_required
 def quiz():
-    # Checking quiz answers
+    ### POST method ###
     if request.method == "POST":
+        # Checking quiz answers
         user_answer = request.form.get("word")
+
         if not user_answer:
             flash("Something get wrong", "danger")
             return redirect("/quiz")
+
         if user_answer == session["quiz_answer"]:
             return jsonify(dict(status="right"))
         else:
             return jsonify(dict(status="wrong"))
 
-    # If the method is GET
-
-    # Preparing data for the quiz
+    ### GET method ###
     rows_user_words = db.execute("SELECT word FROM words WHERE userId=?", session["user_id"])
     # Getting a list of words added by the user
     user_words = [dict["word"] for dict in rows_user_words]
@@ -381,4 +397,3 @@ def quiz():
         session["quiz_answer"] = answer
 
     return render_template("quiz.html", words=words, question=question)
-    

@@ -12,7 +12,7 @@ $(document).ready(function() {
             //sending a POST request using AJAX in JSON format with username to the backend
             $.ajax({
                     data: {
-                        checkUsername: true,
+                        ajaxCheckUsername: true,
                         username: user
                     },
                     type: 'POST',
@@ -21,18 +21,17 @@ $(document).ready(function() {
                 // receiving responses from the backend
                 .done(function(response) {
                     // if the username can be registered, fields for creating a password are shown
-                    if (response.message == 'available') {
-                        // preventing editing of username and addin style
-                        $('#usernameInput').prop("readonly", true).addClass('read-only-style');
-                        // hiding warnings if they were previously displayed
-                        $('#warning').empty();
-                        // hiding button for check username
-                        $('#checkUserButton').addClass('d-none');
-                        //showing inputs for password and it confirmation
-                        $('#passwordDiv').removeClass('d-none');
-                    } else {
-                        displayWarning(response.message);
-                    }
+                    // preventing editing of username and addin style
+                    $('#usernameInput').prop("readonly", true).addClass('read-only-style');
+                    // hiding warnings if they were previously displayed
+                    $('#warning').empty();
+                    // hiding button for check username
+                    $('#checkUserButton').addClass('d-none');
+                    //showing inputs for password and it confirmation
+                    $('#passwordDiv').removeClass('d-none');
+                })
+                .fail(function(jqXHR) {
+                    displayWarning(jqXHR.responseJSON.message);
                 });
         }
     });

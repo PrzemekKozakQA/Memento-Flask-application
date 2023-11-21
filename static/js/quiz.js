@@ -9,14 +9,15 @@ $(document).ready(function() {
 });
 
 
-
 $(document).ready(function() {
     $('.btn.btn-info').on('click', function(event) {
         let thisButton = $(this);
-        let word =thisButton.text();
-            //sending a POST request using AJAX in JSON format with username to the backend
+        let word = thisButton.text();
+        //sending a POST request using AJAX in JSON format with user anwser to the backend
         $.ajax({
-            data: {"word": word},
+            data: {
+                "word": word
+            },
             type: 'POST',
             url: '/quiz'
         }).done(function(response) { // receiving responses from the backend
@@ -25,9 +26,7 @@ $(document).ready(function() {
             } else {
                 thisButton.removeClass('btn-info').addClass('btn-danger');
             }
-            });
-            
+        });
         thisButton.attr("disabled", true);
     });
 });
-
