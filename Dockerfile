@@ -1,11 +1,11 @@
 # Container image that runs code
-#FROM ubuntu:latest
-FROM python:3.8-alpine
+FROM ubuntu:22.04
+#FROM python:3.8-alpine
 
 # Setup environment
-# RUN apt-get update -y
+RUN apt update
 # RUN apt-get install -y
-# RUN apt-get install python3 -y
+RUN apt install python3-pip
 # RUN apt-get install python-pip -y
 # RUN pip install flask
 
