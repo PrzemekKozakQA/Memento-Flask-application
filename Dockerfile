@@ -1,5 +1,5 @@
 # Container image that runs code
-FROM 3.12.0-alpine3.18
+FROM python:3.12.0-alpine3.18
 
 # Setup environment
 RUN apt -U update
