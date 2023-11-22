@@ -3,6 +3,7 @@ FROM ubuntu:latest
 
 # Setup environment
 RUN apt-get update -y
+RUN apt-get install -y
 RUN apt-get install python -y
 RUN apt-get install python-pip -y
 RUN pip install flask
