@@ -1,5 +1,5 @@
 # Container image that runs code
-FROM ubuntu:latest
+FROM alpine:latest
 
 # Setup environment
 RUN apt-get update
@@ -13,6 +13,6 @@ COPY . .
 RUN pip install -r requirements.txt
 
 # Executes when the Docker container starts up
-#ENTRYPOINT gunicorn app:app
+ENTRYPOINT  ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
 #CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
-CMD ["gunicorn", "--bind", "0.0.0.0", "app:app"]
+# CMD ["gunicorn", "--bind", "0.0.0.0", "app:app"]
