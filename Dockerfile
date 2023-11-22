@@ -14,4 +14,5 @@ RUN pip install -r requirements.txt
 
 # Executes when the Docker container starts up
 #ENTRYPOINT gunicorn app:app
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+#CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+CMD ["gunicorn", "--bind", "127.0.0.1:5000", "app:app"]
