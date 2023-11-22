@@ -1,12 +1,13 @@
 # Container image that runs code
-FROM ubuntu:latest
+#FROM ubuntu:latest
+FROM python:3.8-alpine
 
 # Setup environment
-RUN apt-get update -y
-RUN apt-get install -y
-RUN apt-get install python3 -y
-RUN apt-get install python-pip -y
-RUN pip install flask
+# RUN apt-get update -y
+# RUN apt-get install -y
+# RUN apt-get install python3 -y
+# RUN apt-get install python-pip -y
+# RUN pip install flask
 
 # Copies code file from your action repository to the filesystem path `/` of the container
 COPY . .
