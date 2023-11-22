@@ -3,9 +3,9 @@ FROM ubuntu:22.04
 #FROM python:3.8-alpine
 
 # Setup environment
-RUN sudo apt update
+RUN apt-get update
 # RUN apt-get install -y
-RUN sudo apt install python3-pip
+RUN apt-get install python3
 # RUN apt-get install python-pip -y
 # RUN pip install flask
 
