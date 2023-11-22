@@ -6,7 +6,7 @@ FROM ubuntu:22.04
 RUN apt-get update
 # RUN apt-get install -y
 RUN apt-get install python3 -y
-# RUN apt-get install python-pip -y
+RUN apt-get install python3-pip -y
 # RUN pip install flask
 
 # Copies code file from your action repository to the filesystem path `/` of the container
