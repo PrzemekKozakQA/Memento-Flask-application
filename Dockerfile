@@ -2,7 +2,7 @@
 FROM python:3.12.0-alpine3.18
 
 # Setup environment
-RUN apt -U update
+RUN apk -U update
 
 # Copies code file from your action repository to the filesystem path `/` of the container
 COPY . .
