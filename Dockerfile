@@ -14,3 +14,5 @@ RUN pip install -r requirements.txt
 ENTRYPOINT  ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
 #CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
 # CMD ["gunicorn", "--bind", "0.0.0.0", "app:app"]
+
+EXPOSE 5000
