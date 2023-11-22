@@ -1,10 +1,8 @@
 # Container image that runs code
-FROM alpine:latest
+FROM 3.12.0-alpine3.18
 
 # Setup environment
-RUN apt-get update
-RUN apt-get install python3 -y
-RUN apt-get install python3-pip -y
+RUN apt -U update
 
 # Copies code file from your action repository to the filesystem path `/` of the container
 COPY . .
