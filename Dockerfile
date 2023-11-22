@@ -5,7 +5,7 @@ FROM ubuntu:22.04
 # Setup environment
 RUN apt-get update
 # RUN apt-get install -y
-RUN apt-get install python3
+RUN apt-get install python3 -y
 # RUN apt-get install python-pip -y
 # RUN pip install flask
 
