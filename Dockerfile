@@ -6,7 +6,7 @@ RUN apt-get update -y
 RUN apt-get install -y
 RUN apt-get install python3 -y
 RUN apt-get install python-pip -y
-RUN pip install flask
+RUN pip3 install flask
 
 # Copies code file from your action repository to the filesystem path `/` of the container
 COPY . .
