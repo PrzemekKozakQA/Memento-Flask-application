@@ -28,4 +28,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: user/memento_app:latest
+          tags: przemektesterdocker/memento_app:latest
