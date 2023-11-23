@@ -23,6 +23,7 @@ $(document).ready(function() {
         }).done(function(response) { // receiving responses from the backend
             if (response.status == 'right') {
                 thisButton.removeClass('btn-info').addClass('btn-success');
+                $('.btn.btn-info').attr("disabled", true);
             } else {
                 thisButton.removeClass('btn-info').addClass('btn-danger');
             }
