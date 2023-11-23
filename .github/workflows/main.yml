@@ -28,4 +28,6 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: przemektesterdocker/memento_app:latest
+          tags: |
+          ${{ secrets.DOCKERHUB_USERNAME }}/memento_app:latest
+          1.0.0
