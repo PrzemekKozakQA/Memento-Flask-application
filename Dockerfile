@@ -5,13 +5,13 @@ FROM python:3.12.0-alpine3.18
 RUN apk -U update
 
 # Copies code file from your action repository to container
-COPY . .
+COPY ./app/ ./app/
 
 # Download the requir libraries
-RUN pip install -r requirements.txt
+RUN pip install -r ./app/requirements.txt
 
 # Run app with gunicorn
-ENTRYPOINT  ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+ENTRYPOINT  ["gunicorn", "--bind", "0.0.0.0:5000", "/app/app:app"]
 
 # Expose ports
 EXPOSE 5000
