@@ -1,7 +1,7 @@
 #### 1. What is the Memento app?
 Memento is a web application that helps the user learn and remember difficult concepts or words from foreign languages.
 
-#### 2. What are the requirements to use the application?
+#### 2. Is registration in the application necessary?
 To use the application, it is necessary to create an account. During registration, the user provides a unique username and a password consisting of at least 5 different characters. After creating an account, the user can add, edit and delete words/concepts. Only words/concepts added by the logged in user are available on each account.
 
 #### 3. What features does the Memento app offer?
@@ -14,8 +14,8 @@ To use the application, it is necessary to create an account. During registratio
 
 #### 4. What is the technical stack of Memento?
 The Memento application was written using the following technologies:
-- Backend: Python language, Flask library and database SQLite
-- Frontend: HTML, CSS using Bootstrap and Jinja. JavaScript with the JQuery library was used for dynamic elements on the pages.
+- Backend: Python, Flask library and database SQLite
+- Frontend: HTML, CSS with Bootstrap and Jinja. JavaScript with the JQuery library was used for dynamic elements on the pages.
 
 #### 5. A detailed description of the application's source code:
 The main project directory contains the following files and directories:
