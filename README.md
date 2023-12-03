@@ -18,21 +18,25 @@ The Memento application was written using the following technologies:
 - Frontend: HTML, CSS using Bootstrap and Jinja. JavaScript with the JQuery library was used for dynamic elements on the pages.
 
 #### 5. A detailed description of the application's source code:
-The main project directory contains the following files:
-- requirements.txt - the file contains a list of libraries that must be downloaded for the application to run
+The main project directory contains the following files and directories:
 
-- README.md - application description file
+- requirements.txt - the file contains a list of libraries that must be downloaded for the application to run
 
 - memento.db - SQLite database file that stores data entered by users. It contains two tables: users and words.
 
 - app.py - The main application file, which contains information on what the program should do after sending requests to endpoints. It also contains the Flask application configuration along with user session settings.
 
+- helpers.py - the file contains methods separated from the app.py file for better code readability. These methods are used many times in the code in the app.py file.
+
 - templates - folder containing the file from which the application's web pages are rendered.
 
 - static - folder contains CSS files and JS scripts
      - style.css - the file contains custom styles added to the selected elements
-     - js - folder with files containing JavaScript scripts
-
+     - js - folder with scripts for individual pages
+     - 
 #### 6. CI using GitHub Actions:
 The project used GitHub Actions to build a Docker image with the Memento application. If application files are changed in the repository, the trigger will start building and releasing a new version of the image to Docker Hub.
 Details are available in the [Actions tab](https://github.com/PrzemekKozakQA/Memento_flask_app_CS50x_Final_project/actions).
+
+#### 7. How to run the Memento application?
+TODO
