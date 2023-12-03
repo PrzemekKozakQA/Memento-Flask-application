@@ -1,7 +1,3 @@
-# MEMENTO
-#### Video Demo:  <URL HERE>
-#### Description:
-
 #### 1. What is the Memento app?
 Memento is a web application that helps the user learn and remember difficult concepts or words from foreign languages.
 
