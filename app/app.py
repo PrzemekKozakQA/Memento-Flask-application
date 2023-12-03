@@ -74,14 +74,15 @@ def register():
             return redirect(request.url)
 
         # Saving the new user's data to the database
-        new_user_id = db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", username, generate_password_hash(password))
+        new_user_id = db.execute(
+            "INSERT INTO users (username, hash) VALUES (?, ?)", username, generate_password_hash(password))
 
         # Log in registered user
         session["user_id"] = new_user_id
         session["username"] = username
 
         # Redirect user to home page with success message
-        flash("The new user registration was successful. You are logged in to the account you created.","success")
+        flash("The new user registration was successful. You are logged in to the account you created.", "success")
         return redirect("/")
 
     ### GET method ###
@@ -114,7 +115,8 @@ def login():
             return redirect(request.url)
 
         # Query database for username
-        user_data_rows = db.execute("SELECT * FROM users WHERE username = ?", username)
+        user_data_rows = db.execute(
+            "SELECT * FROM users WHERE username = ?", username)
 
         # Ensure username exists and password is correct
         if len(user_data_rows) != 1:
@@ -170,7 +172,8 @@ def rename_user():
     new_name = new_name.strip()
 
     # Insert new username into db and redirect
-    db.execute("UPDATE users SET username=? WHERE id=?", new_name, session["user_id"])
+    db.execute("UPDATE users SET username=? WHERE id=?",
+               new_name, session["user_id"])
     session["username"] = new_name
     flash("The username change was successful!", "success ")
     return redirect("/account")
@@ -189,7 +192,8 @@ def change_password():
         return redirect("/account")
 
     # Ensure username old password is correct
-    old_password_data = db.execute("SELECT hash FROM users WHERE id = ?", session["user_id"])
+    old_password_data = db.execute(
+        "SELECT hash FROM users WHERE id = ?", session["user_id"])
     old_hash = old_password_data[0].get("hash")
     if not check_password_hash(old_hash, old_password):
         flash("Invalid old password!", "danger")
@@ -203,7 +207,8 @@ def change_password():
     hash = generate_password_hash(new_password)
 
     # Saving the new user's data to the database
-    db.execute("UPDATE users SET hash = ? WHERE id = ?", hash, session["user_id"])
+    db.execute("UPDATE users SET hash = ? WHERE id = ?",
+               hash, session["user_id"])
 
     return redirect("/logout")
 
@@ -250,7 +255,8 @@ def words():
             return redirect("/add")
 
         # Insert data to DB
-        db.execute("INSERT INTO words(word, definition, isMemorized, userId) VALUES (?, ?, ?, ?)", word, definition, int(is_memorized), session["user_id"])
+        db.execute("INSERT INTO words(word, definition, isMemorized, userId) VALUES (?, ?, ?, ?)",
+                   word, definition, int(is_memorized), session["user_id"])
 
         flash("Added successfully!", "success")
         return redirect("/add")
@@ -262,10 +268,12 @@ def words():
             words_data = []
         # if user wants to display all his words
         elif q == "%":
-            words_data = db.execute("SELECT word, definition, isMemorized, id FROM words WHERE userId=? ORDER BY word", session["user_id"])
+            words_data = db.execute(
+                "SELECT word, definition, isMemorized, id FROM words WHERE userId=? ORDER BY word", session["user_id"])
         # if user wants to display words start with given text
         else:
-            words_data = db.execute("SELECT word, definition, isMemorized, id FROM words WHERE word LIKE ? AND userId=? ORDER BY word", q.strip() + "%", session["user_id"])
+            words_data = db.execute(
+                "SELECT word, definition, isMemorized, id FROM words WHERE word LIKE ? AND userId=? ORDER BY word", q.strip() + "%", session["user_id"])
         # dumps() parse list od dict to json
         return json.dumps(words_data)
 
@@ -274,7 +282,8 @@ def words():
 @login_required
 def word(id):
     # get data for given id from DB
-    word_data_row = db.execute("Select * FROM words WHERE id=? AND userId=?", id, session["user_id"])
+    word_data_row = db.execute(
+        "Select * FROM words WHERE id=? AND userId=?", id, session["user_id"])
 
     ### GET method ###
     if request.method == "GET":
@@ -287,7 +296,8 @@ def word(id):
 
     ### DELETE method ###
     if request.method == "DELETE":
-        deleted_rows_number = db.execute("DELETE FROM words WHERE id=? AND userId=?", id, session["user_id"])
+        deleted_rows_number = db.execute(
+            "DELETE FROM words WHERE id=? AND userId=?", id, session["user_id"])
         # Sending information about the deletion status
         if deleted_rows_number == 1:
             return "OK", 200
@@ -298,7 +308,8 @@ def word(id):
     if request.method == "POST":
         # checking if the user has meantime deleted word
         if not word_data_row:
-            flash("The updated word/concept was not found, it was probably deleted in the meantime.", "danger")
+            flash(
+                "The updated word/concept was not found, it was probably deleted in the meantime.", "danger")
             return page_not_found(404), 404
 
         updated_word = request.form.get("wordInput")
@@ -316,9 +327,11 @@ def word(id):
         if not updated_word == word_data_row[0].get("word") and is_word_repeated(updated_word):
             return redirect(request.url)
 
-        print(f'dane zmienionego słowa: {updated_word}, {updated_definition}, {int(is_memorized)}, {id}, {session["user_id"]}')
+        print(
+            f'dane zmienionego słowa: {updated_word}, {updated_definition}, {int(is_memorized)}, {id}, {session["user_id"]}')
         # Insert data to DB
-        changed_row_num = db.execute("UPDATE words SET word=?, definition=?, isMemorized=? WHERE id=? AND userId=?", updated_word, updated_definition, int(is_memorized), id, session["user_id"])
+        changed_row_num = db.execute("UPDATE words SET word=?, definition=?, isMemorized=? WHERE id=? AND userId=?",
+                                     updated_word, updated_definition, int(is_memorized), id, session["user_id"])
         if changed_row_num < 1:
             flash("Something went wrong and no entries were changed", "danger")
         else:
@@ -339,7 +352,8 @@ def memorize():
     if request.method == "POST":
         # Update information whether the word is remembered
         id = request.form.get("wordId")
-        updated_rows_number = db.execute("UPDATE words SET isMemorized=1 WHERE id=? AND userId=?", id, session["user_id"])
+        updated_rows_number = db.execute(
+            "UPDATE words SET isMemorized=1 WHERE id=? AND userId=?", id, session["user_id"])
         # Returning information about the success of the update
         if updated_rows_number != 1:
             return "Error", 400
@@ -348,7 +362,8 @@ def memorize():
 
     ### GET method ###
     # Get all user's unremembered words
-    user_words_data = db.execute("SELECT word, definition, id FROM words WHERE userId=? AND isMemorized=0",session["user_id"])
+    user_words_data = db.execute(
+        "SELECT word, definition, id FROM words WHERE userId=? AND isMemorized=0", session["user_id"])
 
     # Checking if there are words to remember and choose random word
     if len(user_words_data) > 0:
@@ -376,7 +391,8 @@ def quiz():
             return jsonify(dict(status="wrong"))
 
     ### GET method ###
-    rows_user_words = db.execute("SELECT word FROM words WHERE userId=?", session["user_id"])
+    rows_user_words = db.execute(
+        "SELECT word FROM words WHERE userId=?", session["user_id"])
     # Getting a list of words added by the user
     user_words = [dict["word"] for dict in rows_user_words]
 
@@ -390,7 +406,8 @@ def quiz():
 
         # Select answer word and getting a question for it
         answer = random.choice(words)
-        question_data = db.execute("SELECT definition FROM words WHERE word=? AND userId=?", answer, session["user_id"])
+        question_data = db.execute(
+            "SELECT definition FROM words WHERE word=? AND userId=?", answer, session["user_id"])
         question = question_data[0].get("definition")
 
         # Saving the correct answer to the user's session file

@@ -3,8 +3,8 @@ import {
 } from "./helpers.js";
 
 // script verifies username and password during registration
-$(document).ready(function() {
-    $('#checkUserButton').on('click', function(event) {
+$(document).ready(function () {
+    $('#checkUserButton').on('click', function (event) {
         let user = $('#usernameInput').val().trim();
         if (user.length < 1) {
             displayWarning('Username can not be empty!')
@@ -19,7 +19,7 @@ $(document).ready(function() {
                     url: '/register'
                 })
                 // receiving responses from the backend
-                .done(function(response) {
+                .done(function (response) {
                     // if the username can be registered, fields for creating a password are shown
                     // preventing editing of username and addin style
                     $('#usernameInput').prop("readonly", true).addClass('read-only-style');
@@ -30,7 +30,7 @@ $(document).ready(function() {
                     //showing inputs for password and it confirmation
                     $('#passwordDiv').removeClass('d-none');
                 })
-                .fail(function(jqXHR) {
+                .fail(function (jqXHR) {
                     displayWarning(jqXHR.responseJSON.message);
                 });
         }
@@ -38,8 +38,8 @@ $(document).ready(function() {
 });
 
 // script checks the correctness of password entry and its confirmation
-$(document).ready(function() {
-    $('#submitRegistrationBtn').on('click', function(event) {
+$(document).ready(function () {
+    $('#submitRegistrationBtn').on('click', function (event) {
         let password = $('#password').val();
         let confirmation = $('#confirmation').val();
         if (password.length < 1) {

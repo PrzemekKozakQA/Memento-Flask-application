@@ -2,8 +2,8 @@ import {
     displayWarning
 } from "./helpers.js";
 
-$(document).ready(function() {
-    $('#nextBtn').on('click', function(event) {
+$(document).ready(function () {
+    $('#nextBtn').on('click', function (event) {
         if ($('#isWordMemorizedBox').is(':checked')) {
             $.ajax({
                     data: {
@@ -12,10 +12,10 @@ $(document).ready(function() {
                     type: 'POST',
                     url: '/memorize',
                     async: false
-                }).done(function() {
+                }).done(function () {
                     window.location.reload();
                 })
-                .fail(function() {
+                .fail(function () {
                     displayWarning('Marking as remembered failed! Please try again or uncheck and click Next.');
                 });
         } else {

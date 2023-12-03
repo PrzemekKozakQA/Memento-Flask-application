@@ -28,7 +28,8 @@ def get_username_err(username):
         return "Username can not be empty!!!"
     # checking in DB
     username = username.strip()
-    users_with_this_name = db.execute("SELECT id FROM users WHERE username=?", username)
+    users_with_this_name = db.execute(
+        "SELECT id FROM users WHERE username=?", username)
     if len(users_with_this_name) > 0:
         return "User with this name already exists, choose a different name!!!"
     # if username is available
@@ -64,10 +65,12 @@ def is_word_or_def_empty(word, definition):
 
 
 def is_word_repeated(word):
-    user_words_data = db.execute("SELECT word FROM words WHERE userId=?", session["user_id"])
+    user_words_data = db.execute(
+        "SELECT word FROM words WHERE userId=?", session["user_id"])
     user_words = [dict.get("word") for dict in user_words_data]
     if word.strip() in user_words:
-         flash(f'"{word}" definition/meaning already exists, edit or delete it in the "search" tab', "danger")
-         return True
+        flash(
+            f'"{word}" definition/meaning already exists, edit or delete it in the "search" tab', "danger")
+        return True
     else:
         return False

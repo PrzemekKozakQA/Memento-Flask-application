@@ -5,7 +5,7 @@ export function displayWarning(message) {
     //scroll to warning
     $('html, body').scrollTop($("#warning").offset().top);
     // element fading with delay. Important! Next step after fadeOut need to be added to the queue!
-    $('#warning > div').delay(3500).fadeOut(1000).queue(function() {
+    $('#warning > div').delay(3500).fadeOut(1000).queue(function () {
         //removing the previously added div with the message
         $(this).empty();
     });
