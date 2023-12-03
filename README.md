@@ -39,3 +39,4 @@ The main project directory contains the following files:
 
 #### 6. CI using GitHub Actions:
 The project used GitHub Actions to build a Docker image with the Memento application. If application files are changed in the repository, the trigger will start building and releasing a new version of the image to Docker Hub.
+Details are available in the [Actions tab](https://github.com/PrzemekKozakQA/Memento_flask_app_CS50x_Final_project/actions).
