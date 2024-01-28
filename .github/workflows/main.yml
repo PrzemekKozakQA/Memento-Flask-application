@@ -18,7 +18,7 @@ jobs:
       - name: Install Postman CLI
         run: curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag mementTest:latest
+        run: docker build . --file Dockerfile --tag mement_test:latest
       - name: run Docker image
         run: docker run -p 3000:3000 -d mementTest
       - name: Run Postman API tests
