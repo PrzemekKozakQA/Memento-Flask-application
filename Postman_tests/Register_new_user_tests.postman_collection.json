@@ -1,122 +1,1169 @@
 {
 	"info": {
 		"_postman_id": "af60a9e5-a6ba-4a7b-90a6-2f4f073be4a7",
-		"name": "Register new user",
+		"name": "Memento application integration tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "21196236"
 	},
 	"item": [
 		{
-			"name": "A name for the new user is available test - positive",
-			"event": [
+			"name": "New user registration",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"\r",
-							"pm.test(\"Response status code is 200\", function () {\r",
-							"    pm.expect(pm.response.code).to.equal(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Correct body text\", function () {\r",
-							"    pm.response.to.have.body(\"OK\");\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
+					"name": "Positive tests",
+					"item": [
 						{
-							"key": "ajaxCheckUsername",
-							"value": "true",
-							"type": "text"
-						},
-						{
-							"key": "username",
-							"value": "available_User",
-							"type": "text"
+							"name": "Name for a new user is available test - positive",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body is correct\", function () {\r",
+											"    pm.response.to.have.body(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "ajaxCheckUsername",
+											"value": "true",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "newUser",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
-				"url": {
-					"raw": "localhost:5000/register",
-					"host": [
-						"localhost"
+				{
+					"name": "Negative tests",
+					"item": [
+						{
+							"name": "User already exists test - negative",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Body contains right message\", function () {\r",
+											"    pm.expect(pm.response.text()).contain(\"User with this name already exists, choose a different name\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "ajaxCheckUsername",
+											"value": "true",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{testUser}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Empty username test - negative",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Body contains right message\", function () {\r",
+											"    pm.expect(pm.response.text()).contain(\"Username can not be empty\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "ajaxCheckUsername",
+											"value": "true",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Username contains only whitespace test - negative",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Body contains right message\", function () {\r",
+											"    pm.expect(pm.response.text()).contain(\"Username can not be empty\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "ajaxCheckUsername",
+											"value": "true",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "     ",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Form submitted without username key test - negative",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Body contains right message\", function () {\r",
+											"    pm.expect(pm.response.text()).contain(\"Username can not be empty\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "ajaxCheckUsername",
+											"value": "true",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
 					],
-					"port": "5000",
-					"path": [
-						"register"
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Response status code is 400\", function () {",
+									"    pm.expect(pm.response.code).to.equal(400);",
+									"});",
+									"",
+									"pm.test(\"Response is in JSON format\", function () {",
+									"    pm.expect(pm.response).to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response has the required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.message).to.exist.and.to.be.a('string');",
+									"});"
+								]
+							}
+						}
 					]
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "User already exist test - negative",
-			"event": [
+			"name": "Word search",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"\r",
-							"pm.test(\"Response status code is 400\", function () {\r",
-							"    pm.expect(pm.response.code).to.equal(400);\r",
-							"});\r",
-							"\r",
-							"\r",
-							"pm.test(\"Response has the required fields\", function () {\r",
-							"    const responseData = pm.response.json();\r",
-							"    \r",
-							"    pm.expect(responseData).to.be.an('object');\r",
-							"    pm.expect(responseData.message).to.exist.and.to.be.a('string');\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Body contains right message\", function () {\r",
-							"    pm.expect(pm.response.text()).contain(\"User with this name already exists, choose a different name\");\r",
-							"});\r",
-							"\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
+					"name": "Login to app",
+					"event": [
 						{
-							"key": "ajaxCheckUsername",
-							"value": "true",
-							"type": "text"
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains right message\", function () {\r",
+									"    pm.expect(pm.response.text()).contain(\"You were successfully logged in\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "{{testUser}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{testUserPassword}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search saved word test - positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response schema is valid\", function () {\r",
+									"    const ResponseSchema = {\r",
+									"        type: \"array\",\r",
+									"        items: {\r",
+									"            type: \"object\",\r",
+									"            properties: {\r",
+									"                word: { type: \"string\" },\r",
+									"                definition: { type: \"string\" },\r",
+									"                isMemorized: { type: \"number\" },\r",
+									"                id: { type: \"number\" }\r",
+									"            },\r",
+									"            required: [\"word\", \"definition\", \"isMemorized\", \"id\"]\r",
+									"        }\r",
+									"    };\r",
+									"\r",
+									"    pm.response.to.has.jsonSchema(ResponseSchema)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is not an empty array\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/words?q=java",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"words"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "java"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Searching for all saved words test - positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response schema is valid\", function () {\r",
+									"    const ResponseSchema = {\r",
+									"        type: \"array\",\r",
+									"        items: {\r",
+									"            type: \"object\",\r",
+									"            properties: {\r",
+									"                word: { type: \"string\" },\r",
+									"                definition: { type: \"string\" },\r",
+									"                isMemorized: { type: \"number\" },\r",
+									"                id: { type: \"number\" }\r",
+									"            },\r",
+									"            required: [\"word\", \"definition\", \"isMemorized\", \"id\"]\r",
+									"        }\r",
+									"    };\r",
+									"\r",
+									"    pm.response.to.has.jsonSchema(ResponseSchema)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response is not an empty array\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/words?q=%",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"words"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "%"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Searching for  not saved word test - negative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is an empty array\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('array').that.is.empty;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/words?q=memento",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"words"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "memento"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains right message\", function () {\r",
+									"    pm.expect(pm.response.text()).contain(\"You were successfully logged out\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mark word as memorized",
+			"item": [
+				{
+					"name": "Login to app",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains right message\", function () {\r",
+									"    pm.expect(pm.response.text()).contain(\"You were successfully logged in\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "{{testUser}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{testUserPassword}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark word as memorized test - positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body(\"OK\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "wordId",
+									"value": "{{wordForMemorizeID}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/memorize",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"memorize"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trying to mark a word with a non-existent ID as memorized test - negative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 400\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body(\"Error\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "wordId",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/memorize",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"memorize"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains right message\", function () {\r",
+									"    pm.expect(pm.response.text()).contain(\"You were successfully logged out\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete word",
+			"item": [
+				{
+					"name": "Delete saved word test - positive",
+					"item": [
+						{
+							"name": "Login to app",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body contains right message\", function () {\r",
+											"    pm.expect(pm.response.text()).contain(\"You were successfully logged in\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "{{testUser}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{testUserPassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
 						},
 						{
-							"key": "username",
-							"value": "Tester",
-							"type": "text"
+							"name": "Checking if a word is in the database",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/words/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"words",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{wordForDeleteID}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deleting a word from the database",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body is correct\", function () {\r",
+											"    pm.response.to.have.body(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/words/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"words",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{wordForDeleteID}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Checking if a word has been deleted",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/words/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"words",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{wordForDeleteID}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body contains right message\", function () {\r",
+											"    pm.expect(pm.response.text()).contain(\"You were successfully logged out\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/logout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"logout"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
-				"url": {
-					"raw": "localhost:5000/register",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"register"
+				{
+					"name": "Trying to delete a word with a non-existent ID test - negative",
+					"item": [
+						{
+							"name": "Login to app",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body contains right message\", function () {\r",
+											"    pm.expect(pm.response.text()).contain(\"You were successfully logged in\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "{{testUser}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{testUserPassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Try to delete the non-existent word ID test - negative",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body is correct\", function () {\r",
+											"    pm.response.to.have.body(\"ERROR\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/words/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"words",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{wordForDeleteID}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body contains right message\", function () {\r",
+											"    pm.expect(pm.response.text()).contain(\"You were successfully logged out\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/logout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"logout"
+									]
+								}
+							},
+							"response": []
+						}
 					]
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Word not found id Database",
+			"item": [
+				{
+					"name": "Login to app",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains right message\", function () {\r",
+									"    pm.expect(pm.response.text()).contain(\"You were successfully logged in\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "{{testUser}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{testUserPassword}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Word not found test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/words/0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"words",
+								"0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains right message\", function () {\r",
+									"    pm.expect(pm.response.text()).contain(\"You were successfully logged out\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
