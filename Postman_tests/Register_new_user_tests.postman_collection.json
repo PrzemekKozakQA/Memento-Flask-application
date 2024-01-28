@@ -18,7 +18,7 @@
 							"    pm.expect(pm.response.code).to.equal(200);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Body is correct\", function () {\r",
+							"pm.test(\"Correct body text\", function () {\r",
 							"    pm.response.to.have.body(\"OK\");\r",
 							"});"
 						],
