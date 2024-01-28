@@ -5,9 +5,9 @@ on:
     branches:
       - "main"
       - "add_tests_in_Postman"
-    paths:
-      - "app/**"
-      - "Postman_tests/**"
+    # paths:
+    #   - "app/**"
+    #   - "Postman_tests/**"
 
 jobs:
   build:
@@ -20,7 +20,7 @@ jobs:
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag mement_test:latest
       - name: run Docker image
-        run: docker run -p 3000:3000 -d mementTest
+        run: docker run -p 3000:3000 -d mement_test
       - name: Run Postman API tests
         run: postman collection run "Postman_tests\Register_new_user_tests.postman_collection.json" 
       # - name: Login to Docker Hub
