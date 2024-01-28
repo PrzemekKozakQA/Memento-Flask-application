@@ -21,7 +21,7 @@ $(document).ready(function () {
                 // receiving responses from the backend
                 .done(function (response) {
                     // if the username can be registered, fields for creating a password are shown
-                    // preventing editing of username and addin style
+                    // preventing editing of username and adding style
                     $('#usernameInput').prop("readonly", true).addClass('read-only-style');
                     // hiding warnings if they were previously displayed
                     $('#warning').empty();
