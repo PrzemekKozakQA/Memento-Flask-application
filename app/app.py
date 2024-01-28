@@ -57,7 +57,7 @@ def register():
             else:
                 return "OK", 200
 
-        # The following form request processing is necessary if user has disabled JS scripts
+        # The following form request processing is necessary if user has disabled JS scripts in his browser
         if username_err:
             flash(username_err, "danger")
             return redirect(request.url)
@@ -94,7 +94,6 @@ def login():
     # Forget any user_id if logged user has proceeded to register endpoint
     # Added a second parameter "None" to handle the error if the "user_id" key is not found
     session.pop("user_id", None)
-    print(generate_password_hash("tester123"))
 
     ### POST method ###
     if request.method == "POST":
@@ -261,6 +260,7 @@ def words():
         flash("Added successfully!", "success")
         return redirect("/add")
 
+    ### GET method ###
     if request.method == "GET":
         q = request.args.get("q")
         # if searched word is empty
@@ -327,8 +327,6 @@ def word(id):
         if not updated_word == word_data_row[0].get("word") and is_word_repeated(updated_word):
             return redirect(request.url)
 
-        print(
-            f'dane zmienionego słowa: {updated_word}, {updated_definition}, {int(is_memorized)}, {id}, {session["user_id"]}')
         # Insert data to DB
         changed_row_num = db.execute("UPDATE words SET word=?, definition=?, isMemorized=? WHERE id=? AND userId=?",
                                      updated_word, updated_definition, int(is_memorized), id, session["user_id"])
