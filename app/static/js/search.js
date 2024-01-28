@@ -2,6 +2,16 @@ import {
     displayWarning
 } from "./helpers.js";
 
+// function that escapes HTML code
+function escapeHTMLcode(text) {
+    text = text.replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    return text;
+}
+
 // script dynamically displays search results
 $(document).ready(function () {
     $('#search').on('input', async function (event) {
@@ -20,8 +30,8 @@ $(document).ready(function () {
                 let checkboxOn = (data[i].isMemorized == 1) ? "checked" : ""
                 list_of_result += `<tr>
                                         <th scope="row">${(i + 1)}</th>
-                                        <td>${data[i].word}</td>
-                                        <td>${data[i].definition}</td>
+                                        <td>${escapeHTMLcode(data[i].word)}</td>
+                                        <td>${escapeHTMLcode(data[i].definition)}</td>
                                         <td><input class="form-check-input" type="checkbox" ${checkboxOn} disabled/></td>
                                         <td><a class="btn btn-info btn-sm" role="button" href="/words/${data[i].id}">Edit</a></td>
                                         <td><button class="btn btn-secondary btn-sm" type="button" id=${data[i].id}>Delete</button></td>
