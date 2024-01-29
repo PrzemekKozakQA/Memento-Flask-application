@@ -17,12 +17,12 @@ jobs:
         uses: actions/checkout@v4
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag memento_test:latest
-      - name: run Docker image
+      - name: run Docker container
         run: docker run -p 5000:5000 -d memento_test
       - name: Install Postman CLI
         run: curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
       - name: Run Postman API tests
-        run: postman collection run "Postman_tests/Register_new_user_tests.postman_collection.json" -e "Postman_tests/Test_ENV.postman_environment.json"
+        run: postman collection run "Postman_tests/Memento_application_integration_tests.postman_collection.json" -e "Postman_tests/Test_ENV.postman_environment.json"
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -30,7 +30,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Build and push
+      - name: Build and push Docker image to DockerHub
         uses: docker/build-push-action@v5
         with:
           context: .
