@@ -10,7 +10,7 @@
 			"name": "New user registration",
 			"item": [
 				{
-					"name": "Positive tests",
+					"name": "Check new username test - positive",
 					"item": [
 						{
 							"name": "Name for a new user is available test - positive",
@@ -19,7 +19,6 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"\r",
 											"pm.test(\"Response status code is 200\", function () {\r",
 											"    pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
@@ -45,7 +44,7 @@
 										},
 										{
 											"key": "username",
-											"value": "newUser",
+											"value": "{{$randomUserName}}",
 											"type": "text"
 										}
 									]
@@ -65,7 +64,7 @@
 					]
 				},
 				{
-					"name": "Negative tests",
+					"name": "Incorrect username data",
 					"item": [
 						{
 							"name": "User already exists test - negative",
@@ -75,7 +74,7 @@
 									"script": {
 										"exec": [
 											"pm.test(\"Body contains right message\", function () {\r",
-											"    pm.expect(pm.response.text()).contain(\"User with this name already exists, choose a different name\");\r",
+											"    pm.expect(pm.response.json().message).contain(\"User with this name already exists, choose a different name\");\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -95,7 +94,7 @@
 										},
 										{
 											"key": "username",
-											"value": "{{testUser}}",
+											"value": "{{testUsername}}",
 											"type": "text"
 										}
 									]
@@ -120,7 +119,7 @@
 									"script": {
 										"exec": [
 											"pm.test(\"Body contains right message\", function () {\r",
-											"    pm.expect(pm.response.text()).contain(\"Username can not be empty\");\r",
+											"    pm.expect(pm.response.json().message).contain(\"Username can not be empty\");\r",
 											"});\r",
 											"\r",
 											""
@@ -167,7 +166,7 @@
 									"script": {
 										"exec": [
 											"pm.test(\"Body contains right message\", function () {\r",
-											"    pm.expect(pm.response.text()).contain(\"Username can not be empty\");\r",
+											"    pm.expect(pm.response.json().message).contain(\"Username can not be empty\");\r",
 											"});\r",
 											"\r",
 											""
@@ -214,7 +213,7 @@
 									"script": {
 										"exec": [
 											"pm.test(\"Body contains right message\", function () {\r",
-											"    pm.expect(pm.response.text()).contain(\"Username can not be empty\");\r",
+											"    pm.expect(pm.response.json().message).contain(\"Username can not be empty\");\r",
 											"});\r",
 											"\r",
 											""
@@ -282,11 +281,157 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "Not allowed HTTP methods - negative",
+					"item": [
+						{
+							"name": "Try to register with PUT method - negative",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "ajaxCheckUsername",
+											"value": "true",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "newUser",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Try to register with PATCH method - negative",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "ajaxCheckUsername",
+											"value": "true",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "newUser",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send DELETE method - negative",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 405\", function () {",
+									"    pm.response.to.have.status(405);",
+									"});",
+									"",
+									"pm.test(\"Body contains right message\", function () {",
+									"    pm.expect(pm.response.text()).contain(\"The method is not allowed for the requested URL\");",
+									"});",
+									""
+								]
+							}
+						}
+					]
 				}
 			]
 		},
 		{
-			"name": "Word search",
+			"name": "Word search  - E2E test",
 			"item": [
 				{
 					"name": "Login to app",
@@ -315,7 +460,7 @@
 							"formdata": [
 								{
 									"key": "username",
-									"value": "{{testUser}}",
+									"value": "{{testUsername}}",
 									"type": "text"
 								},
 								{
@@ -363,11 +508,16 @@
 									"        }\r",
 									"    };\r",
 									"\r",
-									"    pm.response.to.has.jsonSchema(ResponseSchema)\r",
+									"    pm.response.to.has.jsonSchema(ResponseSchema);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Response is not an empty array\", function () {\r",
 									"    pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The searched word has the correct name\", function () {\r",
+									"    let searchedWord = pm.response.json()[0].word;\r",
+									"    pm.expect(searchedWord.toLowerCase()).to.eql(pm.environment.get(\"wordToSearchFor\").toLowerCase());\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -378,7 +528,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/words?q=java",
+							"raw": "{{baseUrl}}/words?q={{wordToSearchFor}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -388,7 +538,7 @@
 							"query": [
 								{
 									"key": "q",
-									"value": "java"
+									"value": "{{wordToSearchFor}}"
 								}
 							]
 						}
@@ -421,7 +571,7 @@
 									"        }\r",
 									"    };\r",
 									"\r",
-									"    pm.response.to.has.jsonSchema(ResponseSchema)\r",
+									"    pm.response.to.has.jsonSchema(ResponseSchema);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Response is not an empty array\", function () {\r",
@@ -480,7 +630,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/words?q=memento",
+							"raw": "{{baseUrl}}/words?q={{wordNotExistInDB}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -490,7 +640,7 @@
 							"query": [
 								{
 									"key": "q",
-									"value": "memento"
+									"value": "{{wordNotExistInDB}}"
 								}
 							]
 						}
@@ -537,183 +687,7 @@
 			"name": "Mark word as memorized",
 			"item": [
 				{
-					"name": "Login to app",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Body contains right message\", function () {\r",
-									"    pm.expect(pm.response.text()).contain(\"You were successfully logged in\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "username",
-									"value": "{{testUser}}",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "{{testUserPassword}}",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{baseUrl}}/login",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Mark word as memorized test - positive",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.expect(pm.response.code).to.equal(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Body is correct\", function () {\r",
-									"    pm.response.to.have.body(\"OK\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "wordId",
-									"value": "{{wordForMemorizeID}}",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{baseUrl}}/memorize",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"memorize"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Trying to mark a word with a non-existent ID as memorized test - negative",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 400\", function () {\r",
-									"    pm.expect(pm.response.code).to.equal(400);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Body is correct\", function () {\r",
-									"    pm.response.to.have.body(\"Error\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "wordId",
-									"value": "0",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{baseUrl}}/memorize",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"memorize"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Logout",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Body contains right message\", function () {\r",
-									"    pm.expect(pm.response.text()).contain(\"You were successfully logged out\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/logout",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"logout"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Delete word",
-			"item": [
-				{
-					"name": "Delete saved word test - positive",
+					"name": "Mark word as memorized - E2E test",
 					"item": [
 						{
 							"name": "Login to app",
@@ -742,7 +716,7 @@
 									"formdata": [
 										{
 											"key": "username",
-											"value": "{{testUser}}",
+											"value": "{{testUsername}}",
 											"type": "text"
 										},
 										{
@@ -765,7 +739,7 @@
 							"response": []
 						},
 						{
-							"name": "Checking if a word is in the database",
+							"name": "Get the id of the word to mark as memorized",
 							"event": [
 								{
 									"listen": "test",
@@ -773,6 +747,103 @@
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is not an empty array\", function () {\r",
+											"    let responseData = pm.response.json();\r",
+											"    let wordsToRemember = _.filter(responseData, { \"isMemorized\": 0 });\r",
+											"\r",
+											"    pm.expect(wordsToRemember).to.be.an('array').that.is.not.empty;\r",
+											"\r",
+											"    pm.collectionVariables.set(\"wordToMemorizeID\", wordsToRemember[0].id);\r",
+											"    pm.collectionVariables.set(\"wordToMemorizeName\", wordsToRemember[0].word);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/words?q=%",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"words"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "%"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mark word as memorized test - positive",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body is correct\", function () {\r",
+											"    pm.response.to.have.body(\"OK\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "wordId",
+											"value": "{{wordToMemorizeID}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/memorize",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"memorize"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Word has been marked correctly test - positive",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Word is marked as memorized\", function () {\r",
+											"    let markedWord = pm.response.json()[0];\r",
+											"    pm.expect(markedWord.isMemorized).eqls(1);\r",
+											"    pm.expect(markedWord.word).eqls(pm.collectionVariables.get(\"wordToMemorizeName\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -783,18 +854,452 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/words/:id",
+									"raw": "{{baseUrl}}/words?q={{wordToMemorizeName}}",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"words",
-										":id"
+										"words"
 									],
-									"variable": [
+									"query": [
 										{
-											"key": "id",
-											"value": "{{wordForDeleteID}}"
+											"key": "q",
+											"value": "{{wordToMemorizeName}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body contains right message\", function () {\r",
+											"    pm.expect(pm.response.text()).contain(\"You were successfully logged out\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/logout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"logout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Try to mark a word with a non-existent ID as memorized",
+					"item": [
+						{
+							"name": "Login to app",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body contains right message\", function () {\r",
+											"    pm.expect(pm.response.text()).contain(\"You were successfully logged in\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "{{testUsername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{testUserPassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Trying to mark a word with a non-existent ID as memorized test - negative",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 400\", function () {\r",
+											"    pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body is correct\", function () {\r",
+											"    pm.response.to.have.body(\"Error\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "wordId",
+											"value": "0",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/memorize",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"memorize"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body contains right message\", function () {\r",
+											"    pm.expect(pm.response.text()).contain(\"You were successfully logged out\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/logout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"logout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Try to mark a word as memorized with not allowed method",
+					"item": [
+						{
+							"name": "Login to app",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body contains right message\", function () {\r",
+											"    pm.expect(pm.response.text()).contain(\"You were successfully logged in\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "{{testUsername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{testUserPassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Trying to mark a word  as memorized with PUT method test - negative",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 405\", function () {\r",
+											"    pm.expect(pm.response.code).to.equal(405);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "wordId",
+											"value": "0",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/memorize",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"memorize"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Trying to mark a word  as memorized with PATCH method test - negative",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 405\", function () {\r",
+											"    pm.expect(pm.response.code).to.equal(405);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "wordId",
+											"value": "0",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/memorize",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"memorize"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body contains right message\", function () {\r",
+											"    pm.expect(pm.response.text()).contain(\"You were successfully logged out\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/logout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"logout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Delete word",
+			"item": [
+				{
+					"name": "Delete saved word - E2E test - positive",
+					"item": [
+						{
+							"name": "Login to app",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body contains right message\", function () {\r",
+											"    pm.expect(pm.response.text()).contain(\"You were successfully logged in\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "{{testUsername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{testUserPassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get the id of the word to delete",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is not an empty array\", function () {\r",
+											"    pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty;\r",
+											"    pm.collectionVariables.set(\"wordForDeleteID\", pm.response.json()[0].id )\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/words?q=%",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"words"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "%"
 										}
 									]
 								}
@@ -945,7 +1450,7 @@
 									"formdata": [
 										{
 											"key": "username",
-											"value": "{{testUser}}",
+											"value": "{{testUsername}}",
 											"type": "text"
 										},
 										{
@@ -1001,7 +1506,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "{{wordForDeleteID}}"
+											"value": "0"
 										}
 									]
 								}
@@ -1076,7 +1581,7 @@
 							"formdata": [
 								{
 									"key": "username",
-									"value": "{{testUser}}",
+									"value": "{{testUsername}}",
 									"type": "text"
 								},
 								{
@@ -1164,6 +1669,20 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"variable": [
+		{
+			"key": "wordForDeleteID",
+			"value": ""
+		},
+		{
+			"key": "wordToMemorizeID",
+			"value": ""
+		},
+		{
+			"key": "wordToMemorizeName",
+			"value": ""
 		}
 	]
 }

@@ -7,8 +7,8 @@ db = SQL("sqlite:///memento.db")
 
 
 def login_required(f):
-    ### Decorate routes to require login. 
-    ### http://flask.pocoo.org/docs/0.12/patterns/viewdecorators/
+    # Decorate routes to require login.
+    # http://flask.pocoo.org/docs/0.12/patterns/viewdecorators/
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if session.get("user_id") is None:
@@ -33,20 +33,19 @@ def get_username_err(username):
 
 
 def is_password_and_confirmation_valid(password, confirmation):
-    result = True
     # Checking if password or confirmation is empty
     if not password or not confirmation:
         flash("Password and its confirmation can not be empty!!!", "danger")
-        result = False
+        return False
     # Checking whether the password and its confirmation have at least 5 different characters
     if len(set(password)) < 5:
         flash("The password must contain at least 5 different characters!!!", "danger")
-        result = False
+        return False
     # Checking if password and confirmation are the same
     if password != confirmation:
         flash("The password and its confirmation cannot be different!!!", "danger")
-        result = False
-    return result
+        return False
+    return True
 
 
 def is_word_or_def_empty(word, definition):
