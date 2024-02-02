@@ -53,7 +53,7 @@ def register():
         if request.form.get("ajaxCheckUsername") == "true":
             if username_err:
                 # Send message with error message as json
-                return jsonify(dict(message=username_err)), 400
+                return jsonify(dict(message=username_err)), 400, {"Content-Type": "application/json"}
             else:
                 return "OK", 200
 
@@ -275,7 +275,7 @@ def words():
             words_data = db.execute(
                 "SELECT word, definition, isMemorized, id FROM words WHERE word LIKE ? AND userId=? ORDER BY word", q.strip() + "%", session["user_id"])
         # dumps() parse list od dict to json
-        return json.dumps(words_data)
+        return json.dumps(words_data), 200, {"Content-Type": "application/json"}
 
 
 @app.route("/words/<id>", methods=["DELETE", "POST", "GET"])
@@ -384,9 +384,9 @@ def quiz():
             return redirect("/quiz")
 
         if user_answer == session["quiz_answer"]:
-            return jsonify(dict(status="right"))
+            return jsonify(dict(status="right")), 200, {"Content-Type": "application/json"}
         else:
-            return jsonify(dict(status="wrong"))
+            return jsonify(dict(status="wrong")), 200, {"Content-Type": "application/json"}
 
     ### GET method ###
     rows_user_words = db.execute(

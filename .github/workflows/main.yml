@@ -1,11 +1,13 @@
-name: build Docker container and push to Docker Hub
+name: build Docker container, run tests in Postman and push to Docker Hub
 
 on:
   push:
     branches:
       - "main"
+      - "add_tests_in_Postman"
     paths:
       - "app/**"
+      - "Postman_tests/**"
 
 jobs:
   build:
@@ -13,25 +15,25 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag memento_test:latest
+      - name: run Docker container
+        run: docker run -p 5000:5000 -d memento_test
       - name: Install Postman CLI
         run: curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag mementTest:latest
-      - name: run Docker image
-        run: docker run -p 3000:3000 -d mementTest
       - name: Run Postman API tests
-        run: postman collection run "Postman_tests\Register_new_user_tests.postman_collection.json" 
-      # - name: Login to Docker Hub
-      #   uses: docker/login-action@v3
-      #   with:
-      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
-      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
-      # - name: Set up Docker Buildx
-      #   uses: docker/setup-buildx-action@v3
-      # - name: Build and push
-      #   uses: docker/build-push-action@v5
-      #   with:
-      #     context: .
-      #     file: ./Dockerfile
-      #     push: true
-      #     tags: ${{ secrets.DOCKERHUB_USERNAME }}/memento_app:latest , ${{ secrets.DOCKERHUB_USERNAME }}/memento_app:1.0.0
+        run: postman collection run "Postman_tests/Memento_application_integration_tests.postman_collection.json" -e "Postman_tests/Test_ENV.postman_environment.json"
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and push Docker image to DockerHub
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/memento_app:latest , ${{ secrets.DOCKERHUB_USERNAME }}/memento_app:1.0.0
