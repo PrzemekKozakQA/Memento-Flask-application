@@ -43,7 +43,7 @@ $(document).ready(function () {
 
 // script that deletes a word/definition from the database
 $(document).ready(function () {
-    // button selector added as an additional parameter in on() - needed because data is added dynamically during the search
+    // button selector added as an additional parameter in "on()" method is needed because data was added dynamically during the search
     $('#results').on('click', '.btn.btn-secondary.btn-sm', function (event) {
         let id = $(this).attr('id');
         //sending a deletion request
