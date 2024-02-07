@@ -39,7 +39,7 @@ def page_not_found(error):
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    # Forget any user_id if logged user has proceeded to register endpoint
+    # Forget any user_id if logged user has proceeded to register endpoint by changing URL
     session.pop("user_id", None)
 
     ### POST method ###
