@@ -2,9 +2,6 @@ name: build Docker container, run tests in Postman and push to Docker Hub
 
 on:
   push:
-    branches:
-      - "main"
-      - "add_tests_in_Postman"
     paths:
       - "app/**"
       - "Postman_tests/**"
