@@ -1,6 +1,6 @@
 # Memento:
-<p style="text-align: center;">
-    <img src="app/static/img/memory.png" alt="Memento app icon" width="120" height="auto"/>  
+<p align="center">
+    <img src="app/static/img/memory.png" alt="Memento app icon" width="120" height="auto">  
 </p>
 Memento is a web application designed to help users learn and remember difficult concepts or words from foreign languages.  
 
