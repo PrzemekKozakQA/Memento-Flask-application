@@ -1,6 +1,7 @@
 # Memento:
-<img src="app/static/img/memory.png" alt="Memento app icon" width="120" height="auto"/>  
-
+<p style="text-align: center;">
+    <img src="app/static/img/memory.png" alt="Memento app icon" width="120" height="auto"/>  
+</p>
 Memento is a web application designed to help users learn and remember difficult concepts or words from foreign languages.  
 
 This application is my original project, which is also the final project of the CS50x course at Harvard University.  
