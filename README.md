@@ -1,9 +1,11 @@
 # Memento:
-> Memento is a web application designed to help users learn and remember difficult concepts or words from foreign languages.  
+<img src="app/static/img/memory.png" alt="Memento app icon" width="120" height="auto"/>  
 
-> This application is my original project, which is also the final project of the CS50x course at Harvard University.  
-_I have very basic knowledge of Python, so please be gentle when reading my code._  
-> As part of the learning process, I add further automatic tests to the application, which I also run in CI via Github Actions.  
+Memento is a web application designed to help users learn and remember difficult concepts or words from foreign languages.  
+
+This application is my original project, which is also the final project of the CS50x course at Harvard University.  
+I have very basic knowledge of Python, so please be gentle when reading my code.  
+As part of the learning process, I add further automatic tests to the application, which I also run in CI via Github Actions.  
 
 > Live demo available [_here_](https://test-memento.onrender.com).  
 > Test user: **Tester** password: **tester123**  
