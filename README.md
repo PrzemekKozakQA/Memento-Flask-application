@@ -80,43 +80,43 @@ More information about CS50x is available on [the course website](https://cs50.h
           The installation instructions below will be suitable for Ubuntu 22.04.  
           For Windows I recommend using WSL with Ubuntu 22.04 installed._  
 
-    To launch Memento applications, execute the following commands in the terminal:
-        1. Update apt package manager:  
-                ```
-                sudo apt update
-                ```
-        2. Install the necessary packages:  
-                ```
-                sudo apt install -y python3 python3-pip python3-venv
-                ```
-        3. Download the source code files from GitHub:  
-                ```
-                git clone https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app.git
-                ```
-        4. Change to the "app" directory in the application code directory:  
-                ```
-                cd Memento-memory_helper_web_app/app/
-                ```
-        5. Create a Python virtual environment:  
-                ```
-                python3 -m venv venv
-                ```
-        6. Activate the previously created virtual environment:  
-                ```
-                source venv/bin/activate
-                ```
-        7. Download the necessary libraries:  
-                ```
-                pip3 install -r requirements.txt
-                ```
-        8. Run the application in Flask in debug mode with the command:  
-                ```
-                flask run -p 5000
-                ```  
-                or using the WSGI Gunicorn server with the command  
-                ```
-                gunicorn -b 127.0.0.1:5000 app:app
-                ```
+    To launch Memento applications, execute the following commands in the terminal:  
+    1. Update apt package manager:
+        ```
+        sudo apt update
+        ```
+    2. Install the necessary packages:
+        ```
+        sudo apt install -y python3 python3-pip python3-venv
+        ```
+    3. Download the source code files from GitHub:
+        ```
+        git clone https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app.git
+        ```
+    4. Change to the "app" directory in the application code directory:
+        ```
+        cd Memento-memory_helper_web_app/app/
+        ```
+    5. Create a Python virtual environment:
+        ```
+        python3 -m venv venv
+        ```
+    6. Activate the previously created virtual environment:
+        ```
+        source venv/bin/activate
+        ```
+    7. Download the necessary libraries:
+        ```
+        pip3 install -r requirements.txt
+        ``` 
+    8. Run the application in Flask in debug mode with the command:  
+        ```
+        flask run -p 5000
+        ``` 
+        or using the WSGI Gunicorn server with the command
+        ```  
+        gunicorn -b 127.0.0.1:5000 app:app
+        ```  
             
     The application should be available in your browser at **http://127.0.0.1:5000/**
 
