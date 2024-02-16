@@ -3,7 +3,7 @@
     <img src="app/static/img/memory.png" alt="Memento app icon" width="120" height="auto">  
 </p>
 
-***Memento is a web application designed to help users learn and remember difficult concepts or words from foreign languages.The application allows the user to create an individual account, on which they can add, edit and delete concepts or words along with their meanings. The user can also search for concepts or words that he has already added and practice his memory and knowledge by taking a quiz.***  
+**Memento is a web application designed to help users learn and remember difficult concepts or words from foreign languages.The application allows the user to create an individual account, on which they can add, edit and delete concepts or words along with their meanings. The user can also search for concepts or words that he has already added and practice his memory and knowledge by taking a quiz.**  
 
 This application is my original project, which is also the final project of the CS50x course at Harvard University.  
 I have very basic knowledge of Python, so please be gentle when reading my code.  
@@ -81,29 +81,47 @@ More information about CS50x is available on [the course website](https://cs50.h
         For Windows I recommend using WSL with Ubuntu 22.04 installed._  
 
     To launch Memento applications, execute the following commands in the terminal:
-    1. Update apt package manager:  
-        ```sudo apt update```
-    2. Install the necessary packages:  
-        ```sudo apt install -y python3 python3-pip python3-venv```
-    3. Download the source code files from GitHub:  
-        ```git clone https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app.git```
-    4. Change to the "app" directory in the application code directory:  
-        ```cd Memento-memory_helper_web_app/app/```
-    5. Create a Python virtual environment:  
-        ```python3 -m venv venv```
-    6. Activate the previously created virtual environment:  
-        ```source venv/bin/activate```
-    7. Download the necessary libraries:  
-        ```pip3 install -r requirements.txt```
-    8. Run the application in Flask in debug mode with the command:  
-        ```flask run -p 5000```  
+  1) Update apt package manager:  
+        ```
+        sudo apt update
+        ```
+  2) Install the necessary packages:  
+        ```
+        sudo apt install -y python3 python3-pip python3-venv
+        ```
+  3) Download the source code files from GitHub:  
+        ```
+        git clone https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app.git
+        ```
+  4) Change to the "app" directory in the application code directory:  
+        ```
+        cd Memento-memory_helper_web_app/app/
+        ```
+  5) Create a Python virtual environment:  
+        ```
+        python3 -m venv venv
+        ```
+  6) Activate the previously created virtual environment:  
+        ```
+        source venv/bin/activate
+        ```
+  7) Download the necessary libraries:  
+        ```
+        pip3 install -r requirements.txt
+        ```
+  8) Run the application in Flask in debug mode with the command:  
+        ```
+        flask run -p 5000
+        ```  
         or using the WSGI Gunicorn server with the command  
-        ```gunicorn -b 127.0.0.1:5000 app:app ```
+        ```
+        gunicorn -b 127.0.0.1:5000 app:app
+        ```
     
     The application should be available in your browser at **http://127.0.0.1:5000/**
 
     _Note:
-    To end the application, press **Ctrl+C**. To exit the virtual environment, enter the ```deactivate``` command.  
+    To stop the application, press **Ctrl+C**. To exit the virtual environment, enter the ```deactivate``` command.  
     If you want to run the application again, just repeat steps 4, 6 and 8._
 
 
