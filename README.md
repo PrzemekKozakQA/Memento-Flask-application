@@ -113,7 +113,7 @@ More information about CS50x is available on [the course website](https://cs50.h
         
         flask run -p 5000
 
-    <p>&emsp;&emsp;or using the WSGI Gunicorn server with the command:</p>
+    <p>&emsp;or using the WSGI Gunicorn server with the command:</p>
 
         gunicorn -b 127.0.0.1:5000 app:app
 
