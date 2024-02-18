@@ -149,10 +149,10 @@ More information about CS50x is available on [the course website](https://cs50.h
 ## Continuous Integration (CI) with Github Actions
 In the project, I used GitHub Actions to run tests and upload a new version of the application image to DockerHub.  
 
-The configuration for CI is located in the '.yml' files in the [workflows](.github\workflows) directory.
+The configuration for CI is located in the '.yml' files in the [workflows](.github\workflows\) directory.
 After pushing the changes to development branches (all except main), CI is launched with the configuration from the [test_changes.yml](.github\workflows\test_changes.yml) file. The file contains the configuration for building the environment and running tests.  
 
-When changes are merged from the development branches to the main branch, CI is launched with the configuration from the [test_and_push_to_DockerHub.yml](\.github\workflows\test_and_push_to_DockerHub.yml) file. In addition to performing tests, this configuration includes instructions for releasing a version on DockerHub.  
+When changes are merged from the development branches to the main branch, CI is launched with the configuration from the [test_and_push_to_DockerHub.yml](.github\workflows\test_and_push_to_DockerHub.yml) file. In addition to performing tests, this configuration includes instructions for releasing a version on DockerHub.  
 
 Additionally, after merging the changes to the main branch, a test report is created in an .html file. This file can be downloaded from GitHub by going to the [Actions tab](https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app/actions), details of a specific run in the Artifacts section.
 
