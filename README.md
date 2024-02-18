@@ -171,7 +171,7 @@ Scope of tested functionalities:
 - Providing information that the word id was not found
 
 Running tests in the local environment:
-    To run the tests, download the files from the Postman_Tests folder and then import the collection file (Memento_application_integration_tests.postman_collection.json) and the environment file (Test_ENV.postman_environment.json) to Postman. The exact import process is described in the [Postman documentation](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-data/#import-postman-data).
+    To run the tests, download the files from the Postman_Tests folder and then import the collection file [Memento_application_integration_tests.postman_collection.json](/Postman_tests/Memento_application_integration_tests.postman_collection.json) and the environment file [Test_ENV.postman_environment.json](/Postman_tests/Test_ENV.postman_environment.json) to Postman. The exact import process is described in the [Postman documentation](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-data/#import-postman-data).
     After importing the data, remember to select an environment and run the Memeno application locally before running the tests.
 
 ### GUI tests in Selenium:
