@@ -5,7 +5,7 @@
 
 **Memento is a web application that helps users learn and remember difficult concepts or words from foreign languages. The application allows the user to add, edit and delete words along with their meaning and practice memory by participating in a quiz.**  
 
-This application is my original project, which is also the final project of the CS50x course at Harvard University.  
+This application is my original project, which is also the final project of the [CS50x course](https://cs50.harvard.edu/x/2023/) at Harvard University.  
 I have very basic knowledge of Python, so please be gentle when reading my code.  
 As part of my professional development as a tester, I add further automatic tests to the application, which I also run in CI via Github Actions. 
 
@@ -29,7 +29,7 @@ Memento is a web application that helps users learn and remember difficult conce
 
 The application is my final project for the CS50x course at Harvard University. During this course, I learned the basics of Python, the Flask framework, HTML, CSS and JS.
 Even though the application was created as a final project, the idea for it and its implementation was not suggested and is entirely my idea.
-More information about CS50x is available on [the course website](https://cs50.harvard.edu/x/2023/).
+More information about CS50x is available on [the course website](https://cs50.harvard.edu/x/2023/ ).
 
 
 ## Features:
