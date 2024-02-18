@@ -80,7 +80,7 @@ def register():
         return redirect("/")
 
     ### GET method ###
-    else:
+    if request.method == "GET":
         return render_template("register.html")
 
 
@@ -129,7 +129,8 @@ def login():
         return redirect("/")
 
     ### GET method ###
-    return render_template("login.html")
+    if request.method == "GET":
+        return render_template("login.html")
 
 
 @app.route("/logout")
@@ -338,16 +339,17 @@ def memorize():
             return "OK", 200
 
     ### GET method ###
-    # Get all user's unremembered words
-    user_words_data = db.execute(
-        "SELECT word, definition, id FROM words WHERE userId=? AND isMemorized=0", session["user_id"])
+    if request.method == "GET":
+        # Get all user's unremembered words
+        user_words_data = db.execute(
+            "SELECT word, definition, id FROM words WHERE userId=? AND isMemorized=0", session["user_id"])
 
-    # Checking if there are words to remember and choose random word
-    if len(user_words_data) > 0:
-        word_data = random.choice(user_words_data)
-    else:
-        word_data = {}
-    return render_template("memorize.html", word_data=word_data)
+        # Checking if there are words to remember and choose random word
+        if len(user_words_data) > 0:
+            word_data = random.choice(user_words_data)
+        else:
+            word_data = {}
+        return render_template("memorize.html", word_data=word_data)
 
 
 @app.route("/quiz", methods=["GET", "POST"])
@@ -366,26 +368,27 @@ def quiz():
             return jsonify(dict(status="wrong")), 200, {"Content-Type": "application/json"}
 
     ### GET method ###
-    rows_user_words = db.execute(
-        "SELECT word FROM words WHERE userId=?", session["user_id"])
+    if request.method == "GET":
+        rows_user_words = db.execute(
+            "SELECT word FROM words WHERE userId=?", session["user_id"])
 
-    user_words = [dict["word"] for dict in rows_user_words]
+        user_words = [dict["word"] for dict in rows_user_words]
 
-    # Checking whether the user has added enough words to complete the quiz
-    if len(user_words) < 3:
-        words = []
-        question = ""
-    else:
-        # Getting random words without repetitions
-        words = random.sample(user_words, 4)
+        # Checking whether the user has added enough words to complete the quiz
+        if len(user_words) < 3:
+            words = []
+            question = ""
+        else:
+            # Getting random words without repetitions
+            words = random.sample(user_words, 4)
 
-        # Select answer word and getting a question for it
-        answer = random.choice(words)
-        question_data = db.execute(
-            "SELECT definition FROM words WHERE word=? AND userId=?", answer, session["user_id"])
-        question = question_data[0].get("definition")
+            # Select answer word and getting a question for it
+            answer = random.choice(words)
+            question_data = db.execute(
+                "SELECT definition FROM words WHERE word=? AND userId=?", answer, session["user_id"])
+            question = question_data[0].get("definition")
 
-        # Saving the correct answer to the user's session file
-        session["quiz_answer"] = answer
+            # Saving the correct answer to the user's session file
+            session["quiz_answer"] = answer
 
-    return render_template("quiz.html", words=words, question=question)
+        return render_template("quiz.html", words=words, question=question)

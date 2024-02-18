@@ -3,7 +3,7 @@
     <img src="app/static/img/memory.png" alt="Memento app icon" width="120" height="auto">  
 </p>
 
-**Memento is a web application designed to help users learn and remember difficult concepts or words from foreign languages.The application allows the user to create an individual account, on which they can add, edit and delete concepts or words along with their meanings. The user can also search for concepts or words that he has already added and practice his memory and knowledge by taking a quiz.**  
+**Memento is a web application that helps users learn and remember difficult concepts or words from foreign languages. The application allows the user to add, edit and delete words along with their meaning and practice memory by participating in a quiz.**  
 
 This application is my original project, which is also the final project of the CS50x course at Harvard University.  
 I have very basic knowledge of Python, so please be gentle when reading my code.  
@@ -19,14 +19,13 @@ As part of my professional development as a tester, I add further automatic test
 * [Technical Stack](#technical-stack)
 * [Installation and running](#installation-and-running)
 * [Project file structure](#project-file-structure)
-* [Testing](#testing)
 * [Continuous Integration (CI) with Github Actions](#continuous-integration-ci-with-github-actions)
-* [Deploy to DockerHub](#deploy-to-dockerhub)
+* [Testing](#testing)
 * [Contact](#contact)
 
 
 ## General Information:
-Memento is a web application that helps users learn and remember difficult definitions or learn words from foreign languages. After creating an account, the user can add words and their meanings, browse them, search them, and has access to tools supporting memory. These include a quiz and a randomization of previously added content combined with an attempt to recall the meaning.
+Memento is a web application that helps users learn and remember difficult concepts or learn words from foreign languages. After creating an account, the user can add words and their meanings, browse them, search them, and has access to tools supporting memory. These include a quiz and a randomization of previously added content combined with an attempt to recall the meaning.
 
 The application is my final project for the CS50x course at Harvard University. During this course, I learned the basics of Python, the Flask framework, HTML, CSS and JS.
 Even though the application was created as a final project, the idea for it and its implementation was not suggested and is entirely my idea.
@@ -147,19 +146,36 @@ More information about CS50x is available on [the course website](https://cs50.h
     └── test_changes.yml - CI configuration file used when merging changes to a branch with planned changes
 ```
 
+## Continuous Integration (CI) with Github Actions
+In the project, I used GitHub Actions to run tests and upload a new version of the application image to DockerHub.  
+
+The configuration for CI is located in the '.yml' files in the [workflows](.github\workflows) directory.
+After pushing the changes to development branches (all except main), CI is launched with the configuration from the [test_changes.yml](.github\workflows\test_changes.yml) file. The file contains the configuration for building the environment and running tests.  
+
+When changes are merged from the development branches to the main branch, CI is launched with the configuration from the [test_and_push_to_DockerHub.yml](\.github\workflows\test_and_push_to_DockerHub.yml) file. In addition to performing tests, this configuration includes instructions for releasing a version on DockerHub.  
+
+Additionally, after merging the changes to the main branch, a test report is created in an .html file. This file can be downloaded from GitHub by going to the [Actions tab](https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app/actions), details of a specific run in the Artifacts section.
+
 
 ## Testing
-- TODO
 
+### Integration tests in Postman
+The frontend of the application uses the JQuery library to send queries to the backend, which are necessary to dynamically change some of the displayed content. To check this mechanism, I wrote integration tests in Postman.
+Files containing the test code and the file with environment variables are located in the [Postman_tests directory](\Postman_tests\).
 
-## Continuous Integration (CI) with Github Actions
-- TODO
-The project used GitHub Actions to build a Docker image with the Memento application. If application files are changed in the repository, the trigger will start building and releasing a new version of the image to Docker Hub.
-Details are available in the [Actions tab](https://github.com/PrzemekKozakQA/Memento_flask_app_CS50x_Final_project/actions).
+Scope of tested functionalities:
+- Providing information whether the username is already used or not when registering a new user.
+- Providing JSON with data when searching by the name of the saved word
+- Marking a word in the database as remembered
+- Deleting a word from the database
+- Providing information that the word id was not found
 
+Running tests in the local environment:
+    To run the tests, download the files from the Postman_Tests folder and then import the collection file (Memento_application_integration_tests.postman_collection.json) and the environment file (Test_ENV.postman_environment.json) to Postman. The exact import process is described in the [Postman documentation](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-data/#import-postman-data).
+    After importing the data, remember to select an environment and run the Memeno application locally before running the tests.
 
-## Deploy to DockerHub
-- TODO
+### GUI tests in Selenium:
+ - TODO
 
 
 ## Contact
