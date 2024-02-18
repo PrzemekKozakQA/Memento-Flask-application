@@ -161,7 +161,7 @@ Additionally, after merging the changes to the main branch, a test report is cre
 
 ### Integration tests in Postman
 The frontend of the application uses the JQuery library to send queries to the backend, which are necessary to dynamically change some of the displayed content. To check this mechanism, I wrote integration tests in Postman.
-Files containing the test code and the file with environment variables are located in the [Postman_tests directory](\Postman_tests\).
+Files containing the test code and the file with environment variables are located in the [Postman_tests director](/Postman_tests/).
 
 Scope of tested functionalities:
 - Providing information whether the username is already used or not when registering a new user.
