@@ -80,35 +80,35 @@ More information about CS50x is available on [the course website](https://cs50.h
           For Windows I recommend using WSL with Ubuntu 22.04 installed._  
 
     To launch Memento applications, execute the following commands in the terminal:  
-    1' Update apt package manager:
+    3.1 Update apt package manager:
 
         sudo apt update
 
-    2' Install the necessary packages:
+    3.2 Install the necessary packages:
         
         sudo apt install -y python3 python3-pip python3-venv
         
-    3' Download the source code files from GitHub:
+    3.3 Download the source code files from GitHub:
         
         git clone https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app.git
         
-    4' Change to the "app" directory in the application code directory:
+    3.4 Change to the "app" directory in the application code directory:
         
         cd Memento-memory_helper_web_app/app/
         
-    5' Create a Python virtual environment:
+    3.5 Create a Python virtual environment:
         
         python3 -m venv venv
         
-    6' Activate the previously created virtual environment:
+    3.6 Activate the previously created virtual environment:
         
         source venv/bin/activate
         
-    7' Download the necessary libraries:
+    3.7 Download the necessary libraries:
         
         pip3 install -r requirements.txt
          
-    8' Run the application in debug mode with Flask :  
+    3.8 Run the application in debug mode with Flask :  
         
         flask run -p 5000
 
@@ -121,7 +121,7 @@ More information about CS50x is available on [the course website](https://cs50.h
 
     _Note:
           To stop the application, press **Ctrl+C**. To exit the virtual environment, enter the ```deactivate``` command.  
-          If you want to run the application again, just repeat steps 4', 6' and 8'._
+          If you want to run the application again, just repeat steps 3.4, 3.6 and 3.8 ._
 
 
 ## Project file structure
