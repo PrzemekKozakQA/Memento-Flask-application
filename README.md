@@ -34,12 +34,34 @@ More information about CS50x is available on [the course website](https://cs50.h
 
 ## Features:
 - **Individual accounts**: Users can create individual accounts. Once logged in, they can manage words/concepts specific to their account.
-- **Add New Word**: Users can add words/concepts and their meanings.
-- **Search**: Users can search for previously added words/concepts, edit or delete them. Entering '%' in the search input displays all words/concepts added to the account.
-- **Memorize**: Users practice memory recall. A randomly selected word/concept is revealed, and users trie to recall its meaning, then reveals the text with the meaning. They can mark words as well-remembered.
-- **Quiz**: Users match definitions to words/concepts. Correct answers are highlighted in green, the incorrect one is highlighted in red. After clicking the button, the next question is randomly selected.
-- **My Account**: Users can change their username (if available), update their password, and delete their account along with all information related to it.
+<p align="center">
+    <img src="gif_files\login_and account.gif" alt="GIF showing user login" style="display: block; margin: auto; max-width: 900px;">
+</p>  
 
+- **Add New Word**: Users can add words/concepts and their meanings.
+<p align="center">
+    <img src="gif_files\add_new_word.gif" alt="GIF showing the addition of a new word" style="display: block; margin: auto; max-width: 900px;>
+</p>  
+
+- **Search**: Users can search for previously added words/concepts, edit or delete them. Entering '%' in the search input displays all words/concepts added to the account.
+<p align="center">
+    <img src="gif_files\search.gif" alt="GIF showing the search" style="display: block; margin: auto; max-width: 900px;>
+</p>  
+
+- **Memorize**: Users practice memory recall. A randomly selected word/concept is revealed, and users trie to recall its meaning, then reveals the text with the meaning. They can mark words as well-remembered.
+<p align="center">
+    <img src="gif_files\memorize.gif" alt="GIF showing a tab for practice memorization" style="display: block; margin: auto; max-width: 900px;>
+</p>  
+
+- **Quiz**: Users match definitions to words/concepts. Correct answers are highlighted in green, the incorrect one is highlighted in red. After clicking the button, the next question is randomly selected.
+<p align="center">
+    <img src="gif_files\quiz.gif" alt="GIF showing the quiz tab" style="display: block; margin: auto; max-width: 900px;>
+</p>  
+
+- **My Account**: Users can change their username (if available), update their password, and delete their account along with all information related to it.
+<p align="center">
+    <img src="gif_files\account.gif" alt="GIF showing my account tab options" style="display: block; margin: auto; max-width: 900px;>
+</p>  
 
 ## Technical stack:
 * Programming language: Python
