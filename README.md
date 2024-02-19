@@ -4,8 +4,7 @@
     <img src="app/static/img/memory.png" alt="Memento app icon" width="120" height="auto">
 </p>
 
-**Memento is a web application that helps users learn and remember difficult concepts or words from foreign languages.**  
-**The application allows the user to add, edit and delete words along with their meaning and practice memory by participating in a quiz.**  
+**Memento is a web application that helps users learn and remember difficult concepts or words from foreign languages. The application allows the user to add, edit and delete words along with their meaning and practice memory by participating in a quiz.**  
 
 This application is my original project, which is also the final project of the [CS50x course](https://cs50.harvard.edu/x/2023/) at Harvard University.  
 I have very basic knowledge of Python, so please be gentle when reading my code.  
