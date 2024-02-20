@@ -235,7 +235,7 @@ There are two tables in the database:
 
 In the project, I used CI GitHub Actions to run tests, get test reports and upload a new version of the application image to DockerHub.  
 The Docker container with the application is built based on the settings from the [Dockerfile file](./Dockerfile).  
-Integration tests written in Postman are run using the Newman command line tool. After performing the tests, a report is generated in an .html file. A [sample test report](Postman_tests\sample_test_report.html).  
+Integration tests written in Postman are run using the Newman command line tool. After performing the tests, a report is generated in an .html file. A [sample test report](https://przemekkozakqa.github.io/Memento-memory_helper_web_app/Postman_tests/sample_test_report.html).  
 
 Test report file can be downloaded from GitHub by going to the [Actions tab](https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app/actions), details of a specific run in the Artifacts section.
 
