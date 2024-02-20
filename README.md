@@ -8,7 +8,7 @@
 
 This application is my original project, which is also the final project of the [CS50x course](https://cs50.harvard.edu/x/2023/) at Harvard University.  
 _During the course, I quickly learned programming in Python from scratch to the basic level, so I am aware that my code is not very sophisticated._ 😊  
-As part of my professional development as a tester, I add further automatic tests to the application, which I also run in CI via Github Actions.  
+**As part of my professional development as a tester, I add further automatic tests to the application, which I also run in CI via Github Actions.**  
 
 > Live demo available [_here_](https://test-memento.onrender.com).  
 > Test user: **Tester** password: **tester123**  
