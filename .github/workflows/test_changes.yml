@@ -2,8 +2,8 @@ name: build Docker container and run tests
 
 on:
   push:
-    branches:
-      - "!main"
+    branches-ignore:
+      - main
     paths:
       - "app/**"
       - "Postman_tests/**"
