@@ -80,8 +80,9 @@ More information about CS50x is available on [the course website](https://cs50.h
 * Database: SQLite
 * Front-end framework: Bootstrap
 * JavaScript library: JQuery
-* Testing tool: Postman
 * Continuous Integration: Github Actions
+* Testing tools: Postman, Newman
+* Generating a test report: Newman HTML reporter
 * Deployment: Docker
 
 ## Installation and running
@@ -232,14 +233,21 @@ There are two tables in the database:
 
 ## Continuous Integration (CI) with Github Actions
 
-In the project, I used GitHub Actions to run tests and upload a new version of the application image to DockerHub.  
+In the project, I used CI GitHub Actions to run tests, get test reports and upload a new version of the application image to DockerHub.  
+The Docker container with the application is built based on the settings from the [Dockerfile file](./Dockerfile).  
+Integration tests written in Postman are run using the Newman command line tool. After performing the tests, a report is generated in an .html file. A [sample test report](https://przemekkozakqa.github.io/Memento-memory_helper_web_app/Postman_tests/sample_test_report.html).  
 
-The configuration for CI is located in the '.yml' files in the [workflows](/.github/workflows/) directory.
-After pushing the changes to development branches (all except main), CI is launched with the configuration from the [test_changes.yml](/.github/workflows/test_changes.yml) file. The file contains the configuration for building the environment and running tests.  
+Test report file can be downloaded from GitHub by going to the [Actions tab](https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app/actions), details of a specific run in the Artifacts section.
 
-When changes are merged from the development branches to the main branch, CI is launched with the configuration from the [test_and_push_to_DockerHub.yml](.github/workflows/test_and_push_to_DockerHub.yml) file. In addition to performing tests, this configuration includes instructions for releasing a version on DockerHub.  
+<p align="center">
+    <img src="gif_files\report.gif" alt="GIF showing where to find the test report file" style="display: block; margin: auto; max-width: 800px;">
+</p>
 
-Additionally, after merging the changes to the main branch, a test report is created in an .html file. This file can be downloaded from GitHub by going to the [Actions tab](https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app/actions), details of a specific run in the Artifacts section.
+**CI for development branches**  
+After pushing the changes to development branches (all except main), CI is launched with the configuration from the [test_changes.yml](/.github/workflows/test_changes.yml) file. First, a container with the application is built, then tests are run and a test report is generated. The report file is named test_report_from_branch_{branch name}.  
+
+**CI for main branch**  
+When changes are merged to the main branch, CI is launched with the configuration from the [test_and_push_to_DockerHub.yml](.github/workflows/test_and_push_to_DockerHub.yml) file. In addition to performing tests, this configuration includes instructions for releasing a version on DockerHub.  
 
 ## Testing
 
@@ -256,14 +264,14 @@ Scope of tested functionalities:
 * Deleting a word from the database
 * Providing information that the word ID was not found
 
-<p align="center">
-    <img src="gif_files\postman.gif" alt="Gif shows the execution of tests in Postman" style="display: block; margin: auto; max-width: 800px;">
-</p>
-
 **Running tests in the local environment:**  
     To run the tests, download the files from the Postman_Tests folder and then import the collection file [Memento_application_integration_tests.postman_collection.json](/Postman_tests/Memento_application_integration_tests.postman_collection.json) and the environment file [Test_ENV.postman_environment.json](/Postman_tests/Test_ENV.postman_environment.json) to Postman.  
     The exact import process is described in the [Postman documentation](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-data/#import-postman-data).  
-> After importing the data, remember to select an environment and run the Memento application locally before running the tests.
+> After importing the data, remember to select an environment and run the Memento application locally before running the tests.  
+
+<p align="center">
+    <img src="gif_files\postman.gif" alt="Gif shows the execution of tests in Postman" style="display: block; margin: auto; max-width: 800px;">
+</p>
 
 ### GUI tests in Selenium
 
