@@ -33,5 +33,5 @@ jobs:
       - name: Upload newman html report
         uses: actions/upload-artifact@v4
         with:
-          name: branch_${{ steps.get_branch.outputs.branch_name }}_test_report
+          name: test_report_from_branch_${{ steps.get_branch.outputs.branch_name }}
           path: newman_test_reports
