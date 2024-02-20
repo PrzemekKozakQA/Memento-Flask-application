@@ -7,7 +7,7 @@
 **Memento is a web application that helps users learn and remember difficult concepts or words from foreign languages. The application allows the user to add, edit and delete words along with their meaning and practice memory by participating in a quiz.**  
 
 This application is my original project, which is also the final project of the [CS50x course](https://cs50.harvard.edu/x/2023/) at Harvard University.  
-_I have very basic knowledge of Python, so please be gentle when reading my code._😊  
+_I have very basic knowledge of Python, so please be gentle when reading my code._ 😊  
 As part of my professional development as a tester, I add further automatic tests to the application, which I also run in CI via Github Actions.  
 
 > Live demo available [_here_](https://test-memento.onrender.com).  
@@ -200,7 +200,7 @@ More information about CS50x is available on [the course website](https://cs50.h
 
 ## Database
 
-In the project I used the latest version of the SQLite database engine. To connect to the database, I used the CS50x library, which uses SQLAlchemy.
+In the project I used the latest version of the SQLite database engine. To connect to the database, I used the cs50 library, which uses SQLAlchemy.
 There are two tables in the database:
 
 * users - stores user data.  
@@ -257,7 +257,7 @@ Scope of tested functionalities:
 * Providing information that the word ID was not found
 
 <p align="center">
-    <img src="gif_files\postman_tests.gif" alt="GIF showing my account tab options" style="display: block; margin: auto; max-width: 800px;">
+    <img src="gif_files\postman.gif" alt="GIF showing my account tab options" style="display: block; margin: auto; max-width: 800px;">
 </p>
 
 Running tests in the local environment:  
