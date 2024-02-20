@@ -57,13 +57,13 @@ More information about CS50x is available on [the course website](https://cs50.h
 * **Memorize**: Users practice memory recall. A randomly selected word/concept is revealed, and users trie to recall its meaning, then reveals the text with the meaning. They can mark words as well-remembered.
 
 <p align="center">
-    <img src="gif_files\memorize.gif" alt="GIF showing a tab for practice memorization" style="display: block; margin: auto; max-width: 800px;">
+    <img src="gif_files\memorize_tab.gif" alt="GIF showing a tab for practice memorization" style="display: block; margin: auto; max-width: 800px;">
 </p>  
 
 * **Quiz**: Users match definitions to words/concepts. Correct answers are highlighted in green, the incorrect one is highlighted in red. After clicking the button, the next question is randomly selected.
 
 <p align="center">
-    <img src="gif_files\quiz.gif" alt="GIF showing the quiz tab" style="display: block; margin: auto; max-width: 800px;">
+    <img src="gif_files\quiz_tab.gif" alt="GIF showing the quiz tab" style="display: block; margin: auto; max-width: 800px;">
 </p>  
 
 * **My Account**: Users can change their username (if available), update their password, and delete their account along with all information related to it.
