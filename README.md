@@ -38,7 +38,7 @@ More information about CS50x is available on [the course website](https://cs50.h
 * **Individual accounts**: Users can create individual accounts. Once logged in, they can manage words/concepts specific to their account.
 
 <p align="center">
-    <img src="gif_files\login_and account.gif" alt="GIF showing user login" style="display: block; margin: auto; max-width: 800px;">
+    <img src="gif_files\register_and_login.gif" alt="GIF showing user login" style="display: block; margin: auto; max-width: 800px;">
 </p>  
 
 * **Add New Word**: Users can add words/concepts and their meanings.
@@ -221,11 +221,11 @@ Scope of tested functionalities:
 * Providing JSON with data when searching by the name of the saved word
 * Marking a word in the database as remembered
 * Deleting a word from the database
-* Providing information that the word id was not found
+* Providing information that the word ID was not found
 
-Running tests in the local environment:
+Running tests in the local environment:  
     To run the tests, download the files from the Postman_Tests folder and then import the collection file [Memento_application_integration_tests.postman_collection.json](/Postman_tests/Memento_application_integration_tests.postman_collection.json) and the environment file [Test_ENV.postman_environment.json](/Postman_tests/Test_ENV.postman_environment.json) to Postman. The exact import process is described in the [Postman documentation](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-data/#import-postman-data).
-    After importing the data, remember to select an environment and run the Memeno application locally before running the tests.
+    After importing the data, remember to select an environment and run the Memento application locally before running the tests.
 
 ### GUI tests in Selenium
 
