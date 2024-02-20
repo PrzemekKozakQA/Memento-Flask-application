@@ -11,7 +11,6 @@ COPY ./app/ ./app/
 RUN pip install -r ./app/requirements.txt
 
 # Run app with gunicorn
-# RUN cd ./app
 ENTRYPOINT  ["gunicorn", "--bind", "0.0.0.0:5000", "--chdir", "./app/", "app:app"]
 
 # Expose ports
