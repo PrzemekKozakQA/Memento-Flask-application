@@ -393,3 +393,4 @@ def quiz():
             session["quiz_answer"] = answer
 
         return render_template("quiz.html", words=words, question=question)
+

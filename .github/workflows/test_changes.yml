@@ -21,4 +21,9 @@ jobs:
       - name: Install Postman CLI
         run: curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
       - name: Run Postman API tests
-        run: postman collection run "Postman_tests/Memento_application_integration_tests.postman_collection.json" -e "Postman_tests/Test_ENV.postman_environment.json"
+        run: newman run "Postman_tests/Memento_application_integration_tests.postman_collection.json" -e "Postman_tests/Test_ENV.postman_environment.json" -r cli,htmlextra --reporter-htmlextra-export ./newman_test_reports/test_report${GITHUB_REF##*/}.html
+      - name: Upload newman html report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${GITHUB_REF##*/}_test_report
+          path: newman_test_reports
