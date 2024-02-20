@@ -7,7 +7,7 @@
 **Memento is a web application that helps users learn and remember difficult concepts or words from foreign languages. The application allows the user to add, edit and delete words along with their meaning and practice memory by participating in a quiz.**  
 
 This application is my original project, which is also the final project of the [CS50x course](https://cs50.harvard.edu/x/2023/) at Harvard University.  
-I have very basic knowledge of Python, so please be gentle when reading my code.  
+_I have very basic knowledge of Python, so please be gentle when reading my code._😊  
 As part of my professional development as a tester, I add further automatic tests to the application, which I also run in CI via Github Actions.  
 
 > Live demo available [_here_](https://test-memento.onrender.com).  
@@ -21,6 +21,7 @@ As part of my professional development as a tester, I add further automatic test
 * [Technical Stack](#technical-stack)
 * [Installation and running](#installation-and-running)
 * [Project file structure](#project-file-structure)
+* [Database](#database)
 * [Continuous Integration (CI) with Github Actions](#continuous-integration-ci-with-github-actions)
 * [Testing](#testing)
 * [Contact](#contact)
@@ -196,6 +197,38 @@ More information about CS50x is available on [the course website](https://cs50.h
     ├── test_and_push_to_DockerHub.yml - CI configuration file used when merging changes to the main branch
     └── test_changes.yml - CI configuration file used when merging changes to a branch with planned changes
 ```
+
+## Database
+
+In the project I used the latest version of the SQLite database engine. To connect to the database, I used the CS50x library, which uses SQLAlchemy.
+There are two tables in the database:
+
+* users - stores user data.  
+  Below is the query creating users table:
+
+    ```sql
+    CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+    username TEXT NOT NULL, 
+    hash TEXT NOT NULL, 
+    UNIQUE(username)
+    );
+    ```
+
+* words - stores data with words and their definitions written by users.  
+  Below is the query creating words table:
+
+    ```sql
+    CREATE TABLE words (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+    word varchar(100) NOT NULL, 
+    definition TEXT NOT NULL, 
+    userId INTEGER, 
+    isMemorized INTEGER DEFAULT 0, 
+    FOREIGN KEY(userId) REFERENCES users(id),
+    UNIQUE(word, userId)
+    );
+    ```
 
 ## Continuous Integration (CI) with Github Actions
 
