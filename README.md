@@ -39,7 +39,7 @@ More information about CS50x is available on [the course website](https://cs50.h
 * **Individual accounts**: Users can create individual accounts. Once logged in, they can manage words/concepts specific to their account.
 
 <p align="center">
-    <img src="gif_files\register_and_login.gif" alt="GIF showing user login" style="display: block; margin: auto; max-width: 800px;">
+    <img src="gif_files\register_and_login.gif" alt="GIF shows user registrations and logins" style="display: block; margin: auto; max-width: 800px;">
 </p>  
 
 * **Add New Word**: Users can add words/concepts and their meanings.
@@ -79,7 +79,7 @@ More information about CS50x is available on [the course website](https://cs50.h
 * Template engine: Jinja
 * Database: SQLite
 * Front-end framework: Bootstrap
-* JavaScript framework: JQuery
+* JavaScript library: JQuery
 * Testing tool: Postman
 * Continuous Integration: Github Actions
 * Deployment: Docker
@@ -181,7 +181,7 @@ More information about CS50x is available on [the course website](https://cs50.h
 │── app - the main project directory
 │    ├── app.py - the main application file containing instructions for endpoints and application configuration
 │    ├── helpers.py - the file contains methods separated from the app.py for better code readability
-│    ├── memento.db - SQLite database file that stores data entered by users. It contains two tables: users and words
+│    ├── memento.db - SQLite database file that stores data entered by users.
 │    ├── requirements.txt - the file contains a list of libraries that must be downloaded for the application to run
 │    ├── templates - the directory containing the files from which the application's web pages are rendered
 │    └── static - the directory with files necessary for the application frontend
@@ -200,7 +200,7 @@ More information about CS50x is available on [the course website](https://cs50.h
 
 ## Database
 
-In the project I used the latest version of the SQLite database engine. To connect to the database, I used the cs50 library, which uses SQLAlchemy.
+In the project I used the SQLite database engine. To connect to the database, I used the cs50 library, which uses SQLAlchemy.
 There are two tables in the database:
 
 * users - stores user data.  
@@ -257,11 +257,12 @@ Scope of tested functionalities:
 * Providing information that the word ID was not found
 
 <p align="center">
-    <img src="gif_files\postman.gif" alt="GIF showing my account tab options" style="display: block; margin: auto; max-width: 800px;">
+    <img src="gif_files\postman.gif" alt="Gif shows the execution of tests in Postman" style="display: block; margin: auto; max-width: 800px;">
 </p>
 
-*Running tests in the local environment:*  
-    To run the tests, download the files from the Postman_Tests folder and then import the collection file [Memento_application_integration_tests.postman_collection.json](/Postman_tests/Memento_application_integration_tests.postman_collection.json) and the environment file [Test_ENV.postman_environment.json](/Postman_tests/Test_ENV.postman_environment.json) to Postman. The exact import process is described in the [Postman documentation](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-data/#import-postman-data).  
+**Running tests in the local environment:**  
+    To run the tests, download the files from the Postman_Tests folder and then import the collection file [Memento_application_integration_tests.postman_collection.json](/Postman_tests/Memento_application_integration_tests.postman_collection.json) and the environment file [Test_ENV.postman_environment.json](/Postman_tests/Test_ENV.postman_environment.json) to Postman.  
+    The exact import process is described in the [Postman documentation](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-data/#import-postman-data).  
 > After importing the data, remember to select an environment and run the Memento application locally before running the tests.
 
 ### GUI tests in Selenium
