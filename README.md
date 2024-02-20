@@ -245,7 +245,7 @@ Additionally, after merging the changes to the main branch, a test report is cre
 
 ### Integration tests in Postman
 
-The frontend of the application uses the JQuery library to send queries to the backend, which are necessary to dynamically change some of the displayed content. To check this mechanism, I wrote integration tests in Postman.
+The frontend of the application uses the JQuery library to send requests to the backend. Data from the responses to these requests are necessary to dynamically change some of the displayed content. To check this mechanism, I wrote integration tests in Postman.
 Files containing the test code and the file with environment variables are located in the [Postman_tests director](/Postman_tests/).
 
 Scope of tested functionalities:
@@ -261,8 +261,8 @@ Scope of tested functionalities:
 </p>
 
 *Running tests in the local environment:*  
-    To run the tests, download the files from the Postman_Tests folder and then import the collection file [Memento_application_integration_tests.postman_collection.json](/Postman_tests/Memento_application_integration_tests.postman_collection.json) and the environment file [Test_ENV.postman_environment.json](/Postman_tests/Test_ENV.postman_environment.json) to Postman. The exact import process is described in the [Postman documentation](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-data/#import-postman-data).
-    After importing the data, remember to select an environment and run the Memento application locally before running the tests.
+    To run the tests, download the files from the Postman_Tests folder and then import the collection file [Memento_application_integration_tests.postman_collection.json](/Postman_tests/Memento_application_integration_tests.postman_collection.json) and the environment file [Test_ENV.postman_environment.json](/Postman_tests/Test_ENV.postman_environment.json) to Postman. The exact import process is described in the [Postman documentation](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-data/#import-postman-data).  
+> After importing the data, remember to select an environment and run the Memento application locally before running the tests.
 
 ### GUI tests in Selenium
 
