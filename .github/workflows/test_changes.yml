@@ -26,9 +26,9 @@ jobs:
       - name: Install Newman HTML reporter
         run: npm install -g newman-reporter-htmlextra
       - name: Run Postman API tests in Newman CLI
-        run: newman run "Postman_tests/Memento_application_integration_tests.postman_collection.json" -e "Postman_tests/Test_ENV.postman_environment.json" -r cli,htmlextra --reporter-htmlextra-export ./newman_test_reports/test_report${GITHUB_REF##*/}.html
+        run: newman run "Postman_tests/Memento_application_integration_tests.postman_collection.json" -e "Postman_tests/Test_ENV.postman_environment.json" -r cli,htmlextra --reporter-htmlextra-export ./newman_test_reports/test_report + ${GITHUB_REF##*/} + .html
       - name: Upload newman html report
         uses: actions/upload-artifact@v4
         with:
-          name: ${GITHUB_REF##*/}_test_report
+          name: ${GITHUB_REF##*/} + _test_report
           path: newman_test_reports
