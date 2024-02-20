@@ -27,7 +27,7 @@ jobs:
         run: npm install -g newman-reporter-htmlextra
       - name: Get branch name
         id: get_branch
-        run: echo "::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/})"
+        run: echo "{branch}="$(echo ${GITHUB_REF#refs/heads/} >>$GITHUB_OUTPUT
       - name: Run Postman API tests in Newman CLI
         run: newman run "Postman_tests/Memento_application_integration_tests.postman_collection.json" -e "Postman_tests/Test_ENV.postman_environment.json" -r cli,htmlextra --reporter-htmlextra-export ./newman_test_reports/test_report${{ steps.get_branch.outputs.branch }}.html
       - name: Upload newman html report
