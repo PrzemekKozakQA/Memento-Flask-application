@@ -80,8 +80,9 @@ More information about CS50x is available on [the course website](https://cs50.h
 * Database: SQLite
 * Front-end framework: Bootstrap
 * JavaScript library: JQuery
-* Testing tools: Postman, Newman
 * Continuous Integration: Github Actions
+* Testing tools: Postman, Newman
+* Generating a test report: Newman HTML reporter
 * Deployment: Docker
 
 ## Installation and running
@@ -234,7 +235,7 @@ There are two tables in the database:
 
 In the project, I used CI GitHub Actions to run tests, get test reports and upload a new version of the application image to DockerHub.  
 The Docker container with the application is built based on the settings from the [Dockerfile file](./Dockerfile).  
-Integration tests written in Postman are run using the Newman command line tool. After performing the tests, a report is generated in an .html file. A sample report is available [here](Postman_tests\sample_test_report.html).  
+Integration tests written in Postman are run using the Newman command line tool. After performing the tests, a report is generated in an .html file. A sample report is available [here](Postman_tests/sample_test_report.html).  
 
 Test report file can be downloaded from GitHub by going to the [Actions tab](https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app/actions), details of a specific run in the Artifacts section.
 
@@ -263,14 +264,14 @@ Scope of tested functionalities:
 * Deleting a word from the database
 * Providing information that the word ID was not found
 
-<p align="center">
-    <img src="gif_files\postman.gif" alt="Gif shows the execution of tests in Postman" style="display: block; margin: auto; max-width: 800px;">
-</p>
-
 **Running tests in the local environment:**  
     To run the tests, download the files from the Postman_Tests folder and then import the collection file [Memento_application_integration_tests.postman_collection.json](/Postman_tests/Memento_application_integration_tests.postman_collection.json) and the environment file [Test_ENV.postman_environment.json](/Postman_tests/Test_ENV.postman_environment.json) to Postman.  
     The exact import process is described in the [Postman documentation](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-data/#import-postman-data).  
-> After importing the data, remember to select an environment and run the Memento application locally before running the tests.
+> After importing the data, remember to select an environment and run the Memento application locally before running the tests.  
+
+<p align="center">
+    <img src="gif_files\postman.gif" alt="Gif shows the execution of tests in Postman" style="display: block; margin: auto; max-width: 800px;">
+</p>
 
 ### GUI tests in Selenium
 
