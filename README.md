@@ -223,6 +223,10 @@ Scope of tested functionalities:
 * Deleting a word from the database
 * Providing information that the word ID was not found
 
+<p align="center">
+    <img src="gif_files\postman_tests.gif" alt="GIF showing my account tab options" style="display: block; margin: auto; max-width: 800px;">
+</p>
+
 Running tests in the local environment:  
     To run the tests, download the files from the Postman_Tests folder and then import the collection file [Memento_application_integration_tests.postman_collection.json](/Postman_tests/Memento_application_integration_tests.postman_collection.json) and the environment file [Test_ENV.postman_environment.json](/Postman_tests/Test_ENV.postman_environment.json) to Postman. The exact import process is described in the [Postman documentation](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-data/#import-postman-data).
     After importing the data, remember to select an environment and run the Memento application locally before running the tests.

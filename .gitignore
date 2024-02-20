@@ -1,5 +1,5 @@
 /app/flask_session/
 /app/__pycache__/
 /.vscode
-# /app/memento.db
+/app/memento.db
 /.markdownlint.json
