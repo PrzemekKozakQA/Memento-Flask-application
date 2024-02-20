@@ -4,12 +4,11 @@ $(document).ready(function () {
     });
 });
 
-
+//script is sending a POST request using AJAX in JSON format with user answer to the backend
 $(document).ready(function () {
     $('.btn.btn-info').on('click', function (event) {
         let thisButton = $(this);
         let word = thisButton.text();
-        //sending a POST request using AJAX in JSON format with user answer to the backend
         $.ajax({
             data: {
                 "word": word

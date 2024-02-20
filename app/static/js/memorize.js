@@ -2,6 +2,7 @@ import {
     displayWarning
 } from "./helpers.js";
 
+// the script is executed to mark the word as remembered in the database
 $(document).ready(function () {
     $('#nextBtn').on('click', function (event) {
         if ($('#isWordMemorizedBox').is(':checked')) {
