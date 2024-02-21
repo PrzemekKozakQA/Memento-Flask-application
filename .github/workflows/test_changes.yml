@@ -34,12 +34,12 @@ jobs:
       - name: Run Postman API tests in Newman CLI
         run: newman run "Postman_tests/Memento_application_integration_tests.postman_collection.json" -e "Postman_tests/Test_ENV.postman_environment.json" -r cli,htmlextra --reporter-htmlextra-export ./newman_test_reports/${{ steps.get_branch.outputs.branch_name }}_report.html
       - name: Upload newman html report
+        if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
           name: test_report_from_branch_${{ steps.get_branch.outputs.branch_name }}
           path: newman_test_reports
       - name: upload artifact
-        if: success() || failure()
         uses: actions/upload-pages-artifact@v3
         with: 
           path: './newman_test_reports/'
