@@ -60,6 +60,7 @@ jobs:
   
   # Deploy test report to Github Pages
   deploy:
+    if: success() || failure()
     # Add a dependency to the build job
     needs: build
     # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
