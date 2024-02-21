@@ -45,6 +45,7 @@ jobs:
         with: 
           path: './newman_test_reports/'
   deploy:
+    if: success() || failure()
     # Add a dependency to the build job
     needs: build
 
