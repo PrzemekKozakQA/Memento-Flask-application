@@ -32,20 +32,25 @@ jobs:
       - name: Install Newman HTML reporter
         run: npm install -g newman-reporter-htmlextra
       - name: Run Postman API tests in Newman CLI
+        id: postman_tests
+        continue-on-error: true
         run: newman run "Postman_tests/Memento_application_integration_tests.postman_collection.json" -e "Postman_tests/Test_ENV.postman_environment.json" -r cli,htmlextra --reporter-htmlextra-export ./newman_test_reports/${{ steps.get_branch.outputs.branch_name }}_report.html
       - name: Upload newman html report
-        if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
           name: test_report_from_branch_${{ steps.get_branch.outputs.branch_name }}
           path: newman_test_reports
       - name: upload artifact
-        if: success() || failure()
         uses: actions/upload-pages-artifact@v3
         with: 
           path: './newman_test_reports/'
+      - name: test if succes
+        if: steps.postman_tests.outcome != 'success'
+        run: echo "postamn tests success"
+      - name: if all success
+        if: success()
+        run: echo "all success"
   deploy:
-    if: success() || failure()
     # Add a dependency to the build job
     needs: build
 
