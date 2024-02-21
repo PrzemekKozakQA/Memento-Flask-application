@@ -34,11 +34,13 @@ jobs:
         continue-on-error: true
         run: newman run "Postman_tests/Memento_application_integration_tests.postman_collection.json" -e "Postman_tests/Test_ENV.postman_environment.json" -r cli,htmlextra --reporter-htmlextra-export ./newman_test_reports/test-report.html
       - name: Upload newman html report
+        if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
           name: html_test_report
           path: './newman_test_reports/'
       - name: upload artifact for GitHub Pages
+        if: success() || failure()
         uses: actions/upload-pages-artifact@v3
         with: 
             path: './newman_test_reports/'
@@ -50,7 +52,6 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Build and push Docker image to DockerHub
-        if: steps.postman_tests.outcome == 'success'
         uses: docker/build-push-action@v5
         with:
           context: .
