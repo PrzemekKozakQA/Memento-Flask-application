@@ -244,7 +244,8 @@ Test report file can be downloaded from GitHub by going to the [Actions tab](htt
 </p>
 
 After each change merged to main, a report is also created and automatically published via GitHub Pages.  
-The latest report available at: <https://przemekkozakqa.github.io/Memento-memory_helper_web_app/test-report.html>
+**The latest report available at:**  
+<https://przemekkozakqa.github.io/Memento-memory_helper_web_app/test-report.html>
 
 Sample report view:
 <p align="center">
