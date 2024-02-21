@@ -40,6 +40,7 @@ jobs:
           path: './newman_test_reports/'
       - name: upload artifact for GitHub Pages
         if: success() || failure()
+        # I don't use always() because then the step is also executed when the workflow is canceled
         uses: actions/upload-pages-artifact@v3
         with: 
             path: './newman_test_reports/'

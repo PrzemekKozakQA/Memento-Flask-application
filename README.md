@@ -54,7 +54,7 @@ More information about CS50x is available on [the course website](https://cs50.h
     <img src="gif_files\search.gif" alt="GIF showing the search" style="display: block; margin: auto; max-width: 800px;">
 </p>  
 
-* **Memorize**: Users practice memory recall. A randomly selected word/concept is revealed, and users trie to recall its meaning, then reveals the text with the meaning. They can mark words as well-remembered.
+* **Memorize**: Users practice memory recall. A randomly selected word/concept is revealed, and users trie to recall its meaning, then reveals the text with the meaning. Users can mark words as well-remembered.
 
 <p align="center">
     <img src="gif_files\memorize_tab.gif" alt="GIF showing a tab for practice memorization" style="display: block; margin: auto; max-width: 800px;">
@@ -92,7 +92,8 @@ More information about CS50x is available on [the course website](https://cs50.h
 1. Live demo on Render server.  
 
     The application is hosted on the free Render server at: <https://test-memento.onrender.com>. Due to the limitations of free hosting, the first application launch may take 3-4 minutes. The entered data is also not stored between sessions.
-    You can use your saved user to explore the features of the Memento app. The details for the test account are:
+    You can use saved user to explore the features of the Memento app.  
+    The details for the test account are:
     > username: Tester  
     > password: tester123
 
@@ -238,11 +239,16 @@ The Docker container with the application is built based on the settings from th
 Integration tests written in Postman are run using the Newman command line tool. After performing the tests, a report is generated in an .html file.
 Test report file can be downloaded from GitHub by going to the [Actions tab](https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app/actions), details of a specific run in the Artifacts section.  
 
+<p align="center">
+    <img src="gif_files\report.gif" alt="GIF showing where to find the test report file" style="display: block; margin: auto; max-width: 800px;">
+</p>
+
 After each change merged to main, a report is also created and automatically published via GitHub Pages.  
 The latest report available at: <https://przemekkozakqa.github.io/Memento-memory_helper_web_app/test-report.html>
 
+Sample report view:
 <p align="center">
-    <img src="gif_files\report.gif" alt="GIF showing where to find the test report file" style="display: block; margin: auto; max-width: 800px;">
+    <img src="gif_files\report-gh-page.gif" alt="GIF showing sample report" style="display: block; margin: auto; max-width: 800px;">
 </p>
 
 **CI for development branches**  
