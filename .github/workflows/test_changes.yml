@@ -45,6 +45,7 @@ jobs:
           name: test_report_from_branch_${{ steps.get_branch.outputs.branch_name }}
           path: newman_test_reports
   deploy:
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
