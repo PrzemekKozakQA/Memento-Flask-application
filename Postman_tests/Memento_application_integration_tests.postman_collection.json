@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "af60a9e5-a6ba-4a7b-90a6-2f4f073be4a7",
 		"name": "Memento application integration tests",
-		"description": "The frontend of the Memento application uses the JQuery library to send queries to the backend, which are necessary to dynamically change some of the displayed content.\n\nTo check this mechanism, this project with integration tests was created.  \n  \nStartFragmentScope of tested functionalities:  \n\n- Providing information whether the username is already used or not when registering a new user.\n    \n- Providing JSON with data when searching by the name of the saved word.\n    \n- Marking a word in the database as remembered.\n    \n- Deleting a word from the database.\n    \n- Providing information that the word ID was not foundEndFragment",
+		"description": "The frontend of the Memento application uses the JQuery library to send queries to the backend, which are necessary to dynamically change some of the displayed content.\n\nTo check this mechanism, this project with integration tests was created.  \n  \nScope of tested functionalities:  \n\n- Providing information whether the username is already used or not when registering a new user.\n    \n- Providing JSON with data when searching by the name of the saved word.\n    \n- Marking a word in the database as remembered.\n    \n- Deleting a word from the database.\n    \n- Providing information that the word ID was not found",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "21196236"
 	},

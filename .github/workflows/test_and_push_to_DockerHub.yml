@@ -8,8 +8,11 @@ on:
       - "app/**"
       - "Postman_tests/**"
       - "Dockerfile"
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
+  
   build:
     runs-on: ubuntu-latest
     steps:
@@ -27,12 +30,18 @@ jobs:
       - name: Install Newman HTML reporter
         run: npm install -g newman-reporter-htmlextra
       - name: Run Postman API tests in Newman CLI
-        run: newman run "Postman_tests/Memento_application_integration_tests.postman_collection.json" -e "Postman_tests/Test_ENV.postman_environment.json" -r cli,htmlextra --reporter-htmlextra-export ./newman_test_reports/test_report.html
+        id: postman_tests
+        continue-on-error: true
+        run: newman run "Postman_tests/Memento_application_integration_tests.postman_collection.json" -e "Postman_tests/Test_ENV.postman_environment.json" -r cli,htmlextra --reporter-htmlextra-export ./newman_test_reports/test-report.html
       - name: Upload newman html report
         uses: actions/upload-artifact@v4
         with:
           name: html_test_report
-          path: newman_test_reports
+          path: './newman_test_reports/'
+      - name: upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with: 
+            path: './newman_test_reports/'
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -41,9 +50,29 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Build and push Docker image to DockerHub
+        if: steps.postman_tests.outcome == 'success'
         uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/memento_app:latest , ${{ secrets.DOCKERHUB_USERNAME }}/memento_app:1.0.0
+  
+  # Deploy test report to Github Pages
+  deploy:
+    # Add a dependency to the build job
+    needs: build
+    # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
