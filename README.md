@@ -5,9 +5,11 @@
 </p>
 
 **Memento is a web application that helps users learn and remember difficult concepts or words from foreign languages. The application allows the user to add, edit and delete words along with their meaning and practice memory by participating in a quiz.**  
+**Thanks to the use of Bootstrap, the application is adapted for use on various mobile devices.**  
 
 This application is my original project, which is also the final project of the [CS50x course](https://cs50.harvard.edu/x/2023/) at Harvard University.  
 _During the course, I quickly learned programming in Python from scratch to the basic level, so I am aware that my code is not very sophisticated._ 😊  
+
 **As part of my professional development as a tester, I add further automatic tests to the application, which I also run in CI via Github Actions.**  
 
 > Live demo available [_here_](https://test-memento.onrender.com).  
@@ -72,7 +74,25 @@ More information about CS50x is available on [the course website](https://cs50.h
     <img src="gif_files\account.gif" alt="GIF showing my account tab options" style="display: block; margin: auto; max-width: 800px;">
 </p>  
 
+* **Mobile device compatibility**: Thanks to the use of Bootstrap, the application is adapted to be used on various mobile devices. The application adjusts the display to different screen diagonals.
+
+<p align="center">
+    <img src="gif_files\mobile.gif" alt="GIF showing the change of the GUI on mobile devices" style="display: block; margin: auto; max-width: 800px;">
+</p>
+
 ## Technical stack
+
+<p align="center" style="scale: 1;">
+<img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" alt="Python">
+<img src="https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white" alt="Flask">
+<img src="https://img.shields.io/badge/jinja-white.svg?style=for-the-badge&logo=jinja&logoColor=black" alt="Jinja">
+<img src="https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite">
+<img src="https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap">
+<img src="https://img.shields.io/badge/jquery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white" alt="jQuery">
+<img src="https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white" alt="GitHub Actions">
+<img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" alt="Postman">
+<img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
+</p>
 
 * Programming language: Python
 * Web framework: Flask
@@ -83,7 +103,7 @@ More information about CS50x is available on [the course website](https://cs50.h
 * Continuous Integration: Github Actions
 * Testing tools: Postman, Newman
 * Generating a test report: Newman HTML reporter
-* Deployment: Docker
+* Application containerization: Docker
 
 ## Installation and running
 
@@ -253,9 +273,13 @@ Sample report view:
 </p>
 
 **CI for development branches**  
+![GitHub Action main branch status](https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app/actions/workflows/test_and_push_to_DockerHub.yml/badge.svg)  
+
 After pushing the changes to development branches (all except main), CI is launched with the configuration from the [test_changes.yml](/.github/workflows/test_changes.yml) file. First, a container with the application is built, then tests are run and a test report is generated. The report file is named test_report_from_branch_{branch name}.  
 
 **CI for main branch**  
+![GitHub Action main branch status](https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app/actions/workflows/test_changes.yml/badge.svg)  
+
 When changes are merged to the main branch, CI is launched with the configuration from the [test_and_push_to_DockerHub.yml](.github/workflows/test_and_push_to_DockerHub.yml) file. In addition to performing tests, this configuration includes instructions for releasing a version on DockerHub.  
 
 ## Testing
