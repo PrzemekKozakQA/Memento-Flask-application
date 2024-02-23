@@ -286,7 +286,7 @@ After pushing the changes to development branches (all branches except main), CI
 
 ![GitHub Action main branch status](https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app/actions/workflows/test_changes.yml/badge.svg)  
 
-When changes are merged to the main branch, CI is launched with the configuration from the [test_and_push_to_DockerHub.yml](.github/workflows/test_and_push_to_DockerHub.yml) file. In addition to performing tests, this configuration includes instructions for releasing a version on DockerHub and publishing the test report on Github Pages.
+When changes are merged to the main branch, CI is launched with the configuration from the [test_and_push_to_DockerHub.yml](.github/workflows/test_and_push_to_DockerHub.yml) file. In addition to performing tests, this configuration includes instructions for releasing a version on DockerHub and publishing [the test report](https://przemekkozakqa.github.io/Memento-memory_helper_web_app/test-report.html) on Github Pages.
 
 ## Testing
 
