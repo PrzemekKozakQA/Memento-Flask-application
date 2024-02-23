@@ -292,8 +292,8 @@ When changes are merged to the main branch, CI is launched with the configuratio
 
 ### Integration tests in Postman
 
-The frontend of the application uses the JQuery library to send requests to the backend. Data from responses to these requests are necessary to dynamically change some of the displayed content. To check this mechanism, I wrote integration tests in Postman.
-Files containing the test code and the file with environment variables are located in the [Postman_tests director](/Postman_tests/).
+The frontend of the application uses the JQuery library to send requests to the backend. Data from responses to these requests are necessary to dynamically change some of the displayed content. To check this mechanism, I wrote integration tests in Postman.  
+These tests are also used in the CI process on GitHub Actions. You can see the details in the [Actions](https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app/actions) tab of this repository.  
 
 Scope of tested functionalities:
 
@@ -304,7 +304,7 @@ Scope of tested functionalities:
 * Providing information that the word ID was not found
 
 **Running tests in the local environment:**  
-    To run the tests, download the files from the Postman_Tests folder and then import [the collection file](/Postman_tests/Memento_application_integration_tests.postman_collection.json) and t[he environment file](/Postman_tests/Test_ENV.postman_environment.json) to Postman.  
+    To run the tests, download the files from the [Postman_Tests folder](./Postman_tests/) and then import the [collection file](/Postman_tests/Memento_application_integration_tests.postman_collection.json) and the [environment file](/Postman_tests/Test_ENV.postman_environment.json) to Postman.  
     The exact import process is described in the [Postman documentation](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-data/#import-postman-data).  
 > After importing the data, remember to select an environment and run the Memento application locally before running the tests.  
 
