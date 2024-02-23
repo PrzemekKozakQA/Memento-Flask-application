@@ -4,17 +4,22 @@
     <img src="app/static/img/memory.png" alt="Memento app icon" width="120" height="auto">
 </p>
 
-**Memento is a web application that helps users learn and remember difficult concepts or words from foreign languages. The application allows the user to add, edit and delete words along with their meaning and practice memory by participating in a quiz.**  
-**Thanks to the use of Bootstrap, the application is adapted for use on various mobile devices.**  
-
-This application is my original project, which is also the final project of the [CS50x course](https://cs50.harvard.edu/x/2023/) at Harvard University.  
-_During the course, I quickly learned programming in Python from scratch to the basic level, so I am aware that my code is not very sophisticated._ 😊  
-
-**As part of my professional development as a tester, I add further automatic tests to the application, which I also run in CI via Github Actions.**  
+**Memento is a web application that helps users learn and remember difficult concepts or words from foreign languages. The application allows the user to add, edit and delete words along with their meaning and practice memory by participating in a quiz.**
 
 > Live demo available [_here_](https://test-memento.onrender.com).  
 > Test user: **Tester** password: **tester123**  
-> _Note: The application is hosted on the free Render server and needs 3-4 minutes to wake up. After restarting the server, all changes made will be lost_
+> Note: The application is hosted on the free Render server and needs 3-4 minutes to wake up. After restarting the server, all changes made will be lost
+
+## Knowledge gained
+
+This application is my original project, which is also my final project for the [CS50x course](https://cs50.harvard.edu/x/2023/) at Harvard University. During this course and working on the project, I learned the basics of: Python, the Flask framework, SQL, HTML, CSS and JS. I learned the basics of these technologies, so I am aware that my code is not very sophisticated 😉.  
+Even though the application was created as a final project, the idea for it and its implementation was not suggested and is entirely my idea.  
+
+**As part of the development of my software tester skills, I added to the project:**
+
+* [Integration tests in Postman](#integration-tests-in-postman)
+* [Continuous Integration with Github Actions](#continuous-integration-ci-with-github-actions)
+* [Using GitHub Pages, I added a publication of a report from tests run in CI](#testing-and-test-report-from-ci)
 
 ## Table of Contents
 
@@ -30,11 +35,7 @@ _During the course, I quickly learned programming in Python from scratch to the 
 
 ## General Information
 
-Memento is a web application that helps users learn and remember difficult concepts or learn words from foreign languages. After creating an account, the user can add words and their meanings, browse them, search them, and has access to tools supporting memory. These include a quiz and a randomization of previously added content combined with an attempt to recall the meaning.
-
-The application is my final project for the CS50x course at Harvard University. During this course, I learned the basics of Python, the Flask framework, HTML, CSS and JS.
-Even though the application was created as a final project, the idea for it and its implementation was not suggested and is entirely my idea.
-More information about CS50x is available on [the course website](https://cs50.harvard.edu/x/2023/ ).
+Memento is a web application that helps users learn and remember difficult concepts or learn words from foreign languages. After creating an account, the user can add words and their meanings, browse them, search them, and has access to tools supporting memory. These include a quiz and a randomization of previously added content combined with an attempt to recall the meaning. The application is designed to run in web browsers on computers and mobile devices.
 
 ## Features
 
@@ -203,7 +204,7 @@ More information about CS50x is available on [the course website](https://cs50.h
 │── app - the main project directory
 │    ├── app.py - the main application file containing instructions for endpoints and application configuration
 │    ├── helpers.py - the file contains methods separated from the app.py for better code readability
-│    ├── memento.db - SQLite database file that stores data entered by users.
+│    ├── memento.db - SQLite database file that stores data entered by users
 │    ├── requirements.txt - the file contains a list of libraries that must be downloaded for the application to run
 │    ├── templates - the directory containing the files from which the application's web pages are rendered
 │    └── static - the directory with files necessary for the application frontend
@@ -237,7 +238,7 @@ There are two tables in the database:
     );
     ```
 
-* words - stores data with words and their definitions written by users.  
+* words - stores data with words and their definitions.  
   Below is the query creating words table:
 
     ```sql
@@ -256,6 +257,9 @@ There are two tables in the database:
 
 In the project, I used GitHub Actions to run tests, get test reports, publish it and upload a new version of the application image to DockerHub.  
 The Docker container with the application is built based on the settings from the [Dockerfile file](./Dockerfile).  
+
+### Testing and test report from CI
+
 Integration tests written in Postman are run using the Newman command line tool. After performing the tests, a report is generated in an .html file.
 Test report file can be downloaded from GitHub by going to the [Actions tab](https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app/actions), details of a specific run in the Artifacts section.  
 
@@ -272,22 +276,24 @@ Sample report view:
     <img src="gif_files\report-gh-page.gif" alt="GIF showing sample report" style="display: block; margin: auto; max-width: 800px;">
 </p>
 
-**CI for development branches**  
+### CI for development branches
+
 ![GitHub Action main branch status](https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app/actions/workflows/test_and_push_to_DockerHub.yml/badge.svg)  
 
-After pushing the changes to development branches (all except main), CI is launched with the configuration from the [test_changes.yml](/.github/workflows/test_changes.yml) file. First, a container with the application is built, then tests are run and a test report is generated. The report file is named test_report_from_branch_{branch name}.  
+After pushing the changes to development branches (all branches except main), CI is launched with the configuration from the [test_changes.yml](/.github/workflows/test_changes.yml) file. First, a container with the application is built, then tests are run and a test report is generated. The report file is named test_report_from_branch_{branch name}. The report file is available for download in workflow run details.
 
-**CI for main branch**  
+### CI for main branch
+
 ![GitHub Action main branch status](https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app/actions/workflows/test_changes.yml/badge.svg)  
 
-When changes are merged to the main branch, CI is launched with the configuration from the [test_and_push_to_DockerHub.yml](.github/workflows/test_and_push_to_DockerHub.yml) file. In addition to performing tests, this configuration includes instructions for releasing a version on DockerHub.  
+When changes are merged to the main branch, CI is launched with the configuration from the [test_and_push_to_DockerHub.yml](.github/workflows/test_and_push_to_DockerHub.yml) file. In addition to performing tests, this configuration includes instructions for releasing a version on DockerHub and publishing [the test report](https://przemekkozakqa.github.io/Memento-memory_helper_web_app/test-report.html) on Github Pages.
 
 ## Testing
 
 ### Integration tests in Postman
 
-The frontend of the application uses the JQuery library to send requests to the backend. Data from the responses to these requests are necessary to dynamically change some of the displayed content. To check this mechanism, I wrote integration tests in Postman.
-Files containing the test code and the file with environment variables are located in the [Postman_tests director](/Postman_tests/).
+The frontend of the application uses the JQuery library to send requests to the backend. Data from responses to these requests are necessary to dynamically change some of the displayed content. To check this mechanism, I wrote integration tests in Postman.  
+These tests are also used in the CI process on GitHub Actions. You can see the details in the [Actions](https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app/actions) tab of this repository.  
 
 Scope of tested functionalities:
 
@@ -298,7 +304,7 @@ Scope of tested functionalities:
 * Providing information that the word ID was not found
 
 **Running tests in the local environment:**  
-    To run the tests, download the files from the Postman_Tests folder and then import the collection file [Memento_application_integration_tests.postman_collection.json](/Postman_tests/Memento_application_integration_tests.postman_collection.json) and the environment file [Test_ENV.postman_environment.json](/Postman_tests/Test_ENV.postman_environment.json) to Postman.  
+    To run the tests, download the files from the [Postman_Tests folder](./Postman_tests/) and then import the [collection file](/Postman_tests/Memento_application_integration_tests.postman_collection.json) and the [environment file](/Postman_tests/Test_ENV.postman_environment.json) to Postman.  
     The exact import process is described in the [Postman documentation](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-data/#import-postman-data).  
 > After importing the data, remember to select an environment and run the Memento application locally before running the tests.  
 
