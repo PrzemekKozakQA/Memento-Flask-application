@@ -12,7 +12,7 @@
 
 ## Knowledge gained
 
-This application is my original project, which is also my final project for the [CS50x course](https://cs50.harvard.edu/x/2023/) at Harvard University. During this course and working on the project, I learned the basics of Python, the Flask framework, SQL, HTML, CSS and JS. I learned the basics of these technologies, so I am aware that my code is not very sophisticated 😉.  
+This application is my original project, which is also my final project for the [CS50x course](https://cs50.harvard.edu/x/2023/) at Harvard University. During this course and working on the project, I learned the basics of: Python, the Flask framework, SQL, HTML, CSS and JS. I learned the basics of these technologies, so I am aware that my code is not very sophisticated 😉.  
 Even though the application was created as a final project, the idea for it and its implementation was not suggested and is entirely my idea.  
 
 **As part of the development of my software tester skills, I added to the project:**
@@ -204,7 +204,7 @@ Memento is a web application that helps users learn and remember difficult conce
 │── app - the main project directory
 │    ├── app.py - the main application file containing instructions for endpoints and application configuration
 │    ├── helpers.py - the file contains methods separated from the app.py for better code readability
-│    ├── memento.db - SQLite database file that stores data entered by users.
+│    ├── memento.db - SQLite database file that stores data entered by users
 │    ├── requirements.txt - the file contains a list of libraries that must be downloaded for the application to run
 │    ├── templates - the directory containing the files from which the application's web pages are rendered
 │    └── static - the directory with files necessary for the application frontend
@@ -238,7 +238,7 @@ There are two tables in the database:
     );
     ```
 
-* words - stores data with words and their definitions written by users.  
+* words - stores data with words and their definitions.  
   Below is the query creating words table:
 
     ```sql
@@ -280,13 +280,13 @@ Sample report view:
 
 ![GitHub Action main branch status](https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app/actions/workflows/test_and_push_to_DockerHub.yml/badge.svg)  
 
-After pushing the changes to development branches (all except main), CI is launched with the configuration from the [test_changes.yml](/.github/workflows/test_changes.yml) file. First, a container with the application is built, then tests are run and a test report is generated. The report file is named test_report_from_branch_{branch name}.  
+After pushing the changes to development branches (all branches except main), CI is launched with the configuration from the [test_changes.yml](/.github/workflows/test_changes.yml) file. First, a container with the application is built, then tests are run and a test report is generated. The report file is named test_report_from_branch_{branch name}. The report file is available for download in workflow run details.
 
 ### CI for main branch
 
 ![GitHub Action main branch status](https://github.com/PrzemekKozakQA/Memento-memory_helper_web_app/actions/workflows/test_changes.yml/badge.svg)  
 
-When changes are merged to the main branch, CI is launched with the configuration from the [test_and_push_to_DockerHub.yml](.github/workflows/test_and_push_to_DockerHub.yml) file. In addition to performing tests, this configuration includes instructions for releasing a version on DockerHub.  
+When changes are merged to the main branch, CI is launched with the configuration from the [test_and_push_to_DockerHub.yml](.github/workflows/test_and_push_to_DockerHub.yml) file. In addition to performing tests, this configuration includes instructions for releasing a version on DockerHub and publishing the test report on Github Pages.
 
 ## Testing
 
@@ -304,7 +304,7 @@ Scope of tested functionalities:
 * Providing information that the word ID was not found
 
 **Running tests in the local environment:**  
-    To run the tests, download the files from the Postman_Tests folder and then import the collection file [Memento_application_integration_tests.postman_collection.json](/Postman_tests/Memento_application_integration_tests.postman_collection.json) and the environment file [Test_ENV.postman_environment.json](/Postman_tests/Test_ENV.postman_environment.json) to Postman.  
+    To run the tests, download the files from the Postman_Tests folder and then import [the collection file](/Postman_tests/Memento_application_integration_tests.postman_collection.json) and t[he environment file](/Postman_tests/Test_ENV.postman_environment.json) to Postman.  
     The exact import process is described in the [Postman documentation](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-data/#import-postman-data).  
 > After importing the data, remember to select an environment and run the Memento application locally before running the tests.  
 
