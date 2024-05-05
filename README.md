@@ -108,7 +108,7 @@ Memento is a web application that helps users learn and remember difficult conce
 
 ## Installation and running
 
-***To run the application, you can use one of three methods.***
+**To run the application, you can use one of three methods.**
 
 1. Live demo on Render server.  
 
