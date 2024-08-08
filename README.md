@@ -21,7 +21,7 @@ Even though the application was created as a final project, the idea for it and 
 * [Continuous Integration with Github Actions](#continuous-integration-ci-with-github-actions)
 * [Using GitHub Pages, I added a publication of a report from tests run in CI](#testing-and-test-report-from-ci)
 
-## Table of Contents
+## Table of contents
 
 * [General Info](#general-information)
 * [Features](#features)
@@ -33,7 +33,7 @@ Even though the application was created as a final project, the idea for it and 
 * [Testing](#testing)
 * [Contact](#contact)
 
-## General Information
+## General information
 
 Memento is a web application that helps users learn and remember difficult concepts or learn words from foreign languages. After creating an account, the user can add words and their meanings, browse them, search them, and has access to tools supporting memory. These include a quiz and a randomization of previously added content combined with an attempt to recall the meaning. The application is designed to run in web browsers on computers and mobile devices.
 
