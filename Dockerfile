@@ -7,7 +7,7 @@ RUN apk -U update
 # Copies code file from action repository to container
 COPY ./app/ ./app/
 
-# Download the requir libraries
+# Download the require libraries
 RUN pip install -r ./app/requirements.txt
 
 # Run app with gunicorn

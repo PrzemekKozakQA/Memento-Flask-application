@@ -12,7 +12,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  
   build:
     runs-on: ubuntu-latest
     steps:
@@ -24,7 +23,7 @@ jobs:
         run: docker run -p 5000:5000 -d memento_test
       - uses: actions/setup-node@v4
         with:
-          node-version: 'latest'
+          node-version: "latest"
       - name: Install Newman CLI
         run: npm install -g newman
       - name: Install Newman HTML reporter
@@ -37,13 +36,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: html_test_report
-          path: './newman_test_reports/'
+          path: "./newman_test_reports/"
       - name: upload artifact for GitHub Pages
         if: success() || failure()
         # I don't use always() because then the step is also executed when the workflow is canceled
         uses: actions/upload-pages-artifact@v3
-        with: 
-            path: './newman_test_reports/'
+        with:
+          path: "./newman_test_reports/"
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -58,7 +57,7 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/memento_app:latest , ${{ secrets.DOCKERHUB_USERNAME }}/memento_app:1.0.0
-  
+
   # Deploy test report to Github Pages
   deploy:
     if: success() || failure()

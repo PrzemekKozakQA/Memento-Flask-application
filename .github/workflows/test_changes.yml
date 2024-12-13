@@ -26,7 +26,7 @@ jobs:
         run: docker run -p 5000:5000 -d memento_test
       - uses: actions/setup-node@v4
         with:
-          node-version: 'latest'
+          node-version: "latest"
       - name: Install Newman CLI
         run: npm install -g newman
       - name: Install Newman HTML reporter
@@ -40,4 +40,3 @@ jobs:
         with:
           name: test_report_from_branch_${{ steps.get_branch.outputs.branch_name }}
           path: newman_test_reports
-        

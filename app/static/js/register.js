@@ -11,13 +11,13 @@ $(document).ready(function () {
         } else {
             //sending a POST request using AJAX in JSON format with username to the backend
             $.ajax({
-                    data: {
-                        ajaxCheckUsername: true,
-                        username: user
-                    },
-                    type: 'POST',
-                    url: '/register'
-                })
+                data: {
+                    ajaxCheckUsername: true,
+                    username: user
+                },
+                type: 'POST',
+                url: '/register'
+            })
                 // receiving responses from the backend
                 .done(function (response) {
                     // if the username can be registered, fields for creating a password are shown
